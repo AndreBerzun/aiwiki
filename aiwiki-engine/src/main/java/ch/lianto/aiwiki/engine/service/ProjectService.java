@@ -1,6 +1,6 @@
 package ch.lianto.aiwiki.engine.service;
 
-import ch.lianto.aiwiki.engine.persistence.entity.Project;
+import ch.lianto.aiwiki.engine.entity.Project;
 import ch.lianto.aiwiki.engine.service.data.ProjectDto;
 import org.springframework.stereotype.Component;
 

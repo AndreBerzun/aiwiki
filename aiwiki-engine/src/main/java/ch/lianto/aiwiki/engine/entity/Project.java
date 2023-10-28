@@ -1,4 +1,4 @@
-package ch.lianto.aiwiki.engine.persistence.entity;
+package ch.lianto.aiwiki.engine.entity;
 
 import java.util.ArrayList;
 import java.util.List;
