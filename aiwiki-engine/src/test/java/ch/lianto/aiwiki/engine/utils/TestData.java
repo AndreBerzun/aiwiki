@@ -1,4 +1,4 @@
-package ch.lianto.aiwiki.engine.testdata;
+package ch.lianto.aiwiki.engine.utils;
 
 public class TestData {
     public final TestDataProjects projects = new TestDataProjects();

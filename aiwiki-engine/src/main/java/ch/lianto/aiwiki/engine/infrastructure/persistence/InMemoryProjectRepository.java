@@ -1,6 +1,7 @@
 package ch.lianto.aiwiki.engine.infrastructure.persistence;
 
 import ch.lianto.aiwiki.engine.entity.Project;
+import ch.lianto.aiwiki.engine.repository.NotFoundException;
 import ch.lianto.aiwiki.engine.repository.ProjectRepository;
 import org.springframework.stereotype.Component;
 
@@ -14,6 +15,13 @@ public class InMemoryProjectRepository implements ProjectRepository {
     @Override
     public List<Project> findAll() {
         return projects;
+    }
+
+    @Override
+    public Project findByName(String name) {
+        return projects.stream()
+            .filter(project -> project.getName().equals(name)).findFirst()
+            .orElseThrow(NotFoundException::new);
     }
 
     @Override

@@ -1,10 +1,8 @@
-package ch.lianto.aiwiki.engine.service;
+package ch.lianto.aiwiki.engine.service.project;
 
 import ch.lianto.aiwiki.engine.entity.Project;
 import ch.lianto.aiwiki.engine.infrastructure.persistence.InMemoryProjectRepository;
-import ch.lianto.aiwiki.engine.service.data.ProjectDto;
-import ch.lianto.aiwiki.engine.service.data.mapper.ProjectMapper;
-import ch.lianto.aiwiki.engine.testdata.TestData;
+import ch.lianto.aiwiki.engine.utils.TestData;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 

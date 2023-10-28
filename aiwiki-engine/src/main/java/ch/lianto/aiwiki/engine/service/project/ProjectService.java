@@ -1,9 +1,7 @@
-package ch.lianto.aiwiki.engine.service;
+package ch.lianto.aiwiki.engine.service.project;
 
 import ch.lianto.aiwiki.engine.entity.Project;
 import ch.lianto.aiwiki.engine.repository.ProjectRepository;
-import ch.lianto.aiwiki.engine.service.data.ProjectDto;
-import ch.lianto.aiwiki.engine.service.data.mapper.ProjectMapper;
 import org.springframework.stereotype.Component;
 
 import java.util.List;
