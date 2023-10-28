@@ -1,4 +1,4 @@
-package ch.lianto.aiwiki.engine.persistence.entity;
+package ch.lianto.aiwiki.engine.entity;
 
 public class PageSegment {
     private String text;

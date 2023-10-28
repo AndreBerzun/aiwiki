@@ -1,18 +1,22 @@
 package ch.lianto.aiwiki.engine.infrastructure.persistence;
 
-import ch.lianto.aiwiki.engine.persistence.entity.Project;
-import ch.lianto.aiwiki.engine.persistence.repository.ProjectRepository;
+import ch.lianto.aiwiki.engine.entity.Project;
+import ch.lianto.aiwiki.engine.repository.ProjectRepository;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class InMemoryProjectRepository implements ProjectRepository {
+    private final List<Project> projects = new ArrayList<>();
+
     @Override
     public List<Project> findAll() {
-        return null;
+        return projects;
     }
 
     @Override
-    public void save(Project project) {
-
+    public Project save(Project project) {
+        projects.add(project);
+        return project;
     }
 }
