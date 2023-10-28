@@ -3,10 +3,12 @@ package ch.lianto.aiwiki.engine.infrastructure.persistence;
 import ch.lianto.aiwiki.engine.entity.Page;
 import ch.lianto.aiwiki.engine.entity.Project;
 import ch.lianto.aiwiki.engine.repository.PageRepository;
+import org.springframework.stereotype.Component;
 
 import java.util.List;
 import java.util.stream.Collectors;
 
+@Component
 public class InMemoryPageRepository implements PageRepository {
     private final InMemoryProjectRepository projectRepo;
 
