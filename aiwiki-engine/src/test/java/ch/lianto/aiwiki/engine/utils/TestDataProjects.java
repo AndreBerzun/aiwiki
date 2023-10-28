@@ -1,7 +1,7 @@
-package ch.lianto.aiwiki.engine.testdata;
+package ch.lianto.aiwiki.engine.utils;
 
 import ch.lianto.aiwiki.engine.entity.Project;
-import ch.lianto.aiwiki.engine.service.data.ProjectDto;
+import ch.lianto.aiwiki.engine.service.project.ProjectDto;
 
 public class TestDataProjects {
     public final Project basic;

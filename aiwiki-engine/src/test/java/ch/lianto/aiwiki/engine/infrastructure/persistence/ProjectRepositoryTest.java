@@ -1,14 +1,16 @@
 package ch.lianto.aiwiki.engine.infrastructure.persistence;
 
 import ch.lianto.aiwiki.engine.entity.Project;
+import ch.lianto.aiwiki.engine.repository.NotFoundException;
 import ch.lianto.aiwiki.engine.repository.ProjectRepository;
-import ch.lianto.aiwiki.engine.testdata.TestData;
+import ch.lianto.aiwiki.engine.utils.TestData;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 import java.util.List;
 
 import static org.assertj.core.api.Assertions.assertThat;
+import static org.assertj.core.api.Assertions.fail;
 
 public class ProjectRepositoryTest {
     private TestData data;
@@ -44,5 +46,25 @@ public class ProjectRepositoryTest {
 
         assertThat(all).hasSize(1);
         assertThat(all.get(0).getName()).isEqualTo(data.projects.basic.getName());
+    }
+
+    @Test
+    void throwNotFoundWhenProjectWithNameDoesntExist() {
+        try {
+            repo.findByName("Unknown");
+            fail("Should have thrown");
+        } catch (NotFoundException ex) {
+
+        }
+    }
+
+    @Test
+    void findByNameWhenProjectCreated() {
+        repo.save(data.projects.basic);
+        String projectName = data.projects.basic.getName();
+
+        Project result = repo.findByName(projectName);
+
+        assertThat(result.getName()).isEqualTo(projectName);
     }
 }

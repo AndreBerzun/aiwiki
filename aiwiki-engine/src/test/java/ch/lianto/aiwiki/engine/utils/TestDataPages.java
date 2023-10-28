@@ -1,4 +1,4 @@
-package ch.lianto.aiwiki.engine.testdata;
+package ch.lianto.aiwiki.engine.utils;
 
 import ch.lianto.aiwiki.engine.entity.Page;
 import ch.lianto.aiwiki.engine.entity.PageSegment;

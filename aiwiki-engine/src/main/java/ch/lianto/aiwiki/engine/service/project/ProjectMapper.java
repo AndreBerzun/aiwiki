@@ -1,7 +1,6 @@
-package ch.lianto.aiwiki.engine.service.data.mapper;
+package ch.lianto.aiwiki.engine.service.project;
 
 import ch.lianto.aiwiki.engine.entity.Project;
-import ch.lianto.aiwiki.engine.service.data.ProjectDto;
 import org.mapstruct.Mapper;
 import org.mapstruct.MappingConstants;
 import org.mapstruct.factory.Mappers;
