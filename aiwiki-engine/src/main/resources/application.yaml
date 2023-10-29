@@ -1,0 +1,7 @@
+spring:
+  data:
+    jpa:
+      repositories:
+        enabled: false
+  flyway:
+    enabled: false

@@ -25,6 +25,10 @@ public class ProjectService {
         return projectRepository.findAll();
     }
 
+    public Project findByName(String projectName) {
+        return projectRepository.findByName(projectName);
+    }
+
     public int importLocalPages(String projectName, String path) {
         return 0;
     }

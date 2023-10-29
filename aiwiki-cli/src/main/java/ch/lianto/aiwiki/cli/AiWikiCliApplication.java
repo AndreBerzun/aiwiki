@@ -9,7 +9,7 @@ import org.springframework.shell.AvailabilityProvider;
 import org.springframework.shell.command.annotation.CommandScan;
 
 @CommandScan("ch.lianto.aiwiki.cli")
-@SpringBootApplication
+@SpringBootApplication(scanBasePackages = "ch.lianto.aiwiki")
 public class AiWikiCliApplication {
 
     public static void main(String[] args) {

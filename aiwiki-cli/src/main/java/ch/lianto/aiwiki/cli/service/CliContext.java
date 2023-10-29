@@ -1,20 +1,21 @@
 package ch.lianto.aiwiki.cli.service;
 
+import ch.lianto.aiwiki.engine.entity.Project;
 import org.springframework.stereotype.Component;
 
 @Component
 public class CliContext {
-    private String selectedProject;
+    private Project selectedProject;
 
     public boolean isProjectSelected() {
         return selectedProject != null;
     }
 
-    public String getSelectedProject() {
+    public Project getSelectedProject() {
         return selectedProject;
     }
 
-    public void setSelectedProject(String selectedProject) {
+    public void setSelectedProject(Project selectedProject) {
         this.selectedProject = selectedProject;
     }
 }
