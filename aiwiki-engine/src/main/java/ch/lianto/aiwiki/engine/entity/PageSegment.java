@@ -4,6 +4,13 @@ public class PageSegment {
     private String text;
     private double[] embedding;
 
+    public PageSegment() {
+    }
+
+    public PageSegment(String text) {
+        this.text = text;
+    }
+
     public String getText() {
         return text;
     }
