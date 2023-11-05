@@ -70,7 +70,7 @@ public class MaxWordSegmentationStrategyTest {
     }
 
     @Test
-    void dontSegmentSingleOverflowingParagraph2() {
+    void dontSegmentSingleOverflowingParagraphBetweenTwoOtherParagraphs() {
         testThatResultMatchesExpectedSegments(
             TestUtils.loremIpsumWithWordCount(500),
             TestUtils.loremIpsumWithWordCount(MaxWordSegmentationStrategy.MAX_WORDS_PER_SEGMENT * 2),
