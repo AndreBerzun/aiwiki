@@ -19,6 +19,7 @@
     <modules>
         <module>aiwiki-engine</module>
         <module>aiwiki-cli</module>
+<!--        <module>openai-client</module>-->
     </modules>
 
     <properties>
