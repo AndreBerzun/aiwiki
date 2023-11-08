@@ -1,0 +1,15 @@
+{
+  "libray": "resttemplate",
+  "removeOperationIdPrefix": "true",
+  "library": "resttemplate",
+  "invokerPackage": "ch.lianto.openai.client",
+  "apiPackage": "ch.lianto.openai.client.api",
+  "modelPackage": "ch.lianto.openai.client.model",
+  "artifactDescription": "",
+  "artifactId": "openai-client",
+  "artifactVersion": "${parent.version}",
+  "groupId": "ch.lianto",
+  "parentArtifactId": "aiwiki-parent",
+  "parentGroupId": "ch.lianto",
+  "parentVersion": "0.0.1-SNAPSHOT"
+}
