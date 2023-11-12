@@ -2,6 +2,7 @@ package ch.lianto.aiwiki.engine.entity;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 
 public class Project {
     private String name;
@@ -21,5 +22,17 @@ public class Project {
 
     public void setPages(List<Page> pages) {
         this.pages = pages;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (!(o instanceof Project project)) return false;
+        return Objects.equals(name, project.name);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(name);
     }
 }

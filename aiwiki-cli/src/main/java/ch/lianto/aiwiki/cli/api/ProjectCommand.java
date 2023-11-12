@@ -47,6 +47,6 @@ public class ProjectCommand {
     @Command(command = "import", description = "Imports a single file or alternatively a directory incl. sub-directories on the local file system into the current project")
     @CommandAvailability(provider = "projectAvailability")
     public void importFiles(String path) {
-
+        projectService.importLocalPages(context.getSelectedProject().getName(), path);
     }
 }
