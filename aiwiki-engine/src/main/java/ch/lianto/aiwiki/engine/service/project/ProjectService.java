@@ -1,5 +1,7 @@
 package ch.lianto.aiwiki.engine.service.project;
 
+import ch.lianto.aiwiki.engine.batch.BatchJobLauncher;
+import ch.lianto.aiwiki.engine.batch.BatchJobResult;
 import ch.lianto.aiwiki.engine.entity.Project;
 import ch.lianto.aiwiki.engine.repository.ProjectRepository;
 import org.springframework.stereotype.Component;
@@ -9,10 +11,12 @@ import java.util.List;
 @Component
 public class ProjectService {
     private final ProjectRepository projectRepository;
+    private final BatchJobLauncher jobLauncher;
     private final ProjectMapper projectMapper;
 
-    public ProjectService(ProjectRepository projectRepository, ProjectMapper projectMapper) {
+    public ProjectService(ProjectRepository projectRepository, BatchJobLauncher jobLauncher, ProjectMapper projectMapper) {
         this.projectRepository = projectRepository;
+        this.jobLauncher = jobLauncher;
         this.projectMapper = projectMapper;
     }
 
@@ -29,7 +33,9 @@ public class ProjectService {
         return projectRepository.findByName(projectName);
     }
 
-    public int importLocalPages(String projectName, String path) {
-        return 0;
+    public long importLocalPages(String projectName, String path) {
+        BatchJobResult result = jobLauncher.runProjectImportJob(projectName, path);
+
+        return result.itemsWritten();
     }
 }

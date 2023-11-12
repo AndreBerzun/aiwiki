@@ -2,3 +2,7 @@ spring:
   shell:
     help:
       enabled: true
+app:
+  persistence:
+    simple:
+      file: file:/home/andre/apps/aiwiki/data-store.json

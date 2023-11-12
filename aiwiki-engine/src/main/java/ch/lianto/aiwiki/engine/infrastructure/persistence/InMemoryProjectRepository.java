@@ -6,27 +6,28 @@ import ch.lianto.aiwiki.engine.repository.ProjectRepository;
 import org.springframework.stereotype.Component;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 @Component
 public class InMemoryProjectRepository implements ProjectRepository {
-    private final List<Project> projects = new ArrayList<>();
+    protected Map<String, Project> projects = new HashMap<>();
 
     @Override
     public List<Project> findAll() {
-        return projects;
+        return new ArrayList<>(projects.values());
     }
 
     @Override
     public Project findByName(String name) {
-        return projects.stream()
-            .filter(project -> project.getName().equals(name)).findFirst()
-            .orElseThrow(NotFoundException::new);
+        if (projects.containsKey(name)) return projects.get(name);
+        else throw new NotFoundException();
     }
 
     @Override
     public Project save(Project project) {
-        projects.add(project);
+        projects.put(project.getName(), project);
         return project;
     }
 }
