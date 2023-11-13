@@ -35,7 +35,7 @@ import com.fasterxml.jackson.annotation.JsonTypeName;
   Embedding.JSON_PROPERTY_EMBEDDING,
   Embedding.JSON_PROPERTY_OBJECT
 })
-@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", date = "2023-11-08T23:05:52.228713843+01:00[Europe/Zurich]")
+@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", date = "2023-11-13T00:24:13.926778838+01:00[Europe/Zurich]")
 public class Embedding {
   public static final String JSON_PROPERTY_INDEX = "index";
   private Integer index;

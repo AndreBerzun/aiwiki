@@ -31,7 +31,7 @@ import com.fasterxml.jackson.annotation.JsonTypeName;
   CompletionUsage.JSON_PROPERTY_PROMPT_TOKENS,
   CompletionUsage.JSON_PROPERTY_TOTAL_TOKENS
 })
-@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", date = "2023-11-08T23:05:52.228713843+01:00[Europe/Zurich]")
+@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", date = "2023-11-13T00:24:13.926778838+01:00[Europe/Zurich]")
 public class CompletionUsage {
   public static final String JSON_PROPERTY_COMPLETION_TOKENS = "completion_tokens";
   private Integer completionTokens;

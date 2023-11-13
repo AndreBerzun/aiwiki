@@ -13,16 +13,11 @@
 
 package ch.lianto.openai.client.model;
 
-import ch.lianto.openai.client.model.ChatCompletionMessageToolCall;
-import ch.lianto.openai.client.model.ChatCompletionRequestAssistantMessageFunctionCall;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonTypeName;
 import com.fasterxml.jackson.annotation.JsonValue;
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.List;
 import org.junit.Assert;
 import org.junit.Ignore;
 import org.junit.Test;
@@ -55,22 +50,6 @@ public class ChatCompletionRequestAssistantMessageTest {
     @Test
     public void roleTest() {
         // TODO: test role
-    }
-
-    /**
-     * Test the property 'toolCalls'
-     */
-    @Test
-    public void toolCallsTest() {
-        // TODO: test toolCalls
-    }
-
-    /**
-     * Test the property 'functionCall'
-     */
-    @Test
-    public void functionCallTest() {
-        // TODO: test functionCall
     }
 
 }
