@@ -37,7 +37,7 @@ import com.fasterxml.jackson.annotation.JsonTypeName;
   CreateEmbeddingResponse.JSON_PROPERTY_OBJECT,
   CreateEmbeddingResponse.JSON_PROPERTY_USAGE
 })
-@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", date = "2023-11-08T23:05:52.228713843+01:00[Europe/Zurich]")
+@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", date = "2023-11-13T00:24:13.926778838+01:00[Europe/Zurich]")
 public class CreateEmbeddingResponse {
   public static final String JSON_PROPERTY_DATA = "data";
   private List<Embedding> data = new ArrayList<>();

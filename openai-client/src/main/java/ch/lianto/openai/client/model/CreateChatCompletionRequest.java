@@ -15,11 +15,7 @@ package ch.lianto.openai.client.model;
 
 import java.util.Objects;
 import java.util.Arrays;
-import ch.lianto.openai.client.model.ChatCompletionFunctions;
 import ch.lianto.openai.client.model.ChatCompletionRequestMessage;
-import ch.lianto.openai.client.model.ChatCompletionTool;
-import ch.lianto.openai.client.model.ChatCompletionToolChoiceOption;
-import ch.lianto.openai.client.model.CreateChatCompletionRequestFunctionCall;
 import ch.lianto.openai.client.model.CreateChatCompletionRequestModel;
 import ch.lianto.openai.client.model.CreateChatCompletionRequestResponseFormat;
 import ch.lianto.openai.client.model.CreateChatCompletionRequestStop;
@@ -58,13 +54,9 @@ import com.fasterxml.jackson.annotation.JsonTypeName;
   CreateChatCompletionRequest.JSON_PROPERTY_STREAM,
   CreateChatCompletionRequest.JSON_PROPERTY_TEMPERATURE,
   CreateChatCompletionRequest.JSON_PROPERTY_TOP_P,
-  CreateChatCompletionRequest.JSON_PROPERTY_TOOLS,
-  CreateChatCompletionRequest.JSON_PROPERTY_TOOL_CHOICE,
-  CreateChatCompletionRequest.JSON_PROPERTY_USER,
-  CreateChatCompletionRequest.JSON_PROPERTY_FUNCTION_CALL,
-  CreateChatCompletionRequest.JSON_PROPERTY_FUNCTIONS
+  CreateChatCompletionRequest.JSON_PROPERTY_USER
 })
-@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", date = "2023-11-08T23:05:52.228713843+01:00[Europe/Zurich]")
+@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", date = "2023-11-13T00:24:13.926778838+01:00[Europe/Zurich]")
 public class CreateChatCompletionRequest {
   public static final String JSON_PROPERTY_MESSAGES = "messages";
   private List<ChatCompletionRequestMessage> messages = new ArrayList<>();
@@ -105,20 +97,8 @@ public class CreateChatCompletionRequest {
   public static final String JSON_PROPERTY_TOP_P = "top_p";
   private JsonNullable<BigDecimal> topP = JsonNullable.<BigDecimal>of(new BigDecimal("1"));
 
-  public static final String JSON_PROPERTY_TOOLS = "tools";
-  private List<ChatCompletionTool> tools;
-
-  public static final String JSON_PROPERTY_TOOL_CHOICE = "tool_choice";
-  private ChatCompletionToolChoiceOption toolChoice;
-
   public static final String JSON_PROPERTY_USER = "user";
   private String user;
-
-  public static final String JSON_PROPERTY_FUNCTION_CALL = "function_call";
-  private CreateChatCompletionRequestFunctionCall functionCall;
-
-  public static final String JSON_PROPERTY_FUNCTIONS = "functions";
-  private List<ChatCompletionFunctions> functions;
 
   public CreateChatCompletionRequest() {
   }
@@ -565,66 +545,6 @@ public class CreateChatCompletionRequest {
   }
 
 
-  public CreateChatCompletionRequest tools(List<ChatCompletionTool> tools) {
-    
-    this.tools = tools;
-    return this;
-  }
-
-  public CreateChatCompletionRequest addToolsItem(ChatCompletionTool toolsItem) {
-    if (this.tools == null) {
-      this.tools = new ArrayList<>();
-    }
-    this.tools.add(toolsItem);
-    return this;
-  }
-
-   /**
-   * A list of tools the model may call. Currently, only functions are supported as a tool. Use this to provide a list of functions the model may generate JSON inputs for. 
-   * @return tools
-  **/
-  @javax.annotation.Nullable
-  @JsonProperty(JSON_PROPERTY_TOOLS)
-  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-
-  public List<ChatCompletionTool> getTools() {
-    return tools;
-  }
-
-
-  @JsonProperty(JSON_PROPERTY_TOOLS)
-  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-  public void setTools(List<ChatCompletionTool> tools) {
-    this.tools = tools;
-  }
-
-
-  public CreateChatCompletionRequest toolChoice(ChatCompletionToolChoiceOption toolChoice) {
-    
-    this.toolChoice = toolChoice;
-    return this;
-  }
-
-   /**
-   * Get toolChoice
-   * @return toolChoice
-  **/
-  @javax.annotation.Nullable
-  @JsonProperty(JSON_PROPERTY_TOOL_CHOICE)
-  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-
-  public ChatCompletionToolChoiceOption getToolChoice() {
-    return toolChoice;
-  }
-
-
-  @JsonProperty(JSON_PROPERTY_TOOL_CHOICE)
-  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-  public void setToolChoice(ChatCompletionToolChoiceOption toolChoice) {
-    this.toolChoice = toolChoice;
-  }
-
-
   public CreateChatCompletionRequest user(String user) {
     
     this.user = user;
@@ -650,70 +570,6 @@ public class CreateChatCompletionRequest {
     this.user = user;
   }
 
-
-  public CreateChatCompletionRequest functionCall(CreateChatCompletionRequestFunctionCall functionCall) {
-    
-    this.functionCall = functionCall;
-    return this;
-  }
-
-   /**
-   * Get functionCall
-   * @return functionCall
-   * @deprecated
-  **/
-  @Deprecated
-  @javax.annotation.Nullable
-  @JsonProperty(JSON_PROPERTY_FUNCTION_CALL)
-  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-
-  public CreateChatCompletionRequestFunctionCall getFunctionCall() {
-    return functionCall;
-  }
-
-
-  @JsonProperty(JSON_PROPERTY_FUNCTION_CALL)
-  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-  public void setFunctionCall(CreateChatCompletionRequestFunctionCall functionCall) {
-    this.functionCall = functionCall;
-  }
-
-
-  public CreateChatCompletionRequest functions(List<ChatCompletionFunctions> functions) {
-    
-    this.functions = functions;
-    return this;
-  }
-
-  public CreateChatCompletionRequest addFunctionsItem(ChatCompletionFunctions functionsItem) {
-    if (this.functions == null) {
-      this.functions = new ArrayList<>();
-    }
-    this.functions.add(functionsItem);
-    return this;
-  }
-
-   /**
-   * Deprecated in favor of &#x60;tools&#x60;.  A list of functions the model may generate JSON inputs for. 
-   * @return functions
-   * @deprecated
-  **/
-  @Deprecated
-  @javax.annotation.Nullable
-  @JsonProperty(JSON_PROPERTY_FUNCTIONS)
-  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-
-  public List<ChatCompletionFunctions> getFunctions() {
-    return functions;
-  }
-
-
-  @JsonProperty(JSON_PROPERTY_FUNCTIONS)
-  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-  public void setFunctions(List<ChatCompletionFunctions> functions) {
-    this.functions = functions;
-  }
-
   @Override
   public boolean equals(Object o) {
     if (this == o) {
@@ -736,11 +592,7 @@ public class CreateChatCompletionRequest {
         equalsNullable(this.stream, createChatCompletionRequest.stream) &&
         equalsNullable(this.temperature, createChatCompletionRequest.temperature) &&
         equalsNullable(this.topP, createChatCompletionRequest.topP) &&
-        Objects.equals(this.tools, createChatCompletionRequest.tools) &&
-        Objects.equals(this.toolChoice, createChatCompletionRequest.toolChoice) &&
-        Objects.equals(this.user, createChatCompletionRequest.user) &&
-        Objects.equals(this.functionCall, createChatCompletionRequest.functionCall) &&
-        Objects.equals(this.functions, createChatCompletionRequest.functions);
+        Objects.equals(this.user, createChatCompletionRequest.user);
   }
 
   private static <T> boolean equalsNullable(JsonNullable<T> a, JsonNullable<T> b) {
@@ -749,7 +601,7 @@ public class CreateChatCompletionRequest {
 
   @Override
   public int hashCode() {
-    return Objects.hash(messages, model, hashCodeNullable(frequencyPenalty), hashCodeNullable(logitBias), hashCodeNullable(maxTokens), hashCodeNullable(n), hashCodeNullable(presencePenalty), responseFormat, hashCodeNullable(seed), stop, hashCodeNullable(stream), hashCodeNullable(temperature), hashCodeNullable(topP), tools, toolChoice, user, functionCall, functions);
+    return Objects.hash(messages, model, hashCodeNullable(frequencyPenalty), hashCodeNullable(logitBias), hashCodeNullable(maxTokens), hashCodeNullable(n), hashCodeNullable(presencePenalty), responseFormat, hashCodeNullable(seed), stop, hashCodeNullable(stream), hashCodeNullable(temperature), hashCodeNullable(topP), user);
   }
 
   private static <T> int hashCodeNullable(JsonNullable<T> a) {
@@ -776,11 +628,7 @@ public class CreateChatCompletionRequest {
     sb.append("    stream: ").append(toIndentedString(stream)).append("\n");
     sb.append("    temperature: ").append(toIndentedString(temperature)).append("\n");
     sb.append("    topP: ").append(toIndentedString(topP)).append("\n");
-    sb.append("    tools: ").append(toIndentedString(tools)).append("\n");
-    sb.append("    toolChoice: ").append(toIndentedString(toolChoice)).append("\n");
     sb.append("    user: ").append(toIndentedString(user)).append("\n");
-    sb.append("    functionCall: ").append(toIndentedString(functionCall)).append("\n");
-    sb.append("    functions: ").append(toIndentedString(functions)).append("\n");
     sb.append("}");
     return sb.toString();
   }

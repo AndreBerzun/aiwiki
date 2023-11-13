@@ -34,3 +34,5 @@ gradlew.bat
 README.md
 settings.gradle
 .github/**
+OpenAIClientConfig.java
+pom.xml

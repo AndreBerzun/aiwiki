@@ -15,7 +15,6 @@ package ch.lianto.openai.client.model;
 
 import java.util.Objects;
 import java.util.Arrays;
-import ch.lianto.openai.client.model.ChatCompletionRequestUserMessageContent;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonCreator;
@@ -31,10 +30,10 @@ import com.fasterxml.jackson.annotation.JsonTypeName;
   ChatCompletionRequestUserMessage.JSON_PROPERTY_CONTENT,
   ChatCompletionRequestUserMessage.JSON_PROPERTY_ROLE
 })
-@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", date = "2023-11-08T23:05:52.228713843+01:00[Europe/Zurich]")
+@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", date = "2023-11-13T00:24:13.926778838+01:00[Europe/Zurich]")
 public class ChatCompletionRequestUserMessage {
   public static final String JSON_PROPERTY_CONTENT = "content";
-  private ChatCompletionRequestUserMessageContent content;
+  private String content;
 
   /**
    * The role of the messages author, in this case &#x60;user&#x60;.
@@ -75,28 +74,28 @@ public class ChatCompletionRequestUserMessage {
   public ChatCompletionRequestUserMessage() {
   }
 
-  public ChatCompletionRequestUserMessage content(ChatCompletionRequestUserMessageContent content) {
+  public ChatCompletionRequestUserMessage content(String content) {
     
     this.content = content;
     return this;
   }
 
    /**
-   * Get content
+   * The text contents of the message.
    * @return content
   **/
-  @javax.annotation.Nullable
+  @javax.annotation.Nonnull
   @JsonProperty(JSON_PROPERTY_CONTENT)
   @JsonInclude(value = JsonInclude.Include.ALWAYS)
 
-  public ChatCompletionRequestUserMessageContent getContent() {
+  public String getContent() {
     return content;
   }
 
 
   @JsonProperty(JSON_PROPERTY_CONTENT)
   @JsonInclude(value = JsonInclude.Include.ALWAYS)
-  public void setContent(ChatCompletionRequestUserMessageContent content) {
+  public void setContent(String content) {
     this.content = content;
   }
 

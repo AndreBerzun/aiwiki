@@ -13,11 +13,7 @@
 
 package ch.lianto.openai.client.model;
 
-import ch.lianto.openai.client.model.ChatCompletionFunctions;
 import ch.lianto.openai.client.model.ChatCompletionRequestMessage;
-import ch.lianto.openai.client.model.ChatCompletionTool;
-import ch.lianto.openai.client.model.ChatCompletionToolChoiceOption;
-import ch.lianto.openai.client.model.CreateChatCompletionRequestFunctionCall;
 import ch.lianto.openai.client.model.CreateChatCompletionRequestModel;
 import ch.lianto.openai.client.model.CreateChatCompletionRequestResponseFormat;
 import ch.lianto.openai.client.model.CreateChatCompletionRequestStop;
@@ -159,43 +155,11 @@ public class CreateChatCompletionRequestTest {
     }
 
     /**
-     * Test the property 'tools'
-     */
-    @Test
-    public void toolsTest() {
-        // TODO: test tools
-    }
-
-    /**
-     * Test the property 'toolChoice'
-     */
-    @Test
-    public void toolChoiceTest() {
-        // TODO: test toolChoice
-    }
-
-    /**
      * Test the property 'user'
      */
     @Test
     public void userTest() {
         // TODO: test user
-    }
-
-    /**
-     * Test the property 'functionCall'
-     */
-    @Test
-    public void functionCallTest() {
-        // TODO: test functionCall
-    }
-
-    /**
-     * Test the property 'functions'
-     */
-    @Test
-    public void functionsTest() {
-        // TODO: test functions
     }
 
 }

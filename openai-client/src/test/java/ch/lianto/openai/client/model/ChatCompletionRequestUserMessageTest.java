@@ -13,7 +13,6 @@
 
 package ch.lianto.openai.client.model;
 
-import ch.lianto.openai.client.model.ChatCompletionRequestUserMessageContent;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonCreator;
