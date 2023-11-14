@@ -45,6 +45,7 @@ public class ChatApiTest {
     @Test
     public void createChatCompletionTest() {
         CreateChatCompletionRequest createChatCompletionRequest = null;
+
         CreateChatCompletionResponse response = api.createChatCompletion(createChatCompletionRequest);
 
         // TODO: test validations

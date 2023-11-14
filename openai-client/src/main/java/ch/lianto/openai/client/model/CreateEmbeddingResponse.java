@@ -37,7 +37,7 @@ import com.fasterxml.jackson.annotation.JsonTypeName;
   CreateEmbeddingResponse.JSON_PROPERTY_OBJECT,
   CreateEmbeddingResponse.JSON_PROPERTY_USAGE
 })
-@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", date = "2023-11-13T00:24:13.926778838+01:00[Europe/Zurich]")
+@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", date = "2023-11-14T01:54:42.930274956+01:00[Europe/Zurich]")
 public class CreateEmbeddingResponse {
   public static final String JSON_PROPERTY_DATA = "data";
   private List<Embedding> data = new ArrayList<>();
@@ -46,10 +46,10 @@ public class CreateEmbeddingResponse {
   private String model;
 
   /**
-   * The object type, which is always \&quot;embedding\&quot;.
+   * The object type, which is always \&quot;list\&quot; of embeddings.
    */
   public enum ObjectEnum {
-    EMBEDDING("embedding");
+    LIST("list");
 
     private String value;
 
@@ -154,7 +154,7 @@ public class CreateEmbeddingResponse {
   }
 
    /**
-   * The object type, which is always \&quot;embedding\&quot;.
+   * The object type, which is always \&quot;list\&quot; of embeddings.
    * @return _object
   **/
   @javax.annotation.Nonnull

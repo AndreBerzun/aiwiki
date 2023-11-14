@@ -13,7 +13,6 @@
 
 package ch.lianto.openai.client.model;
 
-import ch.lianto.openai.client.model.CreateEmbeddingRequestInput;
 import ch.lianto.openai.client.model.CreateEmbeddingRequestModel;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
