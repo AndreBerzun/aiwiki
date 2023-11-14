@@ -15,54 +15,63 @@ package ch.lianto.openai.client.model;
 
 import java.util.Objects;
 import java.util.Arrays;
-import com.fasterxml.jackson.annotation.JsonTypeName;
 import com.fasterxml.jackson.annotation.JsonPropertyOrder;
 import com.fasterxml.jackson.annotation.JsonTypeName;
+
+import com.fasterxml.jackson.annotation.JsonCreator;
+import com.fasterxml.jackson.annotation.JsonValue;
 
 /**
  * ID of the model to use. See the [model endpoint compatibility](/docs/models/model-endpoint-compatibility) table for details on which models work with the Chat API.
  */
-@JsonPropertyOrder({
-})
-@JsonTypeName("CreateChatCompletionRequest_model")
-@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", date = "2023-11-13T00:24:13.926778838+01:00[Europe/Zurich]")
-public class CreateChatCompletionRequestModel {
-  public CreateChatCompletionRequestModel() {
-  }
-  @Override
-  public boolean equals(Object o) {
-    if (this == o) {
-      return true;
-    }
-    if (o == null || getClass() != o.getClass()) {
-      return false;
-    }
-    return true;
+public enum CreateChatCompletionRequestModel {
+  
+  _4("gpt-4"),
+  
+  _4_0314("gpt-4-0314"),
+  
+  _4_0613("gpt-4-0613"),
+  
+  _4_32K("gpt-4-32k"),
+  
+  _4_32K_0314("gpt-4-32k-0314"),
+  
+  _4_32K_0613("gpt-4-32k-0613"),
+  
+  _3_5_TURBO("gpt-3.5-turbo"),
+  
+  _3_5_TURBO_16K("gpt-3.5-turbo-16k"),
+  
+  _3_5_TURBO_0301("gpt-3.5-turbo-0301"),
+  
+  _3_5_TURBO_0613("gpt-3.5-turbo-0613"),
+  
+  _3_5_TURBO_16K_0613("gpt-3.5-turbo-16k-0613");
+
+  private String value;
+
+  CreateChatCompletionRequestModel(String value) {
+    this.value = value;
   }
 
-  @Override
-  public int hashCode() {
-    return Objects.hash();
+  @JsonValue
+  public String getValue() {
+    return value;
   }
 
   @Override
   public String toString() {
-    StringBuilder sb = new StringBuilder();
-    sb.append("class CreateChatCompletionRequestModel {\n");
-    sb.append("}");
-    return sb.toString();
+    return String.valueOf(value);
   }
 
-  /**
-   * Convert the given object to string with each line indented by 4 spaces
-   * (except the first line).
-   */
-  private String toIndentedString(Object o) {
-    if (o == null) {
-      return "null";
+  @JsonCreator
+  public static CreateChatCompletionRequestModel fromValue(String value) {
+    for (CreateChatCompletionRequestModel b : CreateChatCompletionRequestModel.values()) {
+      if (b.value.equals(value)) {
+        return b;
+      }
     }
-    return o.toString().replace("\n", "\n    ");
+    throw new IllegalArgumentException("Unexpected value '" + value + "'");
   }
-
 }
 

@@ -6,3 +6,5 @@ app:
   persistence:
     simple:
       file: file:/home/andre/apps/aiwiki/data-store.json
+  openai:
+    api-key: ${OPENAI_API_KEY}

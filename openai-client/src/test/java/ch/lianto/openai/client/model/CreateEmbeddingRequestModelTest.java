@@ -13,7 +13,6 @@
 
 package ch.lianto.openai.client.model;
 
-import com.fasterxml.jackson.annotation.JsonTypeName;
 import org.junit.Assert;
 import org.junit.Ignore;
 import org.junit.Test;
@@ -22,8 +21,6 @@ import org.junit.Test;
  * Model tests for CreateEmbeddingRequestModel
  */
 public class CreateEmbeddingRequestModelTest {
-    private final CreateEmbeddingRequestModel model = new CreateEmbeddingRequestModel();
-
     /**
      * Model tests for CreateEmbeddingRequestModel
      */

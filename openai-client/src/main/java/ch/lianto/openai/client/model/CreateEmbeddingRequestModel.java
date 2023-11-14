@@ -15,54 +15,43 @@ package ch.lianto.openai.client.model;
 
 import java.util.Objects;
 import java.util.Arrays;
-import com.fasterxml.jackson.annotation.JsonTypeName;
 import com.fasterxml.jackson.annotation.JsonPropertyOrder;
 import com.fasterxml.jackson.annotation.JsonTypeName;
+
+import com.fasterxml.jackson.annotation.JsonCreator;
+import com.fasterxml.jackson.annotation.JsonValue;
 
 /**
  * ID of the model to use. You can use the [List models](/docs/api-reference/models/list) API to see all of your available models, or see our [Model overview](/docs/models/overview) for descriptions of them. 
  */
-@JsonPropertyOrder({
-})
-@JsonTypeName("CreateEmbeddingRequest_model")
-@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", date = "2023-11-13T00:24:13.926778838+01:00[Europe/Zurich]")
-public class CreateEmbeddingRequestModel {
-  public CreateEmbeddingRequestModel() {
-  }
-  @Override
-  public boolean equals(Object o) {
-    if (this == o) {
-      return true;
-    }
-    if (o == null || getClass() != o.getClass()) {
-      return false;
-    }
-    return true;
+public enum CreateEmbeddingRequestModel {
+  
+  TEXT_EMBEDDING_ADA_002("text-embedding-ada-002");
+
+  private String value;
+
+  CreateEmbeddingRequestModel(String value) {
+    this.value = value;
   }
 
-  @Override
-  public int hashCode() {
-    return Objects.hash();
+  @JsonValue
+  public String getValue() {
+    return value;
   }
 
   @Override
   public String toString() {
-    StringBuilder sb = new StringBuilder();
-    sb.append("class CreateEmbeddingRequestModel {\n");
-    sb.append("}");
-    return sb.toString();
+    return String.valueOf(value);
   }
 
-  /**
-   * Convert the given object to string with each line indented by 4 spaces
-   * (except the first line).
-   */
-  private String toIndentedString(Object o) {
-    if (o == null) {
-      return "null";
+  @JsonCreator
+  public static CreateEmbeddingRequestModel fromValue(String value) {
+    for (CreateEmbeddingRequestModel b : CreateEmbeddingRequestModel.values()) {
+      if (b.value.equals(value)) {
+        return b;
+      }
     }
-    return o.toString().replace("\n", "\n    ");
+    throw new IllegalArgumentException("Unexpected value '" + value + "'");
   }
-
 }
 

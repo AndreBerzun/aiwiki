@@ -45,6 +45,7 @@ public class EmbeddingsApiTest {
     @Test
     public void createEmbeddingTest() {
         CreateEmbeddingRequest createEmbeddingRequest = null;
+
         CreateEmbeddingResponse response = api.createEmbedding(createEmbeddingRequest);
 
         // TODO: test validations

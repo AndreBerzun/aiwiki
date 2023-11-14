@@ -15,7 +15,6 @@ package ch.lianto.openai.client.model;
 
 import java.util.Objects;
 import java.util.Arrays;
-import ch.lianto.openai.client.model.CreateEmbeddingRequestInput;
 import ch.lianto.openai.client.model.CreateEmbeddingRequestModel;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
@@ -34,10 +33,10 @@ import com.fasterxml.jackson.annotation.JsonTypeName;
   CreateEmbeddingRequest.JSON_PROPERTY_ENCODING_FORMAT,
   CreateEmbeddingRequest.JSON_PROPERTY_USER
 })
-@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", date = "2023-11-13T00:24:13.926778838+01:00[Europe/Zurich]")
+@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", date = "2023-11-14T01:54:42.930274956+01:00[Europe/Zurich]")
 public class CreateEmbeddingRequest {
   public static final String JSON_PROPERTY_INPUT = "input";
-  private CreateEmbeddingRequestInput input;
+  private String input = "";
 
   public static final String JSON_PROPERTY_MODEL = "model";
   private CreateEmbeddingRequestModel model;
@@ -86,28 +85,28 @@ public class CreateEmbeddingRequest {
   public CreateEmbeddingRequest() {
   }
 
-  public CreateEmbeddingRequest input(CreateEmbeddingRequestInput input) {
+  public CreateEmbeddingRequest input(String input) {
     
     this.input = input;
     return this;
   }
 
    /**
-   * Get input
+   * Input text to embed, encoded as a string or array of tokens. To embed multiple inputs in a single request, pass an array of strings or array of token arrays. The input must not exceed the max input tokens for the model (8192 tokens for &#x60;text-embedding-ada-002&#x60;) and cannot be an empty string. [Example Python code](https://cookbook.openai.com/examples/how_to_count_tokens_with_tiktoken) for counting tokens. 
    * @return input
   **/
   @javax.annotation.Nonnull
   @JsonProperty(JSON_PROPERTY_INPUT)
   @JsonInclude(value = JsonInclude.Include.ALWAYS)
 
-  public CreateEmbeddingRequestInput getInput() {
+  public String getInput() {
     return input;
   }
 
 
   @JsonProperty(JSON_PROPERTY_INPUT)
   @JsonInclude(value = JsonInclude.Include.ALWAYS)
-  public void setInput(CreateEmbeddingRequestInput input) {
+  public void setInput(String input) {
     this.input = input;
   }
 
