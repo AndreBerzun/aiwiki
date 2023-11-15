@@ -21,7 +21,7 @@ public class PageRepositoryTest {
     void setUp() {
         data = new TestData();
         projectRepo = new InMemoryProjectRepository();
-        repo = new InMemoryPageRepository((InMemoryProjectRepository) projectRepo);
+        repo = new InMemoryPageRepository(projectRepo);
     }
 
     @Test
