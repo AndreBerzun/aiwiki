@@ -13,9 +13,6 @@
 
 package ch.lianto.openai.client.model;
 
-import ch.lianto.openai.client.model.ChatCompletionRequestAssistantMessage;
-import ch.lianto.openai.client.model.ChatCompletionRequestSystemMessage;
-import ch.lianto.openai.client.model.ChatCompletionRequestUserMessage;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonCreator;

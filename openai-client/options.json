@@ -11,5 +11,6 @@
   "groupId": "ch.lianto",
   "parentArtifactId": "aiwiki-parent",
   "parentGroupId": "ch.lianto",
-  "parentVersion": "0.0.1-SNAPSHOT"
+  "parentVersion": "0.0.1-SNAPSHOT",
+  "openApiNullable": false
 }

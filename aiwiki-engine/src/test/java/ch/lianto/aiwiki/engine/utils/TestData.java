@@ -5,4 +5,5 @@ public class TestData {
     public final TestDataPages pages = new TestDataPages(this);
     public final TestDataJob jobs = new TestDataJob();
     public final TestDataEmbeddings embeddings = new TestDataEmbeddings(this);
+    public final TestDataPrompts prompts = new TestDataPrompts();
 }

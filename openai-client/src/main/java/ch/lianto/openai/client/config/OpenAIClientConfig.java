@@ -42,7 +42,7 @@ public class OpenAIClientConfig {
         return new MappingJackson2HttpMessageConverter(
             Jackson2ObjectMapperBuilder
                 .json()
-                .serializationInclusion(JsonInclude.Include.NON_NULL)
+                .serializationInclusion(JsonInclude.Include.NON_EMPTY)
                 .build()
         );
     }

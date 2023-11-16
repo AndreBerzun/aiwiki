@@ -30,10 +30,6 @@ import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-import org.openapitools.jackson.nullable.JsonNullable;
-import com.fasterxml.jackson.annotation.JsonIgnore;
-import org.openapitools.jackson.nullable.JsonNullable;
-import java.util.NoSuchElementException;
 import com.fasterxml.jackson.annotation.JsonPropertyOrder;
 import com.fasterxml.jackson.annotation.JsonTypeName;
 
@@ -56,7 +52,7 @@ import com.fasterxml.jackson.annotation.JsonTypeName;
   CreateChatCompletionRequest.JSON_PROPERTY_TOP_P,
   CreateChatCompletionRequest.JSON_PROPERTY_USER
 })
-@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", date = "2023-11-14T01:54:42.930274956+01:00[Europe/Zurich]")
+@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", date = "2023-11-16T00:40:37.572831696+01:00[Europe/Zurich]")
 public class CreateChatCompletionRequest {
   public static final String JSON_PROPERTY_MESSAGES = "messages";
   private List<ChatCompletionRequestMessage> messages = new ArrayList<>();
@@ -65,37 +61,37 @@ public class CreateChatCompletionRequest {
   private CreateChatCompletionRequestModel model;
 
   public static final String JSON_PROPERTY_FREQUENCY_PENALTY = "frequency_penalty";
-  private JsonNullable<BigDecimal> frequencyPenalty = JsonNullable.<BigDecimal>of(new BigDecimal("0"));
+  private BigDecimal frequencyPenalty = new BigDecimal("0");
 
   public static final String JSON_PROPERTY_LOGIT_BIAS = "logit_bias";
-  private JsonNullable<Map<String, Integer>> logitBias = JsonNullable.<Map<String, Integer>>undefined();
+  private Map<String, Integer> logitBias;
 
   public static final String JSON_PROPERTY_MAX_TOKENS = "max_tokens";
-  private JsonNullable<Integer> maxTokens = JsonNullable.<Integer>undefined();
+  private Integer maxTokens;
 
   public static final String JSON_PROPERTY_N = "n";
-  private JsonNullable<Integer> n = JsonNullable.<Integer>of(1);
+  private Integer n = 1;
 
   public static final String JSON_PROPERTY_PRESENCE_PENALTY = "presence_penalty";
-  private JsonNullable<BigDecimal> presencePenalty = JsonNullable.<BigDecimal>of(new BigDecimal("0"));
+  private BigDecimal presencePenalty = new BigDecimal("0");
 
   public static final String JSON_PROPERTY_RESPONSE_FORMAT = "response_format";
   private CreateChatCompletionRequestResponseFormat responseFormat;
 
   public static final String JSON_PROPERTY_SEED = "seed";
-  private JsonNullable<Integer> seed = JsonNullable.<Integer>undefined();
+  private Integer seed;
 
   public static final String JSON_PROPERTY_STOP = "stop";
   private CreateChatCompletionRequestStop stop = null;
 
   public static final String JSON_PROPERTY_STREAM = "stream";
-  private JsonNullable<Boolean> stream = JsonNullable.<Boolean>of(false);
+  private Boolean stream = false;
 
   public static final String JSON_PROPERTY_TEMPERATURE = "temperature";
-  private JsonNullable<BigDecimal> temperature = JsonNullable.<BigDecimal>of(new BigDecimal("1"));
+  private BigDecimal temperature = new BigDecimal("1");
 
   public static final String JSON_PROPERTY_TOP_P = "top_p";
-  private JsonNullable<BigDecimal> topP = JsonNullable.<BigDecimal>of(new BigDecimal("1"));
+  private BigDecimal topP = new BigDecimal("1");
 
   public static final String JSON_PROPERTY_USER = "user";
   private String user;
@@ -164,8 +160,8 @@ public class CreateChatCompletionRequest {
 
 
   public CreateChatCompletionRequest frequencyPenalty(BigDecimal frequencyPenalty) {
-    this.frequencyPenalty = JsonNullable.<BigDecimal>of(frequencyPenalty);
     
+    this.frequencyPenalty = frequencyPenalty;
     return this;
   }
 
@@ -176,44 +172,32 @@ public class CreateChatCompletionRequest {
    * @return frequencyPenalty
   **/
   @javax.annotation.Nullable
-  @JsonIgnore
-
-  public BigDecimal getFrequencyPenalty() {
-        return frequencyPenalty.orElse(null);
-  }
-
   @JsonProperty(JSON_PROPERTY_FREQUENCY_PENALTY)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
 
-  public JsonNullable<BigDecimal> getFrequencyPenalty_JsonNullable() {
+  public BigDecimal getFrequencyPenalty() {
     return frequencyPenalty;
   }
-  
-  @JsonProperty(JSON_PROPERTY_FREQUENCY_PENALTY)
-  public void setFrequencyPenalty_JsonNullable(JsonNullable<BigDecimal> frequencyPenalty) {
-    this.frequencyPenalty = frequencyPenalty;
-  }
 
+
+  @JsonProperty(JSON_PROPERTY_FREQUENCY_PENALTY)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
   public void setFrequencyPenalty(BigDecimal frequencyPenalty) {
-    this.frequencyPenalty = JsonNullable.<BigDecimal>of(frequencyPenalty);
+    this.frequencyPenalty = frequencyPenalty;
   }
 
 
   public CreateChatCompletionRequest logitBias(Map<String, Integer> logitBias) {
-    this.logitBias = JsonNullable.<Map<String, Integer>>of(logitBias);
     
+    this.logitBias = logitBias;
     return this;
   }
 
   public CreateChatCompletionRequest putLogitBiasItem(String key, Integer logitBiasItem) {
-    if (this.logitBias == null || !this.logitBias.isPresent()) {
-      this.logitBias = JsonNullable.<Map<String, Integer>>of(new HashMap<>());
+    if (this.logitBias == null) {
+      this.logitBias = new HashMap<>();
     }
-    try {
-      this.logitBias.get().put(key, logitBiasItem);
-    } catch (java.util.NoSuchElementException e) {
-      // this can never happen, as we make sure above that the value is present
-    }
+    this.logitBias.put(key, logitBiasItem);
     return this;
   }
 
@@ -222,32 +206,24 @@ public class CreateChatCompletionRequest {
    * @return logitBias
   **/
   @javax.annotation.Nullable
-  @JsonIgnore
-
-  public Map<String, Integer> getLogitBias() {
-        return logitBias.orElse(null);
-  }
-
   @JsonProperty(JSON_PROPERTY_LOGIT_BIAS)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
 
-  public JsonNullable<Map<String, Integer>> getLogitBias_JsonNullable() {
+  public Map<String, Integer> getLogitBias() {
     return logitBias;
   }
-  
-  @JsonProperty(JSON_PROPERTY_LOGIT_BIAS)
-  public void setLogitBias_JsonNullable(JsonNullable<Map<String, Integer>> logitBias) {
-    this.logitBias = logitBias;
-  }
 
+
+  @JsonProperty(JSON_PROPERTY_LOGIT_BIAS)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
   public void setLogitBias(Map<String, Integer> logitBias) {
-    this.logitBias = JsonNullable.<Map<String, Integer>>of(logitBias);
+    this.logitBias = logitBias;
   }
 
 
   public CreateChatCompletionRequest maxTokens(Integer maxTokens) {
-    this.maxTokens = JsonNullable.<Integer>of(maxTokens);
     
+    this.maxTokens = maxTokens;
     return this;
   }
 
@@ -256,32 +232,24 @@ public class CreateChatCompletionRequest {
    * @return maxTokens
   **/
   @javax.annotation.Nullable
-  @JsonIgnore
-
-  public Integer getMaxTokens() {
-        return maxTokens.orElse(null);
-  }
-
   @JsonProperty(JSON_PROPERTY_MAX_TOKENS)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
 
-  public JsonNullable<Integer> getMaxTokens_JsonNullable() {
+  public Integer getMaxTokens() {
     return maxTokens;
   }
-  
-  @JsonProperty(JSON_PROPERTY_MAX_TOKENS)
-  public void setMaxTokens_JsonNullable(JsonNullable<Integer> maxTokens) {
-    this.maxTokens = maxTokens;
-  }
 
+
+  @JsonProperty(JSON_PROPERTY_MAX_TOKENS)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
   public void setMaxTokens(Integer maxTokens) {
-    this.maxTokens = JsonNullable.<Integer>of(maxTokens);
+    this.maxTokens = maxTokens;
   }
 
 
   public CreateChatCompletionRequest n(Integer n) {
-    this.n = JsonNullable.<Integer>of(n);
     
+    this.n = n;
     return this;
   }
 
@@ -292,32 +260,24 @@ public class CreateChatCompletionRequest {
    * @return n
   **/
   @javax.annotation.Nullable
-  @JsonIgnore
-
-  public Integer getN() {
-        return n.orElse(null);
-  }
-
   @JsonProperty(JSON_PROPERTY_N)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
 
-  public JsonNullable<Integer> getN_JsonNullable() {
+  public Integer getN() {
     return n;
   }
-  
-  @JsonProperty(JSON_PROPERTY_N)
-  public void setN_JsonNullable(JsonNullable<Integer> n) {
-    this.n = n;
-  }
 
+
+  @JsonProperty(JSON_PROPERTY_N)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
   public void setN(Integer n) {
-    this.n = JsonNullable.<Integer>of(n);
+    this.n = n;
   }
 
 
   public CreateChatCompletionRequest presencePenalty(BigDecimal presencePenalty) {
-    this.presencePenalty = JsonNullable.<BigDecimal>of(presencePenalty);
     
+    this.presencePenalty = presencePenalty;
     return this;
   }
 
@@ -328,26 +288,18 @@ public class CreateChatCompletionRequest {
    * @return presencePenalty
   **/
   @javax.annotation.Nullable
-  @JsonIgnore
-
-  public BigDecimal getPresencePenalty() {
-        return presencePenalty.orElse(null);
-  }
-
   @JsonProperty(JSON_PROPERTY_PRESENCE_PENALTY)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
 
-  public JsonNullable<BigDecimal> getPresencePenalty_JsonNullable() {
+  public BigDecimal getPresencePenalty() {
     return presencePenalty;
   }
-  
-  @JsonProperty(JSON_PROPERTY_PRESENCE_PENALTY)
-  public void setPresencePenalty_JsonNullable(JsonNullable<BigDecimal> presencePenalty) {
-    this.presencePenalty = presencePenalty;
-  }
 
+
+  @JsonProperty(JSON_PROPERTY_PRESENCE_PENALTY)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
   public void setPresencePenalty(BigDecimal presencePenalty) {
-    this.presencePenalty = JsonNullable.<BigDecimal>of(presencePenalty);
+    this.presencePenalty = presencePenalty;
   }
 
 
@@ -378,8 +330,8 @@ public class CreateChatCompletionRequest {
 
 
   public CreateChatCompletionRequest seed(Integer seed) {
-    this.seed = JsonNullable.<Integer>of(seed);
     
+    this.seed = seed;
     return this;
   }
 
@@ -390,26 +342,18 @@ public class CreateChatCompletionRequest {
    * @return seed
   **/
   @javax.annotation.Nullable
-  @JsonIgnore
-
-  public Integer getSeed() {
-        return seed.orElse(null);
-  }
-
   @JsonProperty(JSON_PROPERTY_SEED)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
 
-  public JsonNullable<Integer> getSeed_JsonNullable() {
+  public Integer getSeed() {
     return seed;
   }
-  
-  @JsonProperty(JSON_PROPERTY_SEED)
-  public void setSeed_JsonNullable(JsonNullable<Integer> seed) {
-    this.seed = seed;
-  }
 
+
+  @JsonProperty(JSON_PROPERTY_SEED)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
   public void setSeed(Integer seed) {
-    this.seed = JsonNullable.<Integer>of(seed);
+    this.seed = seed;
   }
 
 
@@ -440,8 +384,8 @@ public class CreateChatCompletionRequest {
 
 
   public CreateChatCompletionRequest stream(Boolean stream) {
-    this.stream = JsonNullable.<Boolean>of(stream);
     
+    this.stream = stream;
     return this;
   }
 
@@ -450,32 +394,24 @@ public class CreateChatCompletionRequest {
    * @return stream
   **/
   @javax.annotation.Nullable
-  @JsonIgnore
-
-  public Boolean getStream() {
-        return stream.orElse(null);
-  }
-
   @JsonProperty(JSON_PROPERTY_STREAM)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
 
-  public JsonNullable<Boolean> getStream_JsonNullable() {
+  public Boolean getStream() {
     return stream;
   }
-  
-  @JsonProperty(JSON_PROPERTY_STREAM)
-  public void setStream_JsonNullable(JsonNullable<Boolean> stream) {
-    this.stream = stream;
-  }
 
+
+  @JsonProperty(JSON_PROPERTY_STREAM)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
   public void setStream(Boolean stream) {
-    this.stream = JsonNullable.<Boolean>of(stream);
+    this.stream = stream;
   }
 
 
   public CreateChatCompletionRequest temperature(BigDecimal temperature) {
-    this.temperature = JsonNullable.<BigDecimal>of(temperature);
     
+    this.temperature = temperature;
     return this;
   }
 
@@ -486,32 +422,24 @@ public class CreateChatCompletionRequest {
    * @return temperature
   **/
   @javax.annotation.Nullable
-  @JsonIgnore
-
-  public BigDecimal getTemperature() {
-        return temperature.orElse(null);
-  }
-
   @JsonProperty(JSON_PROPERTY_TEMPERATURE)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
 
-  public JsonNullable<BigDecimal> getTemperature_JsonNullable() {
+  public BigDecimal getTemperature() {
     return temperature;
   }
-  
-  @JsonProperty(JSON_PROPERTY_TEMPERATURE)
-  public void setTemperature_JsonNullable(JsonNullable<BigDecimal> temperature) {
-    this.temperature = temperature;
-  }
 
+
+  @JsonProperty(JSON_PROPERTY_TEMPERATURE)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
   public void setTemperature(BigDecimal temperature) {
-    this.temperature = JsonNullable.<BigDecimal>of(temperature);
+    this.temperature = temperature;
   }
 
 
   public CreateChatCompletionRequest topP(BigDecimal topP) {
-    this.topP = JsonNullable.<BigDecimal>of(topP);
     
+    this.topP = topP;
     return this;
   }
 
@@ -522,26 +450,18 @@ public class CreateChatCompletionRequest {
    * @return topP
   **/
   @javax.annotation.Nullable
-  @JsonIgnore
-
-  public BigDecimal getTopP() {
-        return topP.orElse(null);
-  }
-
   @JsonProperty(JSON_PROPERTY_TOP_P)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
 
-  public JsonNullable<BigDecimal> getTopP_JsonNullable() {
+  public BigDecimal getTopP() {
     return topP;
   }
-  
-  @JsonProperty(JSON_PROPERTY_TOP_P)
-  public void setTopP_JsonNullable(JsonNullable<BigDecimal> topP) {
-    this.topP = topP;
-  }
 
+
+  @JsonProperty(JSON_PROPERTY_TOP_P)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
   public void setTopP(BigDecimal topP) {
-    this.topP = JsonNullable.<BigDecimal>of(topP);
+    this.topP = topP;
   }
 
 
@@ -581,34 +501,23 @@ public class CreateChatCompletionRequest {
     CreateChatCompletionRequest createChatCompletionRequest = (CreateChatCompletionRequest) o;
     return Objects.equals(this.messages, createChatCompletionRequest.messages) &&
         Objects.equals(this.model, createChatCompletionRequest.model) &&
-        equalsNullable(this.frequencyPenalty, createChatCompletionRequest.frequencyPenalty) &&
-        equalsNullable(this.logitBias, createChatCompletionRequest.logitBias) &&
-        equalsNullable(this.maxTokens, createChatCompletionRequest.maxTokens) &&
-        equalsNullable(this.n, createChatCompletionRequest.n) &&
-        equalsNullable(this.presencePenalty, createChatCompletionRequest.presencePenalty) &&
+        Objects.equals(this.frequencyPenalty, createChatCompletionRequest.frequencyPenalty) &&
+        Objects.equals(this.logitBias, createChatCompletionRequest.logitBias) &&
+        Objects.equals(this.maxTokens, createChatCompletionRequest.maxTokens) &&
+        Objects.equals(this.n, createChatCompletionRequest.n) &&
+        Objects.equals(this.presencePenalty, createChatCompletionRequest.presencePenalty) &&
         Objects.equals(this.responseFormat, createChatCompletionRequest.responseFormat) &&
-        equalsNullable(this.seed, createChatCompletionRequest.seed) &&
+        Objects.equals(this.seed, createChatCompletionRequest.seed) &&
         Objects.equals(this.stop, createChatCompletionRequest.stop) &&
-        equalsNullable(this.stream, createChatCompletionRequest.stream) &&
-        equalsNullable(this.temperature, createChatCompletionRequest.temperature) &&
-        equalsNullable(this.topP, createChatCompletionRequest.topP) &&
+        Objects.equals(this.stream, createChatCompletionRequest.stream) &&
+        Objects.equals(this.temperature, createChatCompletionRequest.temperature) &&
+        Objects.equals(this.topP, createChatCompletionRequest.topP) &&
         Objects.equals(this.user, createChatCompletionRequest.user);
-  }
-
-  private static <T> boolean equalsNullable(JsonNullable<T> a, JsonNullable<T> b) {
-    return a == b || (a != null && b != null && a.isPresent() && b.isPresent() && Objects.deepEquals(a.get(), b.get()));
   }
 
   @Override
   public int hashCode() {
-    return Objects.hash(messages, model, hashCodeNullable(frequencyPenalty), hashCodeNullable(logitBias), hashCodeNullable(maxTokens), hashCodeNullable(n), hashCodeNullable(presencePenalty), responseFormat, hashCodeNullable(seed), stop, hashCodeNullable(stream), hashCodeNullable(temperature), hashCodeNullable(topP), user);
-  }
-
-  private static <T> int hashCodeNullable(JsonNullable<T> a) {
-    if (a == null) {
-      return 1;
-    }
-    return a.isPresent() ? Arrays.deepHashCode(new Object[]{a.get()}) : 31;
+    return Objects.hash(messages, model, frequencyPenalty, logitBias, maxTokens, n, presencePenalty, responseFormat, seed, stop, stream, temperature, topP, user);
   }
 
   @Override

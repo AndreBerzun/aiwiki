@@ -15,9 +15,6 @@ package ch.lianto.openai.client.model;
 
 import java.util.Objects;
 import java.util.Arrays;
-import ch.lianto.openai.client.model.ChatCompletionRequestAssistantMessage;
-import ch.lianto.openai.client.model.ChatCompletionRequestSystemMessage;
-import ch.lianto.openai.client.model.ChatCompletionRequestUserMessage;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonCreator;
@@ -33,16 +30,20 @@ import com.fasterxml.jackson.annotation.JsonTypeName;
   ChatCompletionRequestMessage.JSON_PROPERTY_CONTENT,
   ChatCompletionRequestMessage.JSON_PROPERTY_ROLE
 })
-@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", date = "2023-11-14T01:54:42.930274956+01:00[Europe/Zurich]")
+@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", date = "2023-11-16T00:40:37.572831696+01:00[Europe/Zurich]")
 public class ChatCompletionRequestMessage {
   public static final String JSON_PROPERTY_CONTENT = "content";
   private String content;
 
   /**
-   * The role of the messages author, in this case &#x60;assistant&#x60;.
+   * The role of the messages author
    */
   public enum RoleEnum {
-    ASSISTANT("assistant");
+    SYSTEM("system"),
+    
+    ASSISTANT("assistant"),
+    
+    USER("user");
 
     private String value;
 
@@ -84,7 +85,7 @@ public class ChatCompletionRequestMessage {
   }
 
    /**
-   * The contents of the assistant message. 
+   * The contents of the system message.
    * @return content
   **/
   @javax.annotation.Nullable
@@ -110,7 +111,7 @@ public class ChatCompletionRequestMessage {
   }
 
    /**
-   * The role of the messages author, in this case &#x60;assistant&#x60;.
+   * The role of the messages author
    * @return role
   **/
   @javax.annotation.Nonnull

@@ -17,7 +17,7 @@ import static ch.lianto.aiwiki.engine.utils.EmbeddingUtils.cosineSimilarity;
 
 @Component
 public class InMemoryPageSegmentRepository implements PageSegmentRepository {
-    private static final double SIMILARITY_THRESHOLD = 0.5;
+    private static final double SIMILARITY_THRESHOLD = 0.0;
     private static final int MAX_RESULTS = 10;
     private final ProjectRepository projectRepo;
     private final EmbeddingProvider embeddingProvider;
