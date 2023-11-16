@@ -636,60 +636,24 @@ components:
       - model
       type: object
     ChatCompletionRequestMessage:
-      oneOf:
-      - $ref: '#/components/schemas/ChatCompletionRequestSystemMessage'
-      - $ref: '#/components/schemas/ChatCompletionRequestUserMessage'
-      - $ref: '#/components/schemas/ChatCompletionRequestAssistantMessage'
-      x-oaiExpandable: true
-    ChatCompletionRequestSystemMessage:
       properties:
         content:
           description: The contents of the system message.
           nullable: true
           type: string
         role:
-          description: "The role of the messages author, in this case `system`."
+          description: The role of the messages author
           enum:
           - system
+          - assistant
+          - user
           type: string
       required:
       - content
       - role
       title: System message
       type: object
-    ChatCompletionRequestUserMessage:
-      properties:
-        content:
-          description: The text contents of the message.
-          title: Text content
-          type: string
-        role:
-          description: "The role of the messages author, in this case `user`."
-          enum:
-          - user
-          type: string
-      required:
-      - content
-      - role
-      title: User message
-      type: object
-    ChatCompletionRequestAssistantMessage:
-      properties:
-        content:
-          description: |
-            The contents of the assistant message.
-          nullable: true
-          type: string
-        role:
-          description: "The role of the messages author, in this case `assistant`."
-          enum:
-          - assistant
-          type: string
-      required:
-      - content
-      - role
-      title: Assistant message
-      type: object
+      x-oaiExpandable: true
     CreateChatCompletionRequest_model:
       description: "ID of the model to use. See the [model endpoint compatibility](/docs/models/model-endpoint-compatibility)\
         \ table for details on which models work with the Chat API."

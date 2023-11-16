@@ -33,7 +33,7 @@ import com.fasterxml.jackson.annotation.JsonTypeName;
   CreateEmbeddingRequest.JSON_PROPERTY_ENCODING_FORMAT,
   CreateEmbeddingRequest.JSON_PROPERTY_USER
 })
-@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", date = "2023-11-14T01:54:42.930274956+01:00[Europe/Zurich]")
+@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", date = "2023-11-16T00:40:37.572831696+01:00[Europe/Zurich]")
 public class CreateEmbeddingRequest {
   public static final String JSON_PROPERTY_INPUT = "input";
   private String input = "";
