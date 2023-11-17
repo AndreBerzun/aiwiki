@@ -35,9 +35,19 @@ public class SimplePersistentProjectRepository extends InMemoryProjectRepository
             };
             ObjectMapper objectMapper = new ObjectMapper();
             projects = objectMapper.readValue(properties.getFile().getURL(), typeRef);
+            setBackReferences();
         } catch (IOException e) {
             logger.warn("Could not load data store from path <{}>", properties.getFile(), e);
         }
+    }
+
+    private void setBackReferences() {
+        projects.forEach(
+            (name, project) -> project.getPages().forEach(page -> {
+                page.setProject(project);
+                page.getPageSegments().forEach(segment -> segment.setPage(page));
+            })
+        );
     }
 
     @PreDestroy

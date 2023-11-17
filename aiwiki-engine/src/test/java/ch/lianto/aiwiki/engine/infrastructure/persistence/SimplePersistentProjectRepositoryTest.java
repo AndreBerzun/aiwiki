@@ -1,5 +1,6 @@
 package ch.lianto.aiwiki.engine.infrastructure.persistence;
 
+import ch.lianto.aiwiki.engine.entity.Page;
 import ch.lianto.aiwiki.engine.entity.Project;
 import ch.lianto.aiwiki.engine.repository.PageRepository;
 import ch.lianto.aiwiki.engine.utils.TestData;
@@ -87,6 +88,25 @@ public class SimplePersistentProjectRepositoryTest {
     private void assertThatProjectContainsPage(Project project) {
         assertThat(project.getPages()).hasSize(1);
         assertThat(project.getPages().get(0)).isEqualTo(data.pages.basic);
+    }
+
+    @Test
+    void setBackReferencesWhenLoadBasicProjectWithPages() {
+        createRepoWithProjectStorePath(BASIC_PROJECT_WITH_PAGES_STORE);
+
+        projectRepo.loadProjectsData();
+
+        assertThatBackReferencesSet();
+    }
+
+    private void assertThatBackReferencesSet() {
+        List<Project> projects = projectRepo.findAll();
+        for (Project project : projects) {
+            for (Page page : project.getPages()) {
+                assertThat(page.getProject()).isEqualTo(project);
+                assertThat(page.getPageSegments()).allMatch(segment -> page.equals(segment.getPage()));
+            }
+        }
     }
 
     @Test

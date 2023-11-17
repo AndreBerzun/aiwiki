@@ -24,8 +24,11 @@ public class TestDataPages {
         Stream.of(
                 "# Heading 1\nLorem ipsum dolores sit ammat.",
                 "## Heading 2\nEven more content"
-            ).map(PageSegment::new)
-            .peek(segment -> segment.setEmbedding(new double[]{-1, -1, -1}))
+            ).map(text -> new PageSegment()
+                .setText(text)
+                .setEmbedding(new double[]{-1, -1, -1})
+                .setPage(page)
+            )
             .forEach(page.getPageSegments()::add);
         return page;
     }

@@ -5,6 +5,7 @@ import ch.lianto.aiwiki.engine.entity.PageSegment;
 import ch.lianto.aiwiki.engine.entity.Project;
 import ch.lianto.aiwiki.engine.repository.PageSegmentRepository;
 import ch.lianto.aiwiki.engine.repository.ProjectRepository;
+import ch.lianto.aiwiki.engine.service.assistant.Similarity;
 import ch.lianto.aiwiki.engine.service.page.EmbeddingProvider;
 import ch.lianto.aiwiki.engine.utils.Tuple;
 import org.springframework.stereotype.Component;
@@ -28,14 +29,13 @@ public class InMemoryPageSegmentRepository implements PageSegmentRepository {
     }
 
     @Override
-    public List<PageSegment> findBySimilarity(String text, Project project) {
+    public List<Similarity<PageSegment>> findBySimilarity(String text, Project project) {
         double[] textEmbedding = embeddingProvider.generateEmbedding(text);
 
         return streamPageSegmentsByProject(project)
-            .map(segment -> new Tuple<>(segment, cosineSimilarity(textEmbedding, segment.getEmbedding())))
-            .filter(similarityTuple -> similarityTuple.right() >= SIMILARITY_THRESHOLD)
-            .sorted(Comparator.comparing(Tuple<PageSegment, Double>::right).reversed())
-            .map(Tuple::left)
+            .map(segment -> new Similarity<>(cosineSimilarity(textEmbedding, segment.getEmbedding()), segment))
+            .filter(similarity -> similarity.similarity() >= SIMILARITY_THRESHOLD)
+            .sorted(Comparator.comparing(Similarity<PageSegment>::similarity).reversed())
             .limit(MAX_RESULTS)
             .toList();
     }

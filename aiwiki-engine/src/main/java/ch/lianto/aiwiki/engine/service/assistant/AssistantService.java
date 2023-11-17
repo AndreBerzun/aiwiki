@@ -24,12 +24,16 @@ public class AssistantService {
         this.chatClient = chatClient;
     }
 
+    // TODO unit test
     public String ask(String prompt, String projectName) {
         Project project = projectRepo.findByName(projectName);
-        List<PageSegment> matchingSegments = pageSegmentRepo.findBySimilarity(prompt, project);
+        List<Similarity<PageSegment>> matchingSegments = pageSegmentRepo.findBySimilarity(prompt, project);
         return chatClient.message(
             prompt,
-            matchingSegments.stream().map(PageSegment::getText).toArray(String[]::new)
+            matchingSegments.stream()
+                .map(Similarity::data)
+                .map(PageSegment::getText)
+                .toArray(String[]::new)
         );
     }
 }
