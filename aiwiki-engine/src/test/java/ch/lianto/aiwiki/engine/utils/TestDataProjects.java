@@ -15,15 +15,13 @@ public class TestDataProjects {
     }
 
     public Project basicProject() {
-        Project project = new Project();
-        project.setName("Project");
-        return project;
+        return new Project()
+            .setName("Project");
     }
 
     public Project alternateProject() {
-        Project project = new Project();
-        project.setName("Alternate Project");
-        return project;
+        return new Project()
+            .setName("Alternate Project");
     }
 
     private ProjectDto basicDto() {

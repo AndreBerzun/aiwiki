@@ -16,20 +16,22 @@ public class Page {
         return name;
     }
 
-    public void setName(String name) {
+    public Page setName(String name) {
         this.name = name;
+        return this;
+    }
+
+    public List<PageSegment> getPageSegments() {
+        return pageSegments;
     }
 
     public Project getProject() {
         return project;
     }
 
-    public void setProject(Project project) {
+    public Page setProject(Project project) {
         this.project = project;
-    }
-
-    public List<PageSegment> getPageSegments() {
-        return pageSegments;
+        return this;
     }
 
     @Override

@@ -34,9 +34,9 @@ public class PageService {
     }
 
     private Page buildPage(PageDto dto) {
-        Page page = new Page();
-        page.setName(dto.name());
-        page.setProject(projectRepo.findByName(dto.projectName()));
+        Page page = new Page()
+            .setName(dto.name())
+            .setProject(projectRepo.findByName(dto.projectName()));
         page.getPageSegments().addAll(createPageSegments(dto.content(), page));
         return page;
     }
