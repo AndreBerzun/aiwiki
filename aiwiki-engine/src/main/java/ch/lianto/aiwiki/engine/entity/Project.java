@@ -12,16 +12,13 @@ public class Project {
         return name;
     }
 
-    public void setName(String name) {
+    public Project setName(String name) {
         this.name = name;
+        return this;
     }
 
     public List<Page> getPages() {
         return pages;
-    }
-
-    public void setPages(List<Page> pages) {
-        this.pages = pages;
     }
 
     @Override

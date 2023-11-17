@@ -19,9 +19,9 @@ public class TestDataEmbeddings {
     }
 
     public Page buildPinkFloydPage() {
-        Page page = new Page();
-        page.setProject(data.projects.basic);
-        page.setName("Pink Floyd");
+        Page page = new Page()
+            .setName("Pink Floyd")
+            .setProject(data.projects.basic);
         page.getPageSegments().add(
             new PageSegment()
                 .setText("Pink Floyd")
@@ -32,9 +32,9 @@ public class TestDataEmbeddings {
     }
 
     public Page buildEloPage() {
-        Page page = new Page();
-        page.setProject(data.projects.basic);
-        page.setName("Electric Light Orchestra");
+        Page page = new Page()
+            .setProject(data.projects.basic)
+            .setName("Electric Light Orchestra");
         page.getPageSegments().add(
             new PageSegment()
                 .setText("Electric Light Orchestra")

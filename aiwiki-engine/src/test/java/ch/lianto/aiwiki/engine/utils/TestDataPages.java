@@ -18,18 +18,19 @@ public class TestDataPages {
     }
 
     public Page basicPage() {
-        Page page = new Page();
-        page.setName("Page");
-        page.setProject(data.projects.basic);
-        Stream.of(
+        Page page = new Page()
+            .setName("Page")
+            .setProject(data.projects.basic);
+        page.getPageSegments().addAll(
+            Stream.of(
                 "# Heading 1\nLorem ipsum dolores sit ammat.",
                 "## Heading 2\nEven more content"
             ).map(text -> new PageSegment()
                 .setText(text)
                 .setEmbedding(new double[]{-1, -1, -1})
                 .setPage(page)
-            )
-            .forEach(page.getPageSegments()::add);
+            ).toList()
+        );
         return page;
     }
 
