@@ -37,15 +37,17 @@ public class PageService {
         Page page = new Page();
         page.setName(dto.name());
         page.setProject(projectRepo.findByName(dto.projectName()));
-        page.getPageSegments().addAll(createPageSegments(dto.content()));
+        page.getPageSegments().addAll(createPageSegments(dto.content(), page));
         return page;
     }
 
-    private List<PageSegment> createPageSegments(String text) {
+    private List<PageSegment> createPageSegments(String text, Page page) {
         return pageSegmentationStrategy.segment(text)
             .stream()
-            .map(PageSegment::new)
-            .peek(s -> s.setEmbedding(embeddingProvider.generateEmbedding(s.getText())))
+            .map(segment -> new PageSegment()
+                .setText(segment)
+                .setEmbedding(embeddingProvider.generateEmbedding(segment))
+                .setPage(page))
             .toList();
     }
 }

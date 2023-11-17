@@ -22,9 +22,12 @@ public class TestDataEmbeddings {
         Page page = new Page();
         page.setProject(data.projects.basic);
         page.setName("Pink Floyd");
-        PageSegment segment = new PageSegment("Pink Floyd");
-        segment.setEmbedding(new double[]{1, 1, 1});
-        page.getPageSegments().add(segment);
+        page.getPageSegments().add(
+            new PageSegment()
+                .setText("Pink Floyd")
+                .setEmbedding(new double[]{1, 1, 1})
+                .setPage(page)
+        );
         return page;
     }
 
@@ -32,9 +35,12 @@ public class TestDataEmbeddings {
         Page page = new Page();
         page.setProject(data.projects.basic);
         page.setName("Electric Light Orchestra");
-        PageSegment segment = new PageSegment("Electric Light Orchestra");
-        segment.setEmbedding(new double[]{1, 1, 0.9});
-        page.getPageSegments().add(segment);
+        page.getPageSegments().add(
+            new PageSegment()
+                .setText("Electric Light Orchestra")
+                .setEmbedding(new double[]{1, 1, 0.9})
+                .setPage(page)
+        );
         return page;
     }
 }

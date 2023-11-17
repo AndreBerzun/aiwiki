@@ -6,6 +6,7 @@ import ch.lianto.aiwiki.engine.entity.Project;
 import ch.lianto.aiwiki.engine.repository.PageRepository;
 import ch.lianto.aiwiki.engine.repository.PageSegmentRepository;
 import ch.lianto.aiwiki.engine.repository.ProjectRepository;
+import ch.lianto.aiwiki.engine.service.assistant.Similarity;
 import ch.lianto.aiwiki.engine.utils.TestData;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -32,7 +33,7 @@ public class PageSegmentRepositoryTest {
     void returnsEmptyListWhenEmptySearchText() {
         projectRepo.save(data.projects.basic);
 
-        List<PageSegment> results = pageSegmentRepo.findBySimilarity(data.embeddings.emptyPrompt, data.projects.basic);
+        List<Similarity<PageSegment>> results = pageSegmentRepo.findBySimilarity(data.embeddings.emptyPrompt, data.projects.basic);
 
         assertThat(results).isEmpty();
     }
@@ -41,7 +42,7 @@ public class PageSegmentRepositoryTest {
     void returnsEmptyListWhenNoPagesCreated() {
         projectRepo.save(data.projects.basic);
 
-        List<PageSegment> results = pageSegmentRepo.findBySimilarity(data.embeddings.bestRockBandPrompt, data.projects.basic);
+        List<Similarity<PageSegment>> results = pageSegmentRepo.findBySimilarity(data.embeddings.bestRockBandPrompt, data.projects.basic);
 
         assertThat(results).isEmpty();
     }
@@ -52,7 +53,7 @@ public class PageSegmentRepositoryTest {
         projectRepo.save(data.projects.alternate);
         pageRepo.save(data.embeddings.pinkFloydPage);
 
-        List<PageSegment> results = pageSegmentRepo.findBySimilarity(data.embeddings.bestRockBandPrompt, data.projects.alternate);
+        List<Similarity<PageSegment>> results = pageSegmentRepo.findBySimilarity(data.embeddings.bestRockBandPrompt, data.projects.alternate);
 
         assertThat(results).isEmpty();
     }
@@ -62,10 +63,10 @@ public class PageSegmentRepositoryTest {
         Project project = projectRepo.save(data.projects.basic);
         Page relatedPage = pageRepo.save(data.embeddings.pinkFloydPage);
 
-        List<PageSegment> results = pageSegmentRepo.findBySimilarity(data.embeddings.bestRockBandPrompt, project);
+        List<Similarity<PageSegment>> results = pageSegmentRepo.findBySimilarity(data.embeddings.bestRockBandPrompt, project);
 
         assertThat(results).hasSize(1);
-        assertThat(results).isEqualTo(relatedPage.getPageSegments());
+        assertThat(results.stream().map(Similarity::data).toList()).isEqualTo(relatedPage.getPageSegments());
     }
 
     @Test
@@ -74,10 +75,10 @@ public class PageSegmentRepositoryTest {
         Page relatedPage = pageRepo.save(data.embeddings.pinkFloydPage);
         Page unrelatedPage = pageRepo.save(data.pages.basic);
 
-        List<PageSegment> results = pageSegmentRepo.findBySimilarity(data.embeddings.bestRockBandPrompt, data.projects.basic);
+        List<Similarity<PageSegment>> results = pageSegmentRepo.findBySimilarity(data.embeddings.bestRockBandPrompt, data.projects.basic);
 
         assertThat(results).hasSize(1);
-        assertThat(results).isEqualTo(relatedPage.getPageSegments());
+        assertThat(results.stream().map(Similarity::data).toList()).isEqualTo(relatedPage.getPageSegments());
     }
 
     @Test
@@ -87,10 +88,10 @@ public class PageSegmentRepositoryTest {
         Page relevant = pageRepo.save(data.embeddings.eloPage);
         pageRepo.save(data.pages.basic);
 
-        List<PageSegment> results = pageSegmentRepo.findBySimilarity(data.embeddings.bestRockBandPrompt, data.projects.basic);
+        List<Similarity<PageSegment>> results = pageSegmentRepo.findBySimilarity(data.embeddings.bestRockBandPrompt, data.projects.basic);
 
         assertThat(results).hasSize(2);
-        assertThat(results.get(0)).isEqualTo(mostRelevant.getPageSegments().get(0));
-        assertThat(results.get(1)).isEqualTo(relevant.getPageSegments().get(0));
+        assertThat(results.get(0).data()).isEqualTo(mostRelevant.getPageSegments().get(0));
+        assertThat(results.get(1).data()).isEqualTo(relevant.getPageSegments().get(0));
     }
 }

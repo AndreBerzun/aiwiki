@@ -1,33 +1,41 @@
 package ch.lianto.aiwiki.engine.entity;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import java.util.Arrays;
 import java.util.Objects;
 
 public class PageSegment {
     private String text;
     private double[] embedding;
-
-    public PageSegment() {
-    }
-
-    public PageSegment(String text) {
-        this.text = text;
-    }
+    @JsonIgnore
+    private Page page;
 
     public String getText() {
         return text;
     }
 
-    public void setText(String text) {
+    public PageSegment setText(String text) {
         this.text = text;
+        return this;
     }
 
     public double[] getEmbedding() {
         return embedding;
     }
 
-    public void setEmbedding(double[] embedding) {
+    public PageSegment setEmbedding(double[] embedding) {
         this.embedding = embedding;
+        return this;
+    }
+
+    public Page getPage() {
+        return page;
+    }
+
+    public PageSegment setPage(Page page) {
+        this.page = page;
+        return this;
     }
 
     @Override
