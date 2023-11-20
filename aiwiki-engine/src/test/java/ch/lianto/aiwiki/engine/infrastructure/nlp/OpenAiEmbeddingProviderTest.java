@@ -17,11 +17,11 @@ public class OpenAiEmbeddingProviderTest {
 
     @BeforeEach
     void setUp() {
-        OpenAIClientProperties properties = new OpenAIClientProperties();
-        properties.setApiKey(System.getenv("OPENAI_API_KEY"));
+        OpenAIClientProperties properties = new OpenAIClientProperties()
+            .setApiKey(System.getenv("OPENAI_API_KEY"));
         OpenAIClientConfig config = new OpenAIClientConfig();
 
-        embeddingProvider = new OpenAiEmbeddingProvider(config.embeddingsApi(config.openaiApiClient(properties)));
+        embeddingProvider = new OpenAiEmbeddingProvider(config.embeddingsApi(config.openaiApiClient(properties)), properties);
     }
 
     @Test

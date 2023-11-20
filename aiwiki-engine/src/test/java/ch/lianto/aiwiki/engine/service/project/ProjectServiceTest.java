@@ -5,7 +5,7 @@ import ch.lianto.aiwiki.engine.infrastructure.batch.SimpleBatchJobLauncher;
 import ch.lianto.aiwiki.engine.infrastructure.nlp.NoOpEmbeddingProvider;
 import ch.lianto.aiwiki.engine.infrastructure.persistence.InMemoryPageRepository;
 import ch.lianto.aiwiki.engine.infrastructure.persistence.InMemoryProjectRepository;
-import ch.lianto.aiwiki.engine.service.page.MaxWordSegmentationStrategy;
+import ch.lianto.aiwiki.engine.infrastructure.nlp.MaxWordSegmentationStrategy;
 import ch.lianto.aiwiki.engine.service.page.PageService;
 import ch.lianto.aiwiki.engine.utils.TestData;
 import org.junit.jupiter.api.BeforeEach;

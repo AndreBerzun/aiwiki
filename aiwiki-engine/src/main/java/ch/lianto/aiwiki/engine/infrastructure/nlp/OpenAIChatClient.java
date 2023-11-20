@@ -2,10 +2,10 @@ package ch.lianto.aiwiki.engine.infrastructure.nlp;
 
 import ch.lianto.aiwiki.engine.service.assistant.ChatClient;
 import ch.lianto.openai.client.api.ChatApi;
+import ch.lianto.openai.client.config.OpenAIClientProperties;
 import ch.lianto.openai.client.model.ChatCompletionRequestMessage;
 import ch.lianto.openai.client.model.ChatCompletionRequestMessage.RoleEnum;
 import ch.lianto.openai.client.model.CreateChatCompletionRequest;
-import ch.lianto.openai.client.model.CreateChatCompletionRequestModel;
 import ch.lianto.openai.client.model.CreateChatCompletionResponse;
 import org.springframework.stereotype.Component;
 
@@ -14,9 +14,11 @@ public class OpenAIChatClient implements ChatClient {
     private static final String SYSTEM_MESSAGE = "Answer questions accurately and briefly.";
     private static final String ADDITIONAL_CONTEXT = "Use the following information from the knowledge base to answer the user's question:";
     private final ChatApi chatApi;
+    private final OpenAIClientProperties properties;
 
-    public OpenAIChatClient(ChatApi chatApi) {
+    public OpenAIChatClient(ChatApi chatApi, OpenAIClientProperties properties) {
         this.chatApi = chatApi;
+        this.properties = properties;
     }
 
     @Override
@@ -30,7 +32,7 @@ public class OpenAIChatClient implements ChatClient {
 
     private CreateChatCompletionRequest createRequest(String message, String[] context) {
         CreateChatCompletionRequest request = new CreateChatCompletionRequest();
-        request.setModel(CreateChatCompletionRequestModel._3_5_TURBO);
+        request.setModel(properties.getChatModel());
         request.addMessagesItem(createMessage(constructContext(context), RoleEnum.SYSTEM));
         request.addMessagesItem(createMessage(message, RoleEnum.USER));
         return request;

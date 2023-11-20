@@ -2,8 +2,8 @@ package ch.lianto.aiwiki.engine.infrastructure.nlp;
 
 import ch.lianto.aiwiki.engine.service.page.EmbeddingProvider;
 import ch.lianto.openai.client.api.EmbeddingsApi;
+import ch.lianto.openai.client.config.OpenAIClientProperties;
 import ch.lianto.openai.client.model.CreateEmbeddingRequest;
-import ch.lianto.openai.client.model.CreateEmbeddingRequestModel;
 import ch.lianto.openai.client.model.CreateEmbeddingResponse;
 import org.springframework.context.annotation.Primary;
 import org.springframework.stereotype.Component;
@@ -14,9 +14,11 @@ import java.math.BigDecimal;
 @Component
 public class OpenAiEmbeddingProvider implements EmbeddingProvider {
     private final EmbeddingsApi openaiEmbeddings;
+    private final OpenAIClientProperties properties;
 
-    public OpenAiEmbeddingProvider(EmbeddingsApi openaiEmbeddings) {
+    public OpenAiEmbeddingProvider(EmbeddingsApi openaiEmbeddings, OpenAIClientProperties properties) {
         this.openaiEmbeddings = openaiEmbeddings;
+        this.properties = properties;
     }
 
     @Override
@@ -29,7 +31,7 @@ public class OpenAiEmbeddingProvider implements EmbeddingProvider {
 
     private CreateEmbeddingRequest createRequest(String text) {
         return new CreateEmbeddingRequest()
-            .model(CreateEmbeddingRequestModel.TEXT_EMBEDDING_ADA_002)
+            .model(properties.getEmbeddingModel())
             .input(text);
     }
 

@@ -1,5 +1,6 @@
-package ch.lianto.aiwiki.engine.service.page;
+package ch.lianto.aiwiki.engine.infrastructure.nlp;
 
+import ch.lianto.aiwiki.engine.service.page.PageSegmentationStrategy;
 import org.springframework.stereotype.Component;
 
 import java.util.ArrayList;
@@ -11,7 +12,7 @@ public class MaxWordSegmentationStrategy implements PageSegmentationStrategy {
     /**
      * Roughly equals the 1000 tokens according to OpenAI
      */
-    static final int MAX_WORDS_PER_SEGMENT = 750;
+    static final int MAX_WORDS_PER_SEGMENT = 450;
     private List<String> segments;
     private StringBuilder currentSegment;
 
