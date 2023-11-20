@@ -2,9 +2,13 @@ spring:
   shell:
     help:
       enabled: true
+  flyway:
+    enabled: false
 app:
   persistence:
     simple:
       file: file:/home/andre/apps/aiwiki/data-store.json
   openai:
     api-key: ${OPENAI_API_KEY}
+    chat-model: _4
+    embedding-model: "text-embedding-ada-002"

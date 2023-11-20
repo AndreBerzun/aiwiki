@@ -3,6 +3,7 @@ package ch.lianto.aiwiki.engine.service.page;
 import ch.lianto.aiwiki.engine.entity.Page;
 import ch.lianto.aiwiki.engine.entity.PageSegment;
 import ch.lianto.aiwiki.engine.entity.Project;
+import ch.lianto.aiwiki.engine.infrastructure.nlp.MaxWordSegmentationStrategy;
 import ch.lianto.aiwiki.engine.infrastructure.nlp.NoOpEmbeddingProvider;
 import ch.lianto.aiwiki.engine.infrastructure.persistence.InMemoryPageRepository;
 import ch.lianto.aiwiki.engine.infrastructure.persistence.InMemoryProjectRepository;

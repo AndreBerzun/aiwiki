@@ -1,4 +1,4 @@
-package ch.lianto.aiwiki.engine.service.page;
+package ch.lianto.aiwiki.engine.infrastructure.nlp;
 
 import ch.lianto.aiwiki.engine.utils.TestUtils;
 import org.junit.jupiter.api.BeforeEach;
@@ -57,8 +57,8 @@ public class MaxWordSegmentationStrategyTest {
     @Test
     void segmentIntoTwoWhenSecondParagraphOverflowsMaxLimit() {
         testThatResultMatchesExpectedSegments(
-            TestUtils.loremIpsumWithWordCount(100) + "\n\n" + TestUtils.loremIpsumWithWordCount(450),
-            TestUtils.loremIpsumWithWordCount(400)
+            TestUtils.loremIpsumWithWordCount(100) + "\n\n" + TestUtils.loremIpsumWithWordCount(MaxWordSegmentationStrategy.MAX_WORDS_PER_SEGMENT - 150),
+            TestUtils.loremIpsumWithWordCount(MaxWordSegmentationStrategy.MAX_WORDS_PER_SEGMENT - 50)
         );
     }
 
