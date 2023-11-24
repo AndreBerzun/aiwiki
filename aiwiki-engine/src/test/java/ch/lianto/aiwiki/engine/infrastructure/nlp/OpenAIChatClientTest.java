@@ -36,7 +36,7 @@ public class OpenAIChatClientTest {
     void returnEmptyStringWhenEmptyMessage() {
         String message = "";
 
-        String response = chatClient.message(message);
+        String response = chatClient.generateResponse(message);
 
         logger.info("Chat Response: {}", response);
         assertThat(response).isEmpty();
@@ -46,7 +46,7 @@ public class OpenAIChatClientTest {
     void answerWhenAskedGeneralQuestionWithoutContext() {
         String message = data.prompts.generalKnowledgePrompt;
 
-        String response = chatClient.message(message);
+        String response = chatClient.generateResponse(message);
 
         logger.info("Chat Response: {}", response);
         assertThat(response).isNotEmpty();
@@ -56,7 +56,7 @@ public class OpenAIChatClientTest {
     void answerWhenAskedGeneralQuestionWithRandomContext() {
         String message = data.prompts.generalKnowledgePrompt;
 
-        String response = chatClient.message(message, data.prompts.domainSpecificContext.toArray(String[]::new));
+        String response = chatClient.generateResponse(message, data.prompts.domainSpecificContext.toArray(String[]::new));
 
         logger.info("Chat Response: {}", response);
         assertThat(response).isNotEmpty();
@@ -66,7 +66,7 @@ public class OpenAIChatClientTest {
     void professionallyDeclineWhenAskedDomainSpecificQuestionWithoutContext() {
         String message = data.prompts.domainSpecificPrompt;
 
-        String response = chatClient.message(message);
+        String response = chatClient.generateResponse(message);
 
         logger.info("Chat Response: {}", response);
         assertThat(response).isNotEmpty();
@@ -76,7 +76,7 @@ public class OpenAIChatClientTest {
     void answerDomainSpecificQuestionWhenSuppliedContext() {
         String message = data.prompts.domainSpecificPrompt;
 
-        String response = chatClient.message(message, data.prompts.domainSpecificContext.toArray(String[]::new));
+        String response = chatClient.generateResponse(message, data.prompts.domainSpecificContext.toArray(String[]::new));
 
         logger.info("Chat Response: {}", response);
         assertThat(response).isNotEmpty();

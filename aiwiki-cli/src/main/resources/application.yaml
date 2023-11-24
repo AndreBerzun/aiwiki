@@ -10,5 +10,5 @@ app:
       file: file:/home/andre/apps/aiwiki/data-store.json
   openai:
     api-key: ${OPENAI_API_KEY}
-    chat-model: _4
+    chat-model: "_3_5_TURBO"
     embedding-model: "text-embedding-ada-002"
