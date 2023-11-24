@@ -51,4 +51,9 @@ public class PageSegment {
         result = 31 * result + Arrays.hashCode(embedding);
         return result;
     }
+
+    @Override
+    public String toString() {
+        return String.format("(%s): %s", this.getPage().getName(), this.getText());
+    }
 }

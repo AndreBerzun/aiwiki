@@ -11,8 +11,12 @@ import org.springframework.stereotype.Component;
 
 @Component
 public class OpenAIChatClient implements ChatClient {
-    private static final String SYSTEM_MESSAGE = "Answer questions accurately and briefly.";
-    private static final String ADDITIONAL_CONTEXT = "Use the following information from the knowledge base to answer the user's question:";
+    private static final String SYSTEM_MESSAGE = """
+        Your an assistant that helps users answer questions related to their private wikis.
+        Be brief in your responses. Answer ONLY with the facts listed in the sources below.
+        If there isn't enough information to answer the question, say you don't know. Ask clarifying questions though, if needed.
+        Each source contains a page name surrounded by brackets followed by the actual source text.""";
+    private static final String ADDITIONAL_CONTEXT = "Sources:";
     private final ChatApi chatApi;
     private final OpenAIClientProperties properties;
 
@@ -22,10 +26,10 @@ public class OpenAIChatClient implements ChatClient {
     }
 
     @Override
-    public String message(String message, String... context) {
-        if (message.isEmpty()) return "";
+    public String generateResponse(String prompt, String... context) {
+        if (prompt.isEmpty()) return "";
 
-        CreateChatCompletionRequest request = createRequest(message, context);
+        CreateChatCompletionRequest request = createRequest(prompt, context);
         CreateChatCompletionResponse response = chatApi.createChatCompletion(request);
         return response.getChoices().get(0).getMessage().getContent();
     }
@@ -49,6 +53,6 @@ public class OpenAIChatClient implements ChatClient {
         if (context.length == 0)
             return SYSTEM_MESSAGE;
         else
-            return SYSTEM_MESSAGE + "\n\n" + ADDITIONAL_CONTEXT + "\n\n" + String.join("\n-----\n", context);
+            return SYSTEM_MESSAGE + "\n\n" + ADDITIONAL_CONTEXT + "\n" + String.join("\n", context);
     }
 }
