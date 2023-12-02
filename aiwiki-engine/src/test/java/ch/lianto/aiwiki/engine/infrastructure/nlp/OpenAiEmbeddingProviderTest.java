@@ -4,6 +4,7 @@ import ch.lianto.aiwiki.engine.service.page.EmbeddingProvider;
 import ch.lianto.aiwiki.engine.utils.EmbeddingUtils;
 import ch.lianto.openai.client.config.OpenAIClientConfig;
 import ch.lianto.openai.client.config.OpenAIClientProperties;
+import org.assertj.core.data.Offset;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Test;
@@ -51,6 +52,29 @@ public class OpenAiEmbeddingProviderTest {
         double[] embedding2 = embeddingProvider.generateEmbedding(text2);
 
         assertThat(embedding1).isNotEqualTo(embedding2);
+    }
+
+    @Test
+    void sameEmbeddingsForSameWord() {
+        String text = "Dog";
+
+        double[] embedding1 = embeddingProvider.generateEmbedding(text);
+        double[] embedding2 = embeddingProvider.generateEmbedding(text);
+        double similarity = EmbeddingUtils.cosineSimilarity(embedding1, embedding2);
+
+        assertThat(similarity).isCloseTo(1, Offset.offset(.01));
+    }
+
+    @Test
+    void similarEmbeddingsForSimilarWords() {
+        String text1 = "Dog";
+        String text2 = "Dogs";
+
+        double[] embedding1 = embeddingProvider.generateEmbedding(text1);
+        double[] embedding2 = embeddingProvider.generateEmbedding(text2);
+        double similarity = EmbeddingUtils.cosineSimilarity(embedding1, embedding2);
+
+        assertThat(similarity).isCloseTo(1, Offset.offset(.2));
     }
 
     @Test
