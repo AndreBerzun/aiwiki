@@ -4,6 +4,7 @@ import ch.lianto.aiwiki.engine.entity.Page;
 import ch.lianto.aiwiki.engine.entity.PageSegment;
 import ch.lianto.aiwiki.engine.repository.PageRepository;
 import ch.lianto.aiwiki.engine.repository.ProjectRepository;
+import ch.lianto.aiwiki.engine.service.nlp.EmbeddingProvider;
 import org.springframework.stereotype.Component;
 
 import java.util.List;

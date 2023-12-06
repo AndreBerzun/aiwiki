@@ -1,6 +1,6 @@
 package ch.lianto.aiwiki.engine.infrastructure.nlp;
 
-import ch.lianto.aiwiki.engine.service.page.EmbeddingProvider;
+import ch.lianto.aiwiki.engine.service.nlp.EmbeddingProvider;
 import ch.lianto.aiwiki.engine.utils.EmbeddingUtils;
 import ch.lianto.openai.client.config.OpenAIClientConfig;
 import ch.lianto.openai.client.config.OpenAIClientProperties;
