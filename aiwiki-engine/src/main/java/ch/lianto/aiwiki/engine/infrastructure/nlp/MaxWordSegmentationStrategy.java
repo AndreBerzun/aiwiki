@@ -1,12 +1,14 @@
 package ch.lianto.aiwiki.engine.infrastructure.nlp;
 
 import ch.lianto.aiwiki.engine.service.page.PageSegmentationStrategy;
+import org.springframework.context.annotation.Primary;
 import org.springframework.stereotype.Component;
 
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
+@Primary
 @Component
 public class MaxWordSegmentationStrategy implements PageSegmentationStrategy {
     /**

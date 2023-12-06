@@ -1,6 +1,7 @@
 package ch.lianto.aiwiki.cli.api;
 
 import ch.lianto.aiwiki.cli.service.CliContext;
+import ch.lianto.aiwiki.engine.entity.Chat;
 import ch.lianto.aiwiki.engine.entity.PageSegment;
 import ch.lianto.aiwiki.engine.repository.PageSegmentRepository;
 import ch.lianto.aiwiki.engine.service.assistant.AssistantService;
@@ -27,7 +28,9 @@ public class AssistantCommand {
     @Command(command = "ask", description = "Ask the wiki any questions")
     @CommandAvailability(provider = "projectAvailability")
     public String ask(String prompt) {
-        return assistantService.ask(prompt, context.getSelectedProject().getName());
+        Chat chat = context.getAssistantChat().question(prompt);
+        assistantService.ask(chat, context.getSelectedProject().getName());
+        return chat.getLatestAnswer().text();
     }
 
     @Command(command = "search", description = "Search the wiki for page segments that match the prompt")

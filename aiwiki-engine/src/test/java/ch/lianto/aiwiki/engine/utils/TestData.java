@@ -6,4 +6,5 @@ public class TestData {
     public final TestDataJob jobs = new TestDataJob();
     public final TestDataEmbeddings embeddings = new TestDataEmbeddings(this);
     public final TestDataPrompts prompts = new TestDataPrompts();
+    public final TestDataChats chats = new TestDataChats();
 }

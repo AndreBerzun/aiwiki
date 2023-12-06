@@ -1,6 +1,6 @@
 package ch.lianto.aiwiki.engine.infrastructure.nlp;
 
-import ch.lianto.aiwiki.engine.service.page.EmbeddingProvider;
+import ch.lianto.aiwiki.engine.service.nlp.EmbeddingProvider;
 import org.springframework.stereotype.Component;
 
 @Component

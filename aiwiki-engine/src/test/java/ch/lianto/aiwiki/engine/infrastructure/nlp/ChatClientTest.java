@@ -1,6 +1,6 @@
 package ch.lianto.aiwiki.engine.infrastructure.nlp;
 
-import ch.lianto.aiwiki.engine.service.assistant.ChatClient;
+import ch.lianto.aiwiki.engine.service.nlp.ChatClient;
 import ch.lianto.aiwiki.engine.utils.TestData;
 import ch.lianto.openai.client.config.OpenAIClientConfig;
 import ch.lianto.openai.client.config.OpenAIClientProperties;
@@ -15,7 +15,7 @@ import org.slf4j.LoggerFactory;
 import static org.assertj.core.api.Assertions.assertThat;
 
 @Disabled
-public class OpenAIChatClientTest {
+public class ChatClientTest {
     private Logger logger = LoggerFactory.getLogger(getClass());
     private TestData data;
     private ChatClient chatClient;
@@ -29,7 +29,7 @@ public class OpenAIChatClientTest {
             .setEmbeddingModel(CreateEmbeddingRequestModel.TEXT_EMBEDDING_ADA_002);
         OpenAIClientConfig config = new OpenAIClientConfig();
 
-        chatClient = new OpenAIChatClient(config.chatApi(config.openaiApiClient(properties)), properties);
+        chatClient = new ChatGPTClient(config.chatApi(config.openaiApiClient(properties)), properties);
     }
 
     @Test
