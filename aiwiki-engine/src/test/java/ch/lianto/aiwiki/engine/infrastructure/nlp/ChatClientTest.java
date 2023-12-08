@@ -11,12 +11,14 @@ import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Test;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import reactor.core.publisher.Flux;
 
 import static org.assertj.core.api.Assertions.assertThat;
+import static org.assertj.core.api.Assertions.fail;
 
 @Disabled
 public class ChatClientTest {
-    private Logger logger = LoggerFactory.getLogger(getClass());
+    private final Logger logger = LoggerFactory.getLogger(getClass());
     private TestData data;
     private ChatClient chatClient;
 
@@ -29,17 +31,18 @@ public class ChatClientTest {
             .setEmbeddingModel(CreateEmbeddingRequestModel.TEXT_EMBEDDING_ADA_002);
         OpenAIClientConfig config = new OpenAIClientConfig();
 
-        chatClient = new ChatGPTClient(config.chatApi(config.openaiApiClient(properties)), properties);
+        chatClient = new ChatGPTClient(config.chatApi(config.openaiApiClient(properties, config.objectMapper())), properties);
     }
 
     @Test
-    void returnEmptyStringWhenEmptyMessage() {
-        String message = "";
+    void throwWhenEmptyPrompt() {
+        String prompt = "";
 
-        String response = chatClient.generateResponse(message);
-
-        logger.info("Chat Response: {}", response);
-        assertThat(response).isEmpty();
+        try {
+            String response = chatClient.generateResponse(prompt);
+            fail("Should have thrown on empty prompt");
+        } catch (IllegalArgumentException ex) {
+        }
     }
 
     @Test
@@ -80,5 +83,15 @@ public class ChatClientTest {
 
         logger.info("Chat Response: {}", response);
         assertThat(response).isNotEmpty();
+    }
+
+    @Test
+    void chunkDomainSpecificAnswer() throws Exception {
+        String message = data.prompts.domainSpecificPrompt;
+
+        Flux<String> response = chatClient.generateResponseChunks(message, data.prompts.domainSpecificContext.toArray(String[]::new));
+
+        String joinedChunks = response.log().toStream().reduce((result, next) -> result + next).get();
+        assertThat(joinedChunks).isNotEmpty();
     }
 }

@@ -18,12 +18,11 @@ import ch.lianto.openai.client.model.CreateEmbeddingResponse;
 import org.junit.Test;
 import org.junit.Ignore;
 
-import java.time.LocalDate;
-import java.time.OffsetDateTime;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.stream.Collectors;
 
 /**
  * API tests for EmbeddingsApi
@@ -38,15 +37,11 @@ public class EmbeddingsApiTest {
      * Creates an embedding vector representing the input text.
      *
      * 
-     *
-     * @throws ApiException
-     *          if the Api call fails
      */
     @Test
-    public void createEmbeddingTest() {
+    public void createEmbeddingTest()  {
         CreateEmbeddingRequest createEmbeddingRequest = null;
-
-        CreateEmbeddingResponse response = api.createEmbedding(createEmbeddingRequest);
+        CreateEmbeddingResponse response = api.createEmbedding(createEmbeddingRequest).block();
 
         // TODO: test validations
     }

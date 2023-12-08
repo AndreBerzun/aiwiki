@@ -52,7 +52,7 @@ import com.fasterxml.jackson.annotation.JsonTypeName;
   CreateChatCompletionRequest.JSON_PROPERTY_TOP_P,
   CreateChatCompletionRequest.JSON_PROPERTY_USER
 })
-@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", date = "2023-11-16T00:40:37.572831696+01:00[Europe/Zurich]")
+@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", date = "2023-12-08T01:46:18.007763393+01:00[Europe/Zurich]")
 public class CreateChatCompletionRequest {
   public static final String JSON_PROPERTY_MESSAGES = "messages";
   private List<ChatCompletionRequestMessage> messages = new ArrayList<>();

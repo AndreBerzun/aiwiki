@@ -31,7 +31,7 @@ import com.fasterxml.jackson.annotation.JsonTypeName;
   CreateEmbeddingResponseUsage.JSON_PROPERTY_TOTAL_TOKENS
 })
 @JsonTypeName("CreateEmbeddingResponse_usage")
-@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", date = "2023-11-16T00:40:37.572831696+01:00[Europe/Zurich]")
+@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", date = "2023-12-08T01:46:18.007763393+01:00[Europe/Zurich]")
 public class CreateEmbeddingResponseUsage {
   public static final String JSON_PROPERTY_PROMPT_TOKENS = "prompt_tokens";
   private Integer promptTokens;

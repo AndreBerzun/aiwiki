@@ -1,34 +1,30 @@
 package ch.lianto.openai.client.auth;
 
-import java.util.Optional;
-import java.util.function.Supplier;
+import java.io.UnsupportedEncodingException;
+import java.nio.charset.StandardCharsets;
+
 import org.springframework.http.HttpHeaders;
 import org.springframework.util.MultiValueMap;
 
-@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", date = "2023-11-16T00:40:37.572831696+01:00[Europe/Zurich]")
+@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", date = "2023-12-08T01:46:18.007763393+01:00[Europe/Zurich]")
 public class HttpBearerAuth implements Authentication {
     private final String scheme;
-    private Supplier<String> tokenSupplier;
+    private String bearerToken;
 
     public HttpBearerAuth(String scheme) {
         this.scheme = scheme;
     }
 
     public String getBearerToken() {
-        return tokenSupplier.get();
+        return bearerToken;
     }
 
     public void setBearerToken(String bearerToken) {
-        this.tokenSupplier = () -> bearerToken;
-    }
-    
-    public void setBearerToken(Supplier<String> tokenSupplier) {
-        this.tokenSupplier = tokenSupplier;
+        this.bearerToken = bearerToken;
     }
 
     @Override
     public void applyToParams(MultiValueMap<String, String> queryParams, HttpHeaders headerParams, MultiValueMap<String, String> cookieParams) {
-        String bearerToken = Optional.ofNullable(tokenSupplier).map(Supplier::get).orElse(null);
         if (bearerToken == null) {
             return;
         }
@@ -38,4 +34,5 @@ public class HttpBearerAuth implements Authentication {
     private static String upperCaseBearer(String scheme) {
         return ("bearer".equalsIgnoreCase(scheme)) ? "Bearer" : scheme;
     }
+
 }

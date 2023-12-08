@@ -24,7 +24,7 @@ public class OpenAiEmbeddingProvider implements EmbeddingProvider {
     @Override
     public double[] generateEmbedding(String text) {
         CreateEmbeddingRequest request = createRequest(text);
-        CreateEmbeddingResponse response = openaiEmbeddings.createEmbedding(request);
+        CreateEmbeddingResponse response = openaiEmbeddings.createEmbedding(request).block();
         validateResponseContainsOnlyOneEmbedding(response);
         return extractEmbedding(response);
     }

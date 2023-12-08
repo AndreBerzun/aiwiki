@@ -1,11 +1,13 @@
 .gitignore
 api/openapi.yaml
+pom.xml
 src/main/AndroidManifest.xml
 src/main/java/ch/lianto/openai/client/ApiClient.java
 src/main/java/ch/lianto/openai/client/JavaTimeFormatter.java
 src/main/java/ch/lianto/openai/client/RFC3339DateFormat.java
 src/main/java/ch/lianto/openai/client/ServerConfiguration.java
 src/main/java/ch/lianto/openai/client/ServerVariable.java
+src/main/java/ch/lianto/openai/client/StringUtil.java
 src/main/java/ch/lianto/openai/client/api/ChatApi.java
 src/main/java/ch/lianto/openai/client/api/EmbeddingsApi.java
 src/main/java/ch/lianto/openai/client/auth/ApiKeyAuth.java

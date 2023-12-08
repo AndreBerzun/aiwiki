@@ -782,9 +782,9 @@ components:
             Can be used in conjunction with the `seed` request parameter to understand when backend changes have been made that might impact determinism.
           type: string
         object:
-          description: "The object type, which is always `chat.completion`."
           enum:
           - chat.completion
+          - chat.completion.chunk
           type: string
         usage:
           $ref: '#/components/schemas/CompletionUsage'
@@ -858,6 +858,8 @@ components:
           description: The index of the choice in the list of choices.
           type: integer
         message:
+          $ref: '#/components/schemas/ChatCompletionResponseMessage'
+        delta:
           $ref: '#/components/schemas/ChatCompletionResponseMessage'
       required:
       - finish_reason

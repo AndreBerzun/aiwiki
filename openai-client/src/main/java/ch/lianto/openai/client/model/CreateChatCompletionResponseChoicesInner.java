@@ -30,10 +30,11 @@ import com.fasterxml.jackson.annotation.JsonTypeName;
 @JsonPropertyOrder({
   CreateChatCompletionResponseChoicesInner.JSON_PROPERTY_FINISH_REASON,
   CreateChatCompletionResponseChoicesInner.JSON_PROPERTY_INDEX,
-  CreateChatCompletionResponseChoicesInner.JSON_PROPERTY_MESSAGE
+  CreateChatCompletionResponseChoicesInner.JSON_PROPERTY_MESSAGE,
+  CreateChatCompletionResponseChoicesInner.JSON_PROPERTY_DELTA
 })
 @JsonTypeName("CreateChatCompletionResponse_choices_inner")
-@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", date = "2023-11-16T00:40:37.572831696+01:00[Europe/Zurich]")
+@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", date = "2023-12-08T01:46:18.007763393+01:00[Europe/Zurich]")
 public class CreateChatCompletionResponseChoicesInner {
   /**
    * The reason the model stopped generating tokens. This will be &#x60;stop&#x60; if the model hit a natural stop point or a provided stop sequence, &#x60;length&#x60; if the maximum number of tokens specified in the request was reached, &#x60;content_filter&#x60; if content was omitted due to a flag from our content filters, &#x60;tool_calls&#x60; if the model called a tool, or &#x60;function_call&#x60; (deprecated) if the model called a function. 
@@ -84,6 +85,9 @@ public class CreateChatCompletionResponseChoicesInner {
 
   public static final String JSON_PROPERTY_MESSAGE = "message";
   private ChatCompletionResponseMessage message;
+
+  public static final String JSON_PROPERTY_DELTA = "delta";
+  private ChatCompletionResponseMessage delta;
 
   public CreateChatCompletionResponseChoicesInner() {
   }
@@ -165,6 +169,32 @@ public class CreateChatCompletionResponseChoicesInner {
     this.message = message;
   }
 
+
+  public CreateChatCompletionResponseChoicesInner delta(ChatCompletionResponseMessage delta) {
+    
+    this.delta = delta;
+    return this;
+  }
+
+   /**
+   * Get delta
+   * @return delta
+  **/
+  @javax.annotation.Nullable
+  @JsonProperty(JSON_PROPERTY_DELTA)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+
+  public ChatCompletionResponseMessage getDelta() {
+    return delta;
+  }
+
+
+  @JsonProperty(JSON_PROPERTY_DELTA)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+  public void setDelta(ChatCompletionResponseMessage delta) {
+    this.delta = delta;
+  }
+
   @Override
   public boolean equals(Object o) {
     if (this == o) {
@@ -176,12 +206,13 @@ public class CreateChatCompletionResponseChoicesInner {
     CreateChatCompletionResponseChoicesInner createChatCompletionResponseChoicesInner = (CreateChatCompletionResponseChoicesInner) o;
     return Objects.equals(this.finishReason, createChatCompletionResponseChoicesInner.finishReason) &&
         Objects.equals(this.index, createChatCompletionResponseChoicesInner.index) &&
-        Objects.equals(this.message, createChatCompletionResponseChoicesInner.message);
+        Objects.equals(this.message, createChatCompletionResponseChoicesInner.message) &&
+        Objects.equals(this.delta, createChatCompletionResponseChoicesInner.delta);
   }
 
   @Override
   public int hashCode() {
-    return Objects.hash(finishReason, index, message);
+    return Objects.hash(finishReason, index, message, delta);
   }
 
   @Override
@@ -191,6 +222,7 @@ public class CreateChatCompletionResponseChoicesInner {
     sb.append("    finishReason: ").append(toIndentedString(finishReason)).append("\n");
     sb.append("    index: ").append(toIndentedString(index)).append("\n");
     sb.append("    message: ").append(toIndentedString(message)).append("\n");
+    sb.append("    delta: ").append(toIndentedString(delta)).append("\n");
     sb.append("}");
     return sb.toString();
   }

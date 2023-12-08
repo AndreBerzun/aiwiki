@@ -1,7 +1,7 @@
 {
   "libray": "resttemplate",
   "removeOperationIdPrefix": "true",
-  "library": "resttemplate",
+  "library": "webclient",
   "invokerPackage": "ch.lianto.openai.client",
   "apiPackage": "ch.lianto.openai.client.api",
   "modelPackage": "ch.lianto.openai.client.model",
