@@ -22,7 +22,7 @@ public class OpenAiEmbeddingProviderTest {
             .setApiKey(System.getenv("OPENAI_API_KEY"));
         OpenAIClientConfig config = new OpenAIClientConfig();
 
-        embeddingProvider = new OpenAiEmbeddingProvider(config.embeddingsApi(config.openaiApiClient(properties)), properties);
+        embeddingProvider = new OpenAiEmbeddingProvider(config.embeddingsApi(config.openaiApiClient(properties, config.objectMapper())), properties);
     }
 
     @Test

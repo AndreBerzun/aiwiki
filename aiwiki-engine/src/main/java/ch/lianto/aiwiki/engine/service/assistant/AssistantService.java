@@ -8,6 +8,7 @@ import ch.lianto.aiwiki.engine.repository.ProjectRepository;
 import ch.lianto.aiwiki.engine.service.nlp.ChatClient;
 import ch.lianto.aiwiki.engine.service.nlp.ChatSummaryProvider;
 import org.springframework.stereotype.Component;
+import reactor.core.publisher.Flux;
 
 import java.util.List;
 
@@ -34,7 +35,7 @@ public class AssistantService {
         Project project = projectRepo.findByName(projectName);
         String prompt = summaryProvider.summarizeLatestQuestion(chat);
         List<Similarity<PageSegment>> matchingSegments = pageSegmentRepo.findBySimilarity(prompt, project);
-        String answer = chatClient.generateResponse(prompt, toContext(matchingSegments));
+        Flux<String> answer = chatClient.generateResponseChunks(prompt, toContext(matchingSegments));
         return chat.answer(answer);
     }
 

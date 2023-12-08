@@ -40,7 +40,7 @@ import com.fasterxml.jackson.annotation.JsonTypeName;
   CreateChatCompletionResponse.JSON_PROPERTY_OBJECT,
   CreateChatCompletionResponse.JSON_PROPERTY_USAGE
 })
-@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", date = "2023-11-16T00:40:37.572831696+01:00[Europe/Zurich]")
+@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", date = "2023-12-08T01:46:18.007763393+01:00[Europe/Zurich]")
 public class CreateChatCompletionResponse {
   public static final String JSON_PROPERTY_ID = "id";
   private String id;
@@ -58,10 +58,12 @@ public class CreateChatCompletionResponse {
   private String systemFingerprint;
 
   /**
-   * The object type, which is always &#x60;chat.completion&#x60;.
+   * Gets or Sets _object
    */
   public enum ObjectEnum {
-    CHAT_COMPLETION("chat.completion");
+    COMPLETION("chat.completion"),
+    
+    COMPLETION_CHUNK("chat.completion.chunk");
 
     private String value;
 
@@ -244,7 +246,7 @@ public class CreateChatCompletionResponse {
   }
 
    /**
-   * The object type, which is always &#x60;chat.completion&#x60;.
+   * Get _object
    * @return _object
   **/
   @javax.annotation.Nonnull

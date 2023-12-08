@@ -30,7 +30,7 @@ import com.fasterxml.jackson.annotation.JsonTypeName;
   ChatCompletionRequestMessage.JSON_PROPERTY_CONTENT,
   ChatCompletionRequestMessage.JSON_PROPERTY_ROLE
 })
-@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", date = "2023-11-16T00:40:37.572831696+01:00[Europe/Zurich]")
+@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", date = "2023-12-08T01:46:18.007763393+01:00[Europe/Zurich]")
 public class ChatCompletionRequestMessage {
   public static final String JSON_PROPERTY_CONTENT = "content";
   private String content;

@@ -18,12 +18,11 @@ import ch.lianto.openai.client.model.CreateChatCompletionResponse;
 import org.junit.Test;
 import org.junit.Ignore;
 
-import java.time.LocalDate;
-import java.time.OffsetDateTime;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.stream.Collectors;
 
 /**
  * API tests for ChatApi
@@ -38,15 +37,11 @@ public class ChatApiTest {
      * Creates a model response for the given chat conversation.
      *
      * 
-     *
-     * @throws ApiException
-     *          if the Api call fails
      */
     @Test
-    public void createChatCompletionTest() {
+    public void createChatCompletionTest()  {
         CreateChatCompletionRequest createChatCompletionRequest = null;
-
-        CreateChatCompletionResponse response = api.createChatCompletion(createChatCompletionRequest);
+        CreateChatCompletionResponse response = api.createChatCompletion(createChatCompletionRequest).block();
 
         // TODO: test validations
     }

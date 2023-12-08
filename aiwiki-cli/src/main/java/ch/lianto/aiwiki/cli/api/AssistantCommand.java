@@ -6,6 +6,7 @@ import ch.lianto.aiwiki.engine.entity.PageSegment;
 import ch.lianto.aiwiki.engine.repository.PageSegmentRepository;
 import ch.lianto.aiwiki.engine.service.assistant.AssistantService;
 import ch.lianto.aiwiki.engine.service.assistant.Similarity;
+import org.jline.terminal.Terminal;
 import org.springframework.shell.command.annotation.Command;
 import org.springframework.shell.command.annotation.CommandAvailability;
 import org.springframework.stereotype.Component;
@@ -18,19 +19,36 @@ public class AssistantCommand {
     private final CliContext context;
     private final AssistantService assistantService;
     private final PageSegmentRepository pageSegmentRepo;
+    private final Terminal terminal;
 
-    public AssistantCommand(CliContext context, AssistantService assistantService, PageSegmentRepository pageSegmentRepo) {
+    public AssistantCommand(
+        CliContext context,
+        AssistantService assistantService,
+        PageSegmentRepository pageSegmentRepo,
+        Terminal terminal
+    ) {
         this.context = context;
         this.assistantService = assistantService;
         this.pageSegmentRepo = pageSegmentRepo;
+        this.terminal = terminal;
     }
 
     @Command(command = "ask", description = "Ask the wiki any questions")
     @CommandAvailability(provider = "projectAvailability")
-    public String ask(String prompt) {
+    public void ask(String prompt) {
         Chat chat = context.getAssistantChat().question(prompt);
-        assistantService.ask(chat, context.getSelectedProject().getName());
-        return chat.getLatestAnswer().text();
+
+        chat = assistantService.ask(chat, context.getSelectedProject().getName());
+
+        printAnswerChunks(chat);
+    }
+
+    private void printAnswerChunks(Chat chat) {
+        chat.getLatestAnswerChunks().toStream().forEach(chunk -> {
+            terminal.writer().print(chunk);
+            terminal.writer().flush();
+        });
+        terminal.writer().println();
     }
 
     @Command(command = "search", description = "Search the wiki for page segments that match the prompt")

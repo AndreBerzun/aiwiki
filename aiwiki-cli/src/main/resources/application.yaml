@@ -4,6 +4,8 @@ spring:
       enabled: true
   flyway:
     enabled: false
+  jackson:
+    default-property-inclusion: non_empty
 app:
   persistence:
     simple:

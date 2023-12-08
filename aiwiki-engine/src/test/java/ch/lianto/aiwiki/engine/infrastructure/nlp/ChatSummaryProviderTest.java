@@ -31,7 +31,7 @@ public class ChatSummaryProviderTest {
             .setEmbeddingModel(CreateEmbeddingRequestModel.TEXT_EMBEDDING_ADA_002);
         OpenAIClientConfig config = new OpenAIClientConfig();
 
-        summaryProvider = new ChatGPTClient(config.chatApi(config.openaiApiClient(properties)), properties);
+        summaryProvider = new ChatGPTClient(config.chatApi(config.openaiApiClient(properties, config.objectMapper())), properties);
     }
 
     @Test
