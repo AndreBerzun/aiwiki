@@ -14,7 +14,7 @@ import org.springframework.stereotype.Component;
 import java.util.List;
 
 @Component
-@Command(command = "assistant")
+@Command
 public class AssistantCommand {
     private final CliContext context;
     private final AssistantService assistantService;
@@ -33,7 +33,14 @@ public class AssistantCommand {
         this.terminal = terminal;
     }
 
-    @Command(command = "ask", description = "Ask the wiki any questions")
+    @Command(command = "assistant", description = "Enter assistant mode and ask free flowing questions")
+    @CommandAvailability(provider = "projectAvailability")
+    public String enterAssistantMode() {
+        context.setAssistantMode(true);
+        return "Welcome, go ahead and start asking questions:";
+    }
+
+    @Command(command = "assistant ask", alias = ">", description = "Ask the wiki any questions")
     @CommandAvailability(provider = "projectAvailability")
     public void ask(String prompt) {
         Chat chat = context.getAssistantChat().question(prompt);
@@ -51,7 +58,7 @@ public class AssistantCommand {
         terminal.writer().println();
     }
 
-    @Command(command = "search", description = "Search the wiki for page segments that match the prompt")
+    @Command(command = "assistant search", description = "Search the wiki for page segments that match the prompt")
     @CommandAvailability(provider = "projectAvailability")
     public String search(String phrase) {
         List<Similarity<PageSegment>> segments = pageSegmentRepo.findBySimilarity(phrase, context.getSelectedProject());
