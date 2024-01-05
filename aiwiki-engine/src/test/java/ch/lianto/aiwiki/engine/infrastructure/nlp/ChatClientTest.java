@@ -1,6 +1,6 @@
 package ch.lianto.aiwiki.engine.infrastructure.nlp;
 
-import ch.lianto.aiwiki.engine.service.nlp.ChatClient;
+import ch.lianto.aiwiki.engine.policy.nlp.ChatClient;
 import ch.lianto.aiwiki.engine.utils.TestData;
 import ch.lianto.openai.client.config.OpenAIClientConfig;
 import ch.lianto.openai.client.config.OpenAIClientProperties;

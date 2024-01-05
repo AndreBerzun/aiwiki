@@ -2,8 +2,8 @@ package ch.lianto.aiwiki.engine.infrastructure.nlp;
 
 import ch.lianto.aiwiki.engine.entity.Chat;
 import ch.lianto.aiwiki.engine.entity.Message;
-import ch.lianto.aiwiki.engine.service.nlp.ChatClient;
-import ch.lianto.aiwiki.engine.service.nlp.ChatSummaryProvider;
+import ch.lianto.aiwiki.engine.policy.nlp.ChatClient;
+import ch.lianto.aiwiki.engine.policy.nlp.ChatSummaryProvider;
 import ch.lianto.openai.client.api.ChatApi;
 import ch.lianto.openai.client.config.OpenAIClientProperties;
 import ch.lianto.openai.client.model.ChatCompletionRequestMessage;

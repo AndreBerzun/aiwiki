@@ -6,7 +6,7 @@ import ch.lianto.aiwiki.engine.entity.Project;
 import ch.lianto.aiwiki.engine.repository.PageRepository;
 import ch.lianto.aiwiki.engine.repository.PageSegmentRepository;
 import ch.lianto.aiwiki.engine.repository.ProjectRepository;
-import ch.lianto.aiwiki.engine.service.assistant.Similarity;
+import ch.lianto.aiwiki.engine.policy.assistant.Similarity;
 import ch.lianto.aiwiki.engine.utils.TestData;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;

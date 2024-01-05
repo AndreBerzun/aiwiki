@@ -1,0 +1,134 @@
+name: AIWiki 0.4.0
+dataSets:
+  - name: spring
+    questions:
+      # Tutorial questions
+      - text: How do I define a listener class or method that is executed during entity lifecycle events?
+        expectedSegments:
+          - page: Entity Callbacks
+            segmentIndex: 0
+          - page: Entity Callbacks
+            segmentIndex: 1
+          - page: Publishing Events from Aggregate Roots
+            segmentIndex: 0
+      - text: How can I extend an auto-generated Spring JPA repository with custom methods or behavior?
+        expectedSegments:
+          - page: Custom Repository Implementations
+            segmentIndex: 0
+          - page: Custom Repository Implementations
+            segmentIndex: 1
+          - page: Custom Repository Implementations
+            segmentIndex: 2
+      - text: What configurations do I need to perform to use Springs JPA integration?
+        expectedSegments:
+          - page: Configuration
+            segmentIndex: 0
+          - page: Configuration
+            segmentIndex: 1
+          - page: Configuration
+            segmentIndex: 2
+      - text: Can I reference native SQL queries with Spring JPA?
+        expectedSegments:
+          - page: JPA Query Methods
+            segmentIndex: 4
+          - page: JPA Query Methods
+            segmentIndex: 2
+      # Summarizing questions
+      # - text: What are Spring JPAs features? What can I do with it?
+      # Source Question
+      - text: Which page can I read up on to learn about mapping query result tuples to custom POJO types?
+        expectedSegments:
+          - page: Projections
+            segmentIndex: 0
+          - page: Projections
+            segmentIndex: 1
+          - page: Projections
+            segmentIndex: 2
+  - name: bs4
+    questions:
+      # Tutorial questions
+      - text: How do you select the children of a div container with bs4?
+        expectedSegments:
+          - page: Navigating the tree
+            segmentIndex: 0
+          - page: Navigating the tree
+            segmentIndex: 1
+      - text: I want to search elements using the jQuery CSS syntax. How can I do that in bs4?
+        expectedSegments:
+          - page: Searching the tree
+            segmentIndex: 3
+          - page: Searching the tree
+            segmentIndex: 4
+      - text: What methods for searching elements in the markup tree are there?
+        expectedSegments:
+          - page: Searching the tree
+            segmentIndex: 0
+          - page: Searching the tree
+            segmentIndex: 1
+          - page: Searching the tree
+            segmentIndex: 2
+          - page: Searching the tree
+            segmentIndex: 3
+          - page: Searching the tree
+            segmentIndex: 4
+      - text: Are there performance trade-offs one should be aware of when using bs4?
+        expectedSegments:
+          - page: Troubleshooting
+            segmentIndex: 2
+          - page: Troubleshooting
+            segmentIndex: 3
+      # Summarizing questions, though not really
+      - text: What are Bs4's features? What can it do?
+        expectedSegments:
+          - page: Beautiful Soup Documentation
+            segmentIndex: 0
+  - name: petfellows
+    questions:
+      - text: Who are the founders of Pet Fellows?
+        expectedSegments:
+          - page: team
+            segmentIndex: 0
+      - text: What features does the app offer?
+        expectedSegments:
+          - page: startseite
+            segmentIndex: 0
+          - page: fellowships
+            segmentIndex: 0
+  - name: critrole
+    questions:
+      # Identifying questions
+      - text: Does Imogen have a love interest?
+        expectedSegments:
+          - page: C3E65-A Path of Vengeance
+            segmentIndex: 2
+          - page: C3E65-A Path of Vengeance
+            segmentIndex: 2
+          - page: C3E49-The Aurora Grows
+            segmentIndex: 7
+      - text: Which of the members of Bells Hells was killed by Otohan Tull?
+        expectedSegments:
+          - page: C3E33-Blood and Dust
+            segmentIndex: 5
+          - page: C3E33-Blood and Dust
+            segmentIndex: 6
+          - page: C3E34-What Dreams May Come
+            segmentIndex: 1
+      - text: Who is Ira Wendegoth?
+        expectedSegments:
+          - page: C3E11-Chasing Nightmares
+            segmentIndex: 1
+          - page: C3E11-Chasing Nightmares
+            segmentIndex: 2
+          - page: C3E11-Chasing Nightmares
+            segmentIndex: 3
+          - page: C3E10-Ghosts, Dates, and Darker Fates
+            segmentIndex: 5
+      # Summarizing questions
+      # - text: What are the different arcs arching over the adventures of Bells Hells?
+      # Source Question
+      - text: In what episode did Ferne find her parents?
+        expectedSegments:
+          - page: C3E28-The Deathwish Run
+            segmentIndex: 5
+          - page: C3E30-Reunion & Revelation
+            segmentIndex: 3

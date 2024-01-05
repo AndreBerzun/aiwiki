@@ -29,6 +29,12 @@
             <artifactId>aiwiki-engine</artifactId>
             <version>${parent.version}</version>
         </dependency>
+
+        <dependency>
+            <groupId>ch.lianto</groupId>
+            <artifactId>aiwiki-benchmarks</artifactId>
+            <version>${parent.version}</version>
+        </dependency>
     </dependencies>
 
     <dependencyManagement>

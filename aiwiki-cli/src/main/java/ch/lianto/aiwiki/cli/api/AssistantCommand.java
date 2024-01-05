@@ -3,9 +3,8 @@ package ch.lianto.aiwiki.cli.api;
 import ch.lianto.aiwiki.cli.service.CliContext;
 import ch.lianto.aiwiki.engine.entity.Chat;
 import ch.lianto.aiwiki.engine.entity.PageSegment;
-import ch.lianto.aiwiki.engine.repository.PageSegmentRepository;
-import ch.lianto.aiwiki.engine.service.assistant.AssistantService;
-import ch.lianto.aiwiki.engine.service.assistant.Similarity;
+import ch.lianto.aiwiki.engine.policy.assistant.AssistantService;
+import ch.lianto.aiwiki.engine.policy.assistant.Similarity;
 import org.jline.terminal.Terminal;
 import org.springframework.shell.command.annotation.Command;
 import org.springframework.shell.command.annotation.CommandAvailability;
@@ -18,18 +17,15 @@ import java.util.List;
 public class AssistantCommand {
     private final CliContext context;
     private final AssistantService assistantService;
-    private final PageSegmentRepository pageSegmentRepo;
     private final Terminal terminal;
 
     public AssistantCommand(
         CliContext context,
         AssistantService assistantService,
-        PageSegmentRepository pageSegmentRepo,
         Terminal terminal
     ) {
         this.context = context;
         this.assistantService = assistantService;
-        this.pageSegmentRepo = pageSegmentRepo;
         this.terminal = terminal;
     }
 
@@ -61,7 +57,7 @@ public class AssistantCommand {
     @Command(command = "assistant search", description = "Search the wiki for page segments that match the prompt")
     @CommandAvailability(provider = "projectAvailability")
     public String search(String phrase) {
-        List<Similarity<PageSegment>> segments = pageSegmentRepo.findBySimilarity(phrase, context.getSelectedProject());
+        List<Similarity<PageSegment>> segments = assistantService.search(phrase, context.getSelectedProject());
         return matchingSegmentsToStringOverview(segments);
     }
 

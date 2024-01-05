@@ -2,7 +2,7 @@ package ch.lianto.aiwiki.engine.utils;
 
 import ch.lianto.aiwiki.engine.entity.Page;
 import ch.lianto.aiwiki.engine.entity.PageSegment;
-import ch.lianto.aiwiki.engine.service.page.PageDto;
+import ch.lianto.aiwiki.engine.policy.page.PageDto;
 
 import java.util.stream.Stream;
 

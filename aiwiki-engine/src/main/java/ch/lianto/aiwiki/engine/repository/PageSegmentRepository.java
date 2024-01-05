@@ -2,7 +2,7 @@ package ch.lianto.aiwiki.engine.repository;
 
 import ch.lianto.aiwiki.engine.entity.PageSegment;
 import ch.lianto.aiwiki.engine.entity.Project;
-import ch.lianto.aiwiki.engine.service.assistant.Similarity;
+import ch.lianto.aiwiki.engine.policy.assistant.Similarity;
 
 import java.util.List;
 

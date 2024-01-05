@@ -1,6 +1,6 @@
 package ch.lianto.aiwiki.engine.infrastructure.nlp;
 
-import ch.lianto.aiwiki.engine.service.page.PageSegmentationStrategy;
+import ch.lianto.aiwiki.engine.policy.page.PageSegmentationStrategy;
 import org.springframework.context.annotation.Primary;
 import org.springframework.stereotype.Component;
 

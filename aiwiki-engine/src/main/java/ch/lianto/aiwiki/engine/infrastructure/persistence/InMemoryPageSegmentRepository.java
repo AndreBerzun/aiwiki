@@ -5,8 +5,8 @@ import ch.lianto.aiwiki.engine.entity.PageSegment;
 import ch.lianto.aiwiki.engine.entity.Project;
 import ch.lianto.aiwiki.engine.repository.PageSegmentRepository;
 import ch.lianto.aiwiki.engine.repository.ProjectRepository;
-import ch.lianto.aiwiki.engine.service.assistant.Similarity;
-import ch.lianto.aiwiki.engine.service.nlp.EmbeddingProvider;
+import ch.lianto.aiwiki.engine.policy.assistant.Similarity;
+import ch.lianto.aiwiki.engine.policy.nlp.EmbeddingProvider;
 import org.springframework.stereotype.Component;
 
 import java.util.Comparator;
