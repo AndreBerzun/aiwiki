@@ -6,6 +6,7 @@ name = "pypi"
 [packages]
 scrapy = "*"
 beautifulsoup4 = "*"
+scrapy-fake-useragent = "*"
 
 [dev-packages]
 

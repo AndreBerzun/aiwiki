@@ -2,8 +2,8 @@ package ch.lianto.aiwiki.cli.api;
 
 import ch.lianto.aiwiki.cli.service.CliContext;
 import ch.lianto.aiwiki.engine.entity.Project;
-import ch.lianto.aiwiki.engine.service.project.ProjectDto;
-import ch.lianto.aiwiki.engine.service.project.ProjectService;
+import ch.lianto.aiwiki.engine.policy.project.ProjectDto;
+import ch.lianto.aiwiki.engine.policy.project.ProjectService;
 import org.springframework.shell.command.annotation.Command;
 import org.springframework.shell.command.annotation.CommandAvailability;
 import org.springframework.stereotype.Component;

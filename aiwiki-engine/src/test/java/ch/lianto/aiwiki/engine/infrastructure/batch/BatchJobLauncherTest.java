@@ -9,7 +9,7 @@ import ch.lianto.aiwiki.engine.infrastructure.persistence.InMemoryPageRepository
 import ch.lianto.aiwiki.engine.infrastructure.persistence.InMemoryProjectRepository;
 import ch.lianto.aiwiki.engine.repository.ProjectRepository;
 import ch.lianto.aiwiki.engine.infrastructure.nlp.MaxWordSegmentationStrategy;
-import ch.lianto.aiwiki.engine.service.page.PageService;
+import ch.lianto.aiwiki.engine.policy.page.PageService;
 import ch.lianto.aiwiki.engine.utils.TestData;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;

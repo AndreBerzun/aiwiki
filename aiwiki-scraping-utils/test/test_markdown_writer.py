@@ -130,6 +130,22 @@ class MarkdownWriterTest(unittest.TestCase):
             '- Item 3'
         )
 
+    def test_write_description_list(self):
+        self._test_write_html(
+            '''
+            <dl>
+                <dt>Key 1</dt>
+                <dd>Value 1</dd>
+                <dd>Extra 1</dd>
+                <dd>Extra 2</dd>
+                <dt>Key 2</dt>
+                <dd>Value 2</dd>
+            </dl>
+            ''',
+            '- Key 1: Value 1, Extra 1, Extra 2\n'
+            '- Key 2: Value 2'
+        )
+
     def _test_write_html(self, html: str, expected_markdown: str):
         with MarkdownWriter(TEST_FILE_NAME) as markdown:
             soup = BeautifulSoup(html)
