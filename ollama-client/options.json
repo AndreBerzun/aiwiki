@@ -1,0 +1,15 @@
+{
+  "removeOperationIdPrefix": "true",
+  "library": "webclient",
+  "invokerPackage": "ch.lianto.ollama.client",
+  "apiPackage": "ch.lianto.ollama.client.api",
+  "modelPackage": "ch.lianto.ollama.client.model",
+  "artifactDescription": "",
+  "artifactId": "ollama-client",
+  "artifactVersion": "${parent.version}",
+  "groupId": "ch.lianto",
+  "parentArtifactId": "aiwiki-parent",
+  "parentGroupId": "ch.lianto",
+  "parentVersion": "0.0.1-SNAPSHOT",
+  "openApiNullable": false
+}

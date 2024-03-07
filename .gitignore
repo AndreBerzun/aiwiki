@@ -4,6 +4,7 @@ target/
 !**/src/main/**/target/
 !**/src/test/**/target/
 spring-shell.log
+**/pytorch_**.bin
 
 ### STS ###
 .apt_generated

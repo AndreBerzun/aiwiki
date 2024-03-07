@@ -21,6 +21,7 @@
         <module>aiwiki-cli</module>
         <module>openai-client</module>
         <module>aiwiki-benchmarks</module>
+        <module>ollama-client</module>
     </modules>
 
     <properties>

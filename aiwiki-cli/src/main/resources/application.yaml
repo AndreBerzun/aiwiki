@@ -6,11 +6,26 @@ spring:
     enabled: false
   jackson:
     default-property-inclusion: non_empty
+  profiles:
+    group:
+      openai:
+        - openai-generation
+        - openai-embeddings
+      ollama:
+        - ollama-generation
+        - ollama-embeddings
 app:
   persistence:
     simple:
-      file: file:/home/andre/apps/aiwiki/data-store.json
+      file: file:/home/andre/apps/aiwiki/ollama-store.json
   openai:
     api-key: ${OPENAI_API_KEY}
-    chat-model: "_3_5_TURBO"
     embedding-model: "text-embedding-ada-002"
+    generation-model: "_3_5_TURBO"
+  ollama:
+    ollama-url: http://localhost:11434
+    generation-model: "gemma:2b"
+    embedding-model: "nomic-embed-text"
+    prompt-prefixes:
+      SEARCH_QUERY: "search_query:"
+      SEARCH_DOCUMENT: "search_document:"

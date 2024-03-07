@@ -13,6 +13,7 @@ import java.util.Comparator;
 import java.util.List;
 import java.util.stream.Stream;
 
+import static ch.lianto.aiwiki.engine.policy.nlp.EmbeddingProvider.EmbeddingType.SEARCH_QUERY;
 import static ch.lianto.aiwiki.engine.utils.EmbeddingUtils.cosineSimilarity;
 
 @Component
@@ -29,7 +30,7 @@ public class InMemoryPageSegmentRepository implements PageSegmentRepository {
 
     @Override
     public List<Similarity<PageSegment>> findBySimilarity(String text, Project project) {
-        double[] textEmbedding = embeddingProvider.generateEmbedding(text);
+        double[] textEmbedding = embeddingProvider.generateEmbedding(text, SEARCH_QUERY);
 
         return streamPageSegmentsByProject(project)
             .map(segment -> new Similarity<>(cosineSimilarity(textEmbedding, segment.getEmbedding()), segment))

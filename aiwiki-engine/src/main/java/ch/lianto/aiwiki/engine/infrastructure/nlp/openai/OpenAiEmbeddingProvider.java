@@ -1,15 +1,18 @@
-package ch.lianto.aiwiki.engine.infrastructure.nlp;
+package ch.lianto.aiwiki.engine.infrastructure.nlp.openai;
 
+import ch.lianto.aiwiki.engine.infrastructure.nlp.EmbeddingException;
 import ch.lianto.aiwiki.engine.policy.nlp.EmbeddingProvider;
 import ch.lianto.openai.client.api.EmbeddingsApi;
 import ch.lianto.openai.client.config.OpenAIClientProperties;
 import ch.lianto.openai.client.model.CreateEmbeddingRequest;
 import ch.lianto.openai.client.model.CreateEmbeddingResponse;
 import org.springframework.context.annotation.Primary;
+import org.springframework.context.annotation.Profile;
 import org.springframework.stereotype.Component;
 
 import java.math.BigDecimal;
 
+@Profile("openai-embeddings")
 @Primary
 @Component
 public class OpenAiEmbeddingProvider implements EmbeddingProvider {
@@ -22,7 +25,7 @@ public class OpenAiEmbeddingProvider implements EmbeddingProvider {
     }
 
     @Override
-    public double[] generateEmbedding(String text) {
+    public double[] generateEmbedding(String text, EmbeddingType type) {
         CreateEmbeddingRequest request = createRequest(text);
         CreateEmbeddingResponse response = openaiEmbeddings.createEmbedding(request).block();
         validateResponseContainsOnlyOneEmbedding(response);
