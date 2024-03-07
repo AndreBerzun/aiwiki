@@ -2,12 +2,6 @@ package ch.lianto.aiwiki.engine.infrastructure.nlp;
 
 import ch.lianto.aiwiki.engine.policy.nlp.ChatClient;
 import ch.lianto.aiwiki.engine.utils.TestData;
-import ch.lianto.openai.client.config.OpenAIClientConfig;
-import ch.lianto.openai.client.config.OpenAIClientProperties;
-import ch.lianto.openai.client.model.CreateChatCompletionRequestModel;
-import ch.lianto.openai.client.model.CreateEmbeddingRequestModel;
-import org.junit.jupiter.api.BeforeEach;
-import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Test;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -16,23 +10,10 @@ import reactor.core.publisher.Flux;
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.assertj.core.api.Assertions.fail;
 
-@Disabled
-public class ChatClientTest {
-    private final Logger logger = LoggerFactory.getLogger(getClass());
-    private TestData data;
-    private ChatClient chatClient;
-
-    @BeforeEach
-    void setUp() {
-        data = new TestData();
-        OpenAIClientProperties properties = new OpenAIClientProperties()
-            .setApiKey(System.getenv("OPENAI_API_KEY"))
-            .setChatModel(CreateChatCompletionRequestModel._3_5_TURBO)
-            .setEmbeddingModel(CreateEmbeddingRequestModel.TEXT_EMBEDDING_ADA_002);
-        OpenAIClientConfig config = new OpenAIClientConfig();
-
-        chatClient = new ChatGPTClient(config.chatApi(config.openaiApiClient(properties, config.objectMapper())), properties);
-    }
+public abstract class AbstractChatClientTest {
+    protected final Logger logger = LoggerFactory.getLogger(getClass());
+    protected TestData data;
+    protected ChatClient chatClient;
 
     @Test
     void throwWhenEmptyPrompt() {
@@ -83,6 +64,16 @@ public class ChatClientTest {
 
         logger.info("Chat Response: {}", response);
         assertThat(response).isNotEmpty();
+    }
+
+    @Test
+    void chunkGeneralAnswer() throws Exception {
+        String message = data.prompts.generalKnowledgePrompt;
+
+        Flux<String> response = chatClient.generateResponseChunks(message);
+
+        String joinedChunks = response.log().toStream().reduce((result, next) -> result + next).get();
+        assertThat(joinedChunks).isNotEmpty();
     }
 
     @Test

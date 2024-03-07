@@ -9,7 +9,7 @@ import org.springframework.stereotype.Component;
 @Component
 public class OpenAIClientProperties {
     private String apiKey;
-    private CreateChatCompletionRequestModel chatModel;
+    private CreateChatCompletionRequestModel generationModel;
     private CreateEmbeddingRequestModel embeddingModel = CreateEmbeddingRequestModel.TEXT_EMBEDDING_ADA_002;
 
     public String getApiKey() {
@@ -21,12 +21,12 @@ public class OpenAIClientProperties {
         return this;
     }
 
-    public CreateChatCompletionRequestModel getChatModel() {
-        return chatModel;
+    public CreateChatCompletionRequestModel getGenerationModel() {
+        return generationModel;
     }
 
-    public OpenAIClientProperties setChatModel(CreateChatCompletionRequestModel chatModel) {
-        this.chatModel = chatModel;
+    public OpenAIClientProperties setGenerationModel(CreateChatCompletionRequestModel generationModel) {
+        this.generationModel = generationModel;
         return this;
     }
 

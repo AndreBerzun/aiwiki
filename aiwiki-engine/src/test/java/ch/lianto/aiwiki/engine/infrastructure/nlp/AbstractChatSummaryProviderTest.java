@@ -3,12 +3,6 @@ package ch.lianto.aiwiki.engine.infrastructure.nlp;
 import ch.lianto.aiwiki.engine.entity.Chat;
 import ch.lianto.aiwiki.engine.policy.nlp.ChatSummaryProvider;
 import ch.lianto.aiwiki.engine.utils.TestData;
-import ch.lianto.openai.client.config.OpenAIClientConfig;
-import ch.lianto.openai.client.config.OpenAIClientProperties;
-import ch.lianto.openai.client.model.CreateChatCompletionRequestModel;
-import ch.lianto.openai.client.model.CreateEmbeddingRequestModel;
-import org.junit.jupiter.api.BeforeEach;
-import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Test;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -16,23 +10,10 @@ import org.slf4j.LoggerFactory;
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.assertj.core.api.Assertions.fail;
 
-@Disabled
-public class ChatSummaryProviderTest {
-    private Logger logger = LoggerFactory.getLogger(getClass());
-    private TestData data;
-    private ChatSummaryProvider summaryProvider;
-
-    @BeforeEach
-    void setUp() {
-        data = new TestData();
-        OpenAIClientProperties properties = new OpenAIClientProperties()
-            .setApiKey(System.getenv("OPENAI_API_KEY"))
-            .setChatModel(CreateChatCompletionRequestModel._3_5_TURBO)
-            .setEmbeddingModel(CreateEmbeddingRequestModel.TEXT_EMBEDDING_ADA_002);
-        OpenAIClientConfig config = new OpenAIClientConfig();
-
-        summaryProvider = new ChatGPTClient(config.chatApi(config.openaiApiClient(properties, config.objectMapper())), properties);
-    }
+public abstract class AbstractChatSummaryProviderTest {
+    protected Logger logger = LoggerFactory.getLogger(getClass());
+    protected TestData data;
+    protected ChatSummaryProvider summaryProvider;
 
     @Test
     void throwWhenSummarizingEmptyChat() {

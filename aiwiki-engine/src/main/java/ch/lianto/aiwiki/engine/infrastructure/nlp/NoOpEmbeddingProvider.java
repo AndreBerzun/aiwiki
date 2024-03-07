@@ -7,7 +7,7 @@ import org.springframework.stereotype.Component;
 public class NoOpEmbeddingProvider implements EmbeddingProvider {
 
     @Override
-    public double[] generateEmbedding(String text) {
+    public double[] generateEmbedding(String text, EmbeddingType type) {
         return new double[]{1.0, 1.0, 1.0};
     }
 }

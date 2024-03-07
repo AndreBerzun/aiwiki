@@ -1,5 +1,4 @@
 {
-  "libray": "resttemplate",
   "removeOperationIdPrefix": "true",
   "library": "webclient",
   "invokerPackage": "ch.lianto.openai.client",

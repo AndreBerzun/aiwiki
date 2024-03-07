@@ -29,12 +29,12 @@ public class OpenAIClientConfig {
     }
 
     @Bean
-    public ChatApi chatApi(ApiClient openaiApiClient) {
+    public ChatApi openaiChatApi(ApiClient openaiApiClient) {
         return new ChatApi(openaiApiClient);
     }
 
     @Bean
-    public EmbeddingsApi embeddingsApi(ApiClient openaiApiClient) {
+    public EmbeddingsApi openaiEmbeddingsApi(ApiClient openaiApiClient) {
         return new EmbeddingsApi(openaiApiClient);
     }
 }

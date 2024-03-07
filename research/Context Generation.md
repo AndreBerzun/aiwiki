@@ -4,7 +4,6 @@
 
 - Similarity search with embeddings
 - Similarity search with enhanced AI-Chains
-- 
 
 ## 2. Benchmarking
 

@@ -26,7 +26,7 @@ public class PageSegmentRepositoryTest {
         data = new TestData();
         projectRepo = new InMemoryProjectRepository();
         pageRepo = new InMemoryPageRepository(projectRepo);
-        pageSegmentRepo = new InMemoryPageSegmentRepository(projectRepo, (text) -> new double[]{1, 1, 1});
+        pageSegmentRepo = new InMemoryPageSegmentRepository(projectRepo, (text, type) -> new double[]{1, 1, 1});
     }
 
     @Test

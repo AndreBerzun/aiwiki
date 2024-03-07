@@ -9,6 +9,8 @@ import org.springframework.stereotype.Component;
 
 import java.util.List;
 
+import static ch.lianto.aiwiki.engine.policy.nlp.EmbeddingProvider.EmbeddingType.SEARCH_DOCUMENT;
+
 @Component
 public class PageService {
     private final PageRepository pageRepo;
@@ -47,7 +49,7 @@ public class PageService {
             .stream()
             .map(segment -> new PageSegment()
                 .setText(segment)
-                .setEmbedding(embeddingProvider.generateEmbedding(segment))
+                .setEmbedding(embeddingProvider.generateEmbedding(segment, SEARCH_DOCUMENT))
                 .setPage(page))
             .toList();
     }
