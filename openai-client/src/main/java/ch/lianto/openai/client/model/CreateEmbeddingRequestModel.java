@@ -26,7 +26,11 @@ import com.fasterxml.jackson.annotation.JsonValue;
  */
 public enum CreateEmbeddingRequestModel {
   
-  TEXT_EMBEDDING_ADA_002("text-embedding-ada-002");
+  ADA_002("text-embedding-ada-002"),
+  
+  _3_SMALL("text-embedding-3-small"),
+  
+  _3_LARGE("text-embedding-3-large");
 
   private String value;
 

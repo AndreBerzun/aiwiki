@@ -37,7 +37,7 @@ import com.fasterxml.jackson.annotation.JsonTypeName;
   CreateEmbeddingResponse.JSON_PROPERTY_OBJECT,
   CreateEmbeddingResponse.JSON_PROPERTY_USAGE
 })
-@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", date = "2023-12-08T01:46:18.007763393+01:00[Europe/Zurich]")
+@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", date = "2024-05-23T22:31:58.269298200+02:00[Europe/Zurich]", comments = "Generator version: 7.6.0")
 public class CreateEmbeddingResponse {
   public static final String JSON_PROPERTY_DATA = "data";
   private List<Embedding> data = new ArrayList<>();
@@ -120,7 +120,6 @@ public class CreateEmbeddingResponse {
     this.data = data;
   }
 
-
   public CreateEmbeddingResponse model(String model) {
     
     this.model = model;
@@ -146,7 +145,6 @@ public class CreateEmbeddingResponse {
     this.model = model;
   }
 
-
   public CreateEmbeddingResponse _object(ObjectEnum _object) {
     
     this._object = _object;
@@ -171,7 +169,6 @@ public class CreateEmbeddingResponse {
   public void setObject(ObjectEnum _object) {
     this._object = _object;
   }
-
 
   public CreateEmbeddingResponse usage(CreateEmbeddingResponseUsage usage) {
     

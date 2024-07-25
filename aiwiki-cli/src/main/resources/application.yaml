@@ -1,3 +1,22 @@
+app:
+  persistence:
+    simple:
+      file: file:/home/andre/apps/aiwiki/gpt-3.5.json
+  indexing:
+    chunking: max_token
+    enable-additional-embeddings: true
+  openai:
+    api-key: ${OPENAI_API_KEY}
+    embedding-model: "_3_large"
+    generation-model: "_4o"
+  ollama:
+    ollama-url: http://localhost:11434
+    generation-model: "gemma:2b"
+    embedding-model: "nomic-embed-text"
+    prompt-prefixes:
+      QUERY: "search_query:"
+      DOCUMENT: "search_document:"
+
 spring:
   shell:
     help:
@@ -14,18 +33,11 @@ spring:
       ollama:
         - ollama-generation
         - ollama-embeddings
-app:
-  persistence:
-    simple:
-      file: file:/home/andre/apps/aiwiki/ollama-store.json
-  openai:
-    api-key: ${OPENAI_API_KEY}
-    embedding-model: "text-embedding-ada-002"
-    generation-model: "_3_5_TURBO"
-  ollama:
-    ollama-url: http://localhost:11434
-    generation-model: "gemma:2b"
-    embedding-model: "nomic-embed-text"
-    prompt-prefixes:
-      SEARCH_QUERY: "search_query:"
-      SEARCH_DOCUMENT: "search_document:"
+
+logging:
+  level:
+    java.net: TRACE
+    ch.lianto.openai.client: DEBUG
+    reactor.netty.http.client.HttpClient: DEBUG
+  file:
+    name: wiki.log

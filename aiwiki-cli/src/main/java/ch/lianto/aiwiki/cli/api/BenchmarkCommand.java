@@ -10,7 +10,8 @@ import java.nio.file.Path;
 @Command
 @Component
 public class BenchmarkCommand {
-
+    private static final String DEFAULT_SPEC_PATH = "research/benchmark-spec.yaml";
+    private static final String DEFAULT_OUTPUT_PATH = "research/benchmarks";
     private final BenchmarkService service;
 
     public BenchmarkCommand(BenchmarkService service) {
@@ -22,6 +23,9 @@ public class BenchmarkCommand {
         @Option(longNames = "specification", shortNames = 's') String specificationPath,
         @Option(longNames = "output", shortNames = 'o') String resultPath
     ) {
+        specificationPath = specificationPath == null || specificationPath.isBlank() ? DEFAULT_SPEC_PATH : specificationPath;
+        resultPath = resultPath == null || resultPath.isBlank() ? DEFAULT_OUTPUT_PATH : resultPath;
+
         service.measurePerformance(Path.of(specificationPath), Path.of(resultPath));
         return String.format("Benchmark report written to <%s>", resultPath);
     }

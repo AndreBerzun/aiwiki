@@ -8,8 +8,8 @@ import org.junit.jupiter.api.Disabled;
 
 import java.util.Map;
 
-import static ch.lianto.aiwiki.engine.policy.nlp.EmbeddingProvider.EmbeddingType.SEARCH_DOCUMENT;
-import static ch.lianto.aiwiki.engine.policy.nlp.EmbeddingProvider.EmbeddingType.SEARCH_QUERY;
+import static ch.lianto.aiwiki.engine.policy.nlp.EmbeddingProvider.EmbeddingType.DOCUMENT;
+import static ch.lianto.aiwiki.engine.policy.nlp.EmbeddingProvider.EmbeddingType.QUERY;
 
 @Disabled
 public class OllamaEmbeddingProviderTest extends AbstractEmbeddingProviderTest {
@@ -22,8 +22,8 @@ public class OllamaEmbeddingProviderTest extends AbstractEmbeddingProviderTest {
             .setOllamaUrl("http://localhost:11434")
             .setEmbeddingModel(EMBEDDING_MODEL)
             .setPromptPrefixes(Map.of(
-                SEARCH_QUERY.name(), "search_query:",
-                SEARCH_DOCUMENT.name(), "search_document:"
+                QUERY.name(), "search_query:",
+                DOCUMENT.name(), "search_document:"
             ));
         var config = new OllamaClientConfig();
 

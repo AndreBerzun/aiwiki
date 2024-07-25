@@ -16,9 +16,11 @@ import java.nio.file.Paths;
 import java.util.List;
 
 import static org.assertj.core.api.Assertions.assertThat;
+import static org.assertj.core.api.Assertions.fail;
 
 public class SimplePersistentProjectRepositoryTest {
     private static final String NON_EXISTENT_PROJECT_STORE = "src/test/resources/simple-persistence/nope.json";
+    private static final String BROKEN_PROJECT_STORE = "src/test/resources/simple-persistence/broken.json";
     private static final String BASIC_PROJECT_STORE = "src/test/resources/simple-persistence/basic-project.json";
     private static final String BASIC_PROJECT_WITH_PAGES_STORE = "src/test/resources/simple-persistence/basic-project-with-pages.json";
 
@@ -45,6 +47,17 @@ public class SimplePersistentProjectRepositoryTest {
         projectRepo.loadProjectsData();
 
         assertThat(projectRepo.findAll()).isEmpty();
+    }
+
+    @Test
+    void throwRuntimeExceptionWhenLoadingBrokenStore() {
+        try {
+            createRepoWithProjectStorePath(BROKEN_PROJECT_STORE);
+            projectRepo.loadProjectsData();
+            fail("Should have thrown ");
+        } catch (Exception ex) {
+
+        }
     }
 
     @Test
@@ -104,7 +117,7 @@ public class SimplePersistentProjectRepositoryTest {
         for (Project project : projects) {
             for (Page page : project.getPages()) {
                 assertThat(page.getProject()).isEqualTo(project);
-                assertThat(page.getPageSegments()).allMatch(segment -> page.equals(segment.getPage()));
+                assertThat(page.getChunks()).allMatch(segment -> page.equals(segment.getPage()));
             }
         }
     }
@@ -138,7 +151,7 @@ public class SimplePersistentProjectRepositoryTest {
     }
 
     @Test
-    void completeFlowWhenLoadedAndFlushedMultipleTimes() {
+    void completeFlowWhenLoadedAndFlushedMultipleTimes() throws IOException {
         createRepoWithProjectStorePath(NON_EXISTENT_PROJECT_STORE);
 
         saveTwoProjectsWhileLoadingAndFlushingStore();
@@ -153,7 +166,7 @@ public class SimplePersistentProjectRepositoryTest {
         assertThat(results).anyMatch(p -> p.getName().equals(data.projects.alternate.getName()));
     }
 
-    private void saveTwoProjectsWhileLoadingAndFlushingStore() {
+    private void saveTwoProjectsWhileLoadingAndFlushingStore() throws IOException {
         projectRepo.save(data.projects.alternate);
         projectRepo.flushProjectsData();
         projectRepo.loadProjectsData();

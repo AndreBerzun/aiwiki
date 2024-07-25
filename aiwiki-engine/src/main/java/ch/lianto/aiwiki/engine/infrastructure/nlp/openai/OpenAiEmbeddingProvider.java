@@ -6,16 +6,20 @@ import ch.lianto.openai.client.api.EmbeddingsApi;
 import ch.lianto.openai.client.config.OpenAIClientProperties;
 import ch.lianto.openai.client.model.CreateEmbeddingRequest;
 import ch.lianto.openai.client.model.CreateEmbeddingResponse;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.context.annotation.Primary;
 import org.springframework.context.annotation.Profile;
 import org.springframework.stereotype.Component;
 
 import java.math.BigDecimal;
 
+import static org.apache.commons.lang3.StringUtils.abbreviate;
+
 @Profile("openai-embeddings")
-@Primary
 @Component
 public class OpenAiEmbeddingProvider implements EmbeddingProvider {
+    private final Logger log = LoggerFactory.getLogger(getClass());
     private final EmbeddingsApi openaiEmbeddings;
     private final OpenAIClientProperties properties;
 
@@ -26,8 +30,12 @@ public class OpenAiEmbeddingProvider implements EmbeddingProvider {
 
     @Override
     public double[] generateEmbedding(String text, EmbeddingType type) {
+        if (text.isEmpty()) throw new IllegalArgumentException("Cannot generate embedding for empty text");
+
+        log.info("Creating embedding request for text <{}>", abbreviate(text, 30));
         CreateEmbeddingRequest request = createRequest(text);
         CreateEmbeddingResponse response = openaiEmbeddings.createEmbedding(request).block();
+        log.info("Received embedding response for text <{}>", abbreviate(text, 30));
         validateResponseContainsOnlyOneEmbedding(response);
         return extractEmbedding(response);
     }

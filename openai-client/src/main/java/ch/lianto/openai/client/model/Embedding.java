@@ -35,7 +35,7 @@ import com.fasterxml.jackson.annotation.JsonTypeName;
   Embedding.JSON_PROPERTY_EMBEDDING,
   Embedding.JSON_PROPERTY_OBJECT
 })
-@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", date = "2023-12-08T01:46:18.007763393+01:00[Europe/Zurich]")
+@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", date = "2024-05-23T22:31:58.269298200+02:00[Europe/Zurich]", comments = "Generator version: 7.6.0")
 public class Embedding {
   public static final String JSON_PROPERTY_INDEX = "index";
   private Integer index;
@@ -107,7 +107,6 @@ public class Embedding {
     this.index = index;
   }
 
-
   public Embedding embedding(List<BigDecimal> embedding) {
     
     this.embedding = embedding;
@@ -140,7 +139,6 @@ public class Embedding {
   public void setEmbedding(List<BigDecimal> embedding) {
     this.embedding = embedding;
   }
-
 
   public Embedding _object(ObjectEnum _object) {
     

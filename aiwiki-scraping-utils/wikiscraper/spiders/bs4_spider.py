@@ -1,7 +1,7 @@
 import scrapy
 from bs4 import BeautifulSoup, Tag
 
-from benchmarkingscrapers.markdown_writer import MarkdownWriter
+from wikiscraper.markdown_writer import MarkdownWriter
 
 TARGET_DIR = '/home/andre/apps/aiwiki/Bs4'
 

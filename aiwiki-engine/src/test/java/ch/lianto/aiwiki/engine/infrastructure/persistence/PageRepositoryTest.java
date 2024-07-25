@@ -39,7 +39,7 @@ public class PageRepositoryTest {
 
         assertThat(result.getName()).isEqualTo(page.getName());
         assertThat(result.getProject().getName()).isEqualTo(page.getProject().getName());
-        assertThat(result.getPageSegments()).hasSize(2);
+        assertThat(result.getChunks()).hasSize(2);
     }
 
     @Test

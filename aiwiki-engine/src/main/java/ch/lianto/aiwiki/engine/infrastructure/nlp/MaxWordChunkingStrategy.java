@@ -1,16 +1,17 @@
 package ch.lianto.aiwiki.engine.infrastructure.nlp;
 
-import ch.lianto.aiwiki.engine.policy.page.PageSegmentationStrategy;
-import org.springframework.context.annotation.Primary;
+import ch.lianto.aiwiki.engine.config.IndexingProperties;
+import ch.lianto.aiwiki.engine.policy.page.PageChunkingStrategy;
+import org.springframework.boot.autoconfigure.condition.ConditionalOnProperty;
 import org.springframework.stereotype.Component;
 
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
-@Primary
+@ConditionalOnProperty(prefix = "app.indexing", name = "chunking", havingValue = IndexingProperties.ChunkingConstants.MAX_TOKEN)
 @Component
-public class MaxWordSegmentationStrategy implements PageSegmentationStrategy {
+public class MaxWordChunkingStrategy implements PageChunkingStrategy {
     /**
      * Roughly equals the 1000 tokens according to OpenAI
      */
@@ -18,7 +19,7 @@ public class MaxWordSegmentationStrategy implements PageSegmentationStrategy {
     private List<String> segments;
     private StringBuilder currentSegment;
 
-    public List<String> segment(String text) {
+    public List<String> split(String text) {
         String[] paragraphs = text.split("\n\n");
         boolean hasNoParagraphs = paragraphs.length == 1;
 

@@ -2,12 +2,13 @@ package ch.lianto.aiwiki.cli.api;
 
 import ch.lianto.aiwiki.cli.service.CliContext;
 import ch.lianto.aiwiki.engine.entity.Chat;
-import ch.lianto.aiwiki.engine.entity.PageSegment;
+import ch.lianto.aiwiki.engine.entity.PageChunk;
 import ch.lianto.aiwiki.engine.policy.assistant.AssistantService;
 import ch.lianto.aiwiki.engine.policy.assistant.Similarity;
 import org.jline.terminal.Terminal;
 import org.springframework.shell.command.annotation.Command;
 import org.springframework.shell.command.annotation.CommandAvailability;
+import org.springframework.shell.command.annotation.Option;
 import org.springframework.stereotype.Component;
 
 import java.util.List;
@@ -36,7 +37,7 @@ public class AssistantCommand {
         return "Welcome, go ahead and start asking questions:";
     }
 
-    @Command(command = "assistant ask", alias = ">", description = "Ask the wiki any questions")
+    @Command(command = "assistant ask", description = "Ask the wiki any questions")
     @CommandAvailability(provider = "projectAvailability")
     public void ask(String prompt) {
         Chat chat = context.getAssistantChat().question(prompt);
@@ -54,37 +55,42 @@ public class AssistantCommand {
         terminal.writer().println();
     }
 
-    @Command(command = "assistant search", description = "Search the wiki for page segments that match the prompt")
+    @Command(command = "assistant search", description = "Search the wiki for page chunks that match the prompt")
     @CommandAvailability(provider = "projectAvailability")
-    public String search(String phrase) {
-        List<Similarity<PageSegment>> segments = assistantService.search(phrase, context.getSelectedProject());
-        return matchingSegmentsToStringOverview(segments);
+    public String search(
+        String phrase,
+        @Option(shortNames = 't', defaultValue = "false") String showChunkText
+    ) {
+        List<Similarity<PageChunk>> foundChunks = assistantService.search(phrase, context.getSelectedProject());
+        return mapFoundChunksToStringResultList(foundChunks, Boolean.parseBoolean(showChunkText));
     }
 
-    private String matchingSegmentsToStringOverview(List<Similarity<PageSegment>> segments) {
+    private String mapFoundChunksToStringResultList(List<Similarity<PageChunk>> chunks, boolean showChunkText) {
         StringBuilder sb = new StringBuilder();
 
-        appendSummary(sb, segments);
-        for (int i = 0; i < segments.size(); i++)
-            appendSegment(sb, i, segments.get(i));
+        appendSummary(sb, chunks);
+        for (int i = 0; i < chunks.size(); i++)
+            appendChunk(sb, i, chunks.get(i), showChunkText);
 
         return sb.toString();
     }
 
-    private void appendSummary(StringBuilder sb, List<Similarity<PageSegment>> segments) {
-        sb.append(String.format("# Found %d matching page segments:", segments.size()));
+    private void appendSummary(StringBuilder sb, List<Similarity<PageChunk>> chunks) {
+        sb.append(String.format("# Found %d matching page chunks:", chunks.size()));
         sb.append(System.lineSeparator());
         sb.append(System.lineSeparator());
     }
 
-    private void appendSegment(StringBuilder sb, int index, Similarity<PageSegment> segmentSimilarity) {
-        sb.append(String.format("## %d. %s (Sim: %f)", index + 1, segmentSimilarity.data().getPage().getName(), segmentSimilarity.similarity()));
+    private void appendChunk(StringBuilder sb, int index, Similarity<PageChunk> chunkSimilarity, boolean showChunkText) {
+        sb.append(String.format("## %d. %s (Sim: %f)", index + 1, chunkSimilarity.data().getPage().getName(), chunkSimilarity.similarity()));
         sb.append(System.lineSeparator());
-        sb.append("-----------------------");
-        sb.append(System.lineSeparator());
-        sb.append(segmentSimilarity.data().getText());
-        sb.append(System.lineSeparator());
-        sb.append(System.lineSeparator());
+        if (showChunkText) {
+            sb.append("-----------------------");
+            sb.append(System.lineSeparator());
+            sb.append(chunkSimilarity.data().getText());
+            sb.append(System.lineSeparator());
+            sb.append(System.lineSeparator());
+        }
         sb.append("#############################################################################");
         sb.append(System.lineSeparator());
         sb.append(System.lineSeparator());

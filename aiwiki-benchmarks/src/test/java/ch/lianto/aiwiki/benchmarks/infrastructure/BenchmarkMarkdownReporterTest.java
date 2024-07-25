@@ -1,9 +1,9 @@
 package ch.lianto.aiwiki.benchmarks.infrastructure;
 
 import ch.lianto.aiwiki.benchmarks.entity.Benchmark;
+import ch.lianto.aiwiki.benchmarks.entity.ChunkReference;
 import ch.lianto.aiwiki.benchmarks.entity.DataSet;
 import ch.lianto.aiwiki.benchmarks.entity.Question;
-import ch.lianto.aiwiki.benchmarks.entity.SegmentReference;
 import ch.lianto.aiwiki.benchmarks.policy.BenchmarkReporter;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
@@ -19,14 +19,15 @@ import static org.assertj.core.api.Assertions.assertThat;
 import static org.assertj.core.api.Assertions.fail;
 
 public class BenchmarkMarkdownReporterTest {
-    private static final Path ACTUAL_REPORT = Paths.get("src/test/resources/markdown-reporter/Test Report.md");
-    private static final Path EXPECTED_REPORT = Paths.get("src/test/resources/markdown-reporter/Expected Report.md");
+    private static final Path OUTPUT_PATH = Paths.get("src/test/resources/markdown-reporter");
+    private static final Path ACTUAL_REPORT = OUTPUT_PATH.resolve("Test.md");
+    private static final Path EXPECTED_REPORT = OUTPUT_PATH.resolve("Expected Report.md");
     private Benchmark expectedBenchmark;
     private BenchmarkReporter reporter;
 
     @BeforeEach
     void setUp() {
-        reporter = new BenchmarkMarkdownReporter(ACTUAL_REPORT);
+        reporter = new BenchmarkMarkdownReporter(OUTPUT_PATH);
         expectedBenchmark = getMatchingBenchmark();
     }
 
@@ -63,26 +64,30 @@ public class BenchmarkMarkdownReporterTest {
                 .setAverageScore(0.5)
                 .setRuntimeMillis(350L)
                 .addQuestion(new Question()
-                    .setText("Example Question?")
+                    .setPrompt("Example Question?")
                     .setScore(0.75)
-                    .setExpectedSegments(List.of(
-                        new SegmentReference("Page 1", 0),
-                        new SegmentReference("Page 2", 1)
+                    .setPrecision(0.65)
+                    .setRecall(0.8)
+                    .setExpectedChunks(List.of(
+                        new ChunkReference("Page 1", "Test Quote"),
+                        new ChunkReference("Page 2", "Hanging on in quite desperation is the English way")
                     ))
-                    .setActualSegments(List.of(
-                        new SegmentReference("Page 1", 0),
-                        new SegmentReference("Page 2", 1)
-                    )))
+                    .setActualChunks(List.of(
+                        new ChunkReference("Page 1", "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Maecenas finibus lectus lorem, nec aliquam."),
+                        new ChunkReference("Page 2", "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Maecenas finibus lectus lorem, nec aliquam.")
+                    ))
+                )
                 .addQuestion(new Question()
-                    .setText("Another question?")
+                    .setPrompt("Another question?")
                     .setScore(0.9)
-                    .setExpectedSegments(List.of(
-                        new SegmentReference("Page 1", 0),
-                        new SegmentReference("Page 2", 4)
+                    .setPrecision(0.9)
+                    .setRecall(0.9)
+                    .setExpectedChunks(List.of(
+                        new ChunkReference("Page 1", "You get a shiver in the dark, It's a raining in the park but meantime"),
+                        new ChunkReference("Page 2", "South of the river you stop and you hold everything, A band is blowing Dixie, double four time")
                     ))
-                    .setActualSegments(List.of(
-                        new SegmentReference("Page 1", 0),
-                        new SegmentReference("Page 5", 8)
+                    .setActualChunks(List.of(
+                        new ChunkReference("Page 4", "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Maecenas finibus lectus lorem, nec aliquam.")
                     )))
             )
             .addDataSet(new DataSet()
@@ -90,15 +95,17 @@ public class BenchmarkMarkdownReporterTest {
                 .setAverageScore(0.9)
                 .setRuntimeMillis(150L)
                 .addQuestion(new Question()
-                    .setText("Example Question?")
+                    .setPrompt("Example Question?")
                     .setScore(0.68)
-                    .setExpectedSegments(List.of(
-                        new SegmentReference("Page 2", 1),
-                        new SegmentReference("Page 1", 0)
+                    .setPrecision(0.68)
+                    .setRecall(0.68)
+                    .setExpectedChunks(List.of(
+                        new ChunkReference("Page 1", "And Harry doesn't mind, if he doesn't, make the scene, He's got a daytime job, he's doing alright"),
+                        new ChunkReference("Page 2", "South of the river you stop and you hold everything, A band is blowing Dixie, double four time")
                     ))
-                    .setActualSegments(List.of(
-                        new SegmentReference("Page 1", 0),
-                        new SegmentReference("Page 2", 1)
+                    .setActualChunks(List.of(
+                        new ChunkReference("Page 2", "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Maecenas finibus lectus lorem, nec aliquam."),
+                        new ChunkReference("Page 1", "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Maecenas finibus lectus lorem, nec aliquam.", false)
                     )))
             );
     }

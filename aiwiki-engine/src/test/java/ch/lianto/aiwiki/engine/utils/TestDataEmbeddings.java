@@ -1,7 +1,9 @@
 package ch.lianto.aiwiki.engine.utils;
 
 import ch.lianto.aiwiki.engine.entity.Page;
-import ch.lianto.aiwiki.engine.entity.PageSegment;
+import ch.lianto.aiwiki.engine.entity.PageChunk;
+
+import java.util.List;
 
 public class TestDataEmbeddings {
     public final String emptyPrompt;
@@ -22,10 +24,14 @@ public class TestDataEmbeddings {
         Page page = new Page()
             .setName("Pink Floyd")
             .setProject(data.projects.basic);
-        page.getPageSegments().add(
-            new PageSegment()
+        page.getChunks().add(
+            new PageChunk()
                 .setText("Pink Floyd")
-                .setEmbedding(new double[]{1, 1, 1})
+                .setEmbeddings(List.of(
+                    new double[]{1, 1, 0},
+                    new double[]{1.1, 0.9, 0},
+                    new double[]{1.2, 1, 0}
+                ))
                 .setPage(page)
         );
         return page;
@@ -35,10 +41,14 @@ public class TestDataEmbeddings {
         Page page = new Page()
             .setProject(data.projects.basic)
             .setName("Electric Light Orchestra");
-        page.getPageSegments().add(
-            new PageSegment()
+        page.getChunks().add(
+            new PageChunk()
                 .setText("Electric Light Orchestra")
-                .setEmbedding(new double[]{1, 1, 0.9})
+                .setEmbeddings(List.of(
+                    new double[]{1, 1, 0.5},
+                    new double[]{1.1, 0.9, 0.5},
+                    new double[]{1.2, 1, 0.5}
+                ))
                 .setPage(page)
         );
         return page;

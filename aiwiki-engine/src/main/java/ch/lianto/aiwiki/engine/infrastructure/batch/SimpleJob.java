@@ -1,6 +1,8 @@
 package ch.lianto.aiwiki.engine.infrastructure.batch;
 
 import ch.lianto.aiwiki.engine.utils.functional.Try;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import java.util.Objects;
 import java.util.function.Consumer;
@@ -8,7 +10,10 @@ import java.util.function.Function;
 import java.util.function.Supplier;
 import java.util.stream.Stream;
 
+import static org.apache.commons.lang3.StringUtils.abbreviate;
+
 public class SimpleJob<I, O> {
+    private final Logger log = LoggerFactory.getLogger(getClass());
     private Supplier<I> reader;
     private Function<I, O> transformer;
     private Consumer<O> writer;
@@ -37,7 +42,7 @@ public class SimpleJob<I, O> {
             .takeWhile(Objects::nonNull)
             .filter(Try::hasNoError)
             .map(Try::data)
-            .peek(this::itemRead)
+            .peek(this::incrementReadCounter)
             .map(this::transform)
             .filter(Try::hasNoError)
             .map(Try::data)
@@ -46,16 +51,18 @@ public class SimpleJob<I, O> {
             .count();
     }
 
-    private synchronized void itemRead(I item) {
+    private synchronized void incrementReadCounter(I item) {
         readCount++;
     }
 
     private Try<I> read() {
         try {
             I item = reader.get();
+            log.info("Read item <{}>", item);
             if (item != null) return Try.of(item);
             else return null;
         } catch (RuntimeException ex) {
+            log.error("Error reading item", ex);
             return Try.withCatch(ex);
         }
     }
@@ -64,6 +71,7 @@ public class SimpleJob<I, O> {
         try {
             return Try.of(transformer.apply(item));
         } catch (RuntimeException ex) {
+            log.error("Error transforming item <{}>", abbreviate(item.toString(), 30), ex);
             return Try.withCatch(ex);
         }
     }
@@ -71,8 +79,10 @@ public class SimpleJob<I, O> {
     private Try<Void> write(O item) {
         try {
             writer.accept(item);
+            log.info("Wrote item <{}>", item);
             return Try.of(null);
         } catch (RuntimeException ex) {
+            log.error("Error writing item <{}>", abbreviate(item.toString(), 30), ex);
             return Try.withCatch(ex);
         }
     }

@@ -3,7 +3,8 @@ target/
 !.mvn/wrapper/maven-wrapper.jar
 !**/src/main/**/target/
 !**/src/test/**/target/
-spring-shell.log
+*.log
+*.log.*
 **/pytorch_**.bin
 
 ### STS ###

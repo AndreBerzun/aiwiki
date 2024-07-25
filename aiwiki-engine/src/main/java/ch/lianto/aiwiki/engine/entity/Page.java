@@ -8,7 +8,7 @@ import java.util.Objects;
 
 public class Page {
     private String name;
-    private List<PageSegment> pageSegments = new ArrayList<>();
+    private List<PageChunk> chunks = new ArrayList<>();
     @JsonIgnore
     private Project project;
 
@@ -21,8 +21,13 @@ public class Page {
         return this;
     }
 
-    public List<PageSegment> getPageSegments() {
-        return pageSegments;
+    public List<PageChunk> getChunks() {
+        return chunks;
+    }
+
+    public Page setChunks(List<PageChunk> chunks) {
+        this.chunks = chunks;
+        return this;
     }
 
     public Project getProject() {
@@ -38,11 +43,11 @@ public class Page {
     public boolean equals(Object o) {
         if (this == o) return true;
         if (!(o instanceof Page page)) return false;
-        return Objects.equals(name, page.name) && Objects.equals(pageSegments, page.pageSegments);
+        return Objects.equals(name, page.name);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(name, pageSegments);
+        return Objects.hash(name, chunks);
     }
 }

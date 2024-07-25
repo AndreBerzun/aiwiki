@@ -1,25 +1,27 @@
 package ch.lianto.aiwiki.benchmarks.infrastructure;
 
 import ch.lianto.aiwiki.benchmarks.entity.Benchmark;
+import ch.lianto.aiwiki.benchmarks.entity.ChunkReference;
 import ch.lianto.aiwiki.benchmarks.entity.DataSet;
 import ch.lianto.aiwiki.benchmarks.entity.Question;
-import ch.lianto.aiwiki.benchmarks.entity.SegmentReference;
 import ch.lianto.aiwiki.benchmarks.policy.BenchmarkReporter;
-import ch.lianto.aiwiki.engine.utils.Tuple;
 
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
+import java.nio.file.Paths;
 import java.util.*;
 import java.util.function.Function;
 
+import static org.apache.commons.lang3.StringUtils.abbreviate;
+
 public class BenchmarkMarkdownReporter implements BenchmarkReporter {
-    private final Path target;
+    private final Path targetDirectory;
     private final List<String> lines = new ArrayList<>();
     private Benchmark benchmark;
 
-    public BenchmarkMarkdownReporter(Path target) {
-        this.target = target;
+    public BenchmarkMarkdownReporter(Path targetDirectory) {
+        this.targetDirectory = targetDirectory;
     }
 
     @Override
@@ -49,7 +51,7 @@ public class BenchmarkMarkdownReporter implements BenchmarkReporter {
             benchmark.getDataSets(),
             Arrays.asList(
                 Map.entry("Data Set", ds -> String.format("[%s](#%s)", ds.getName(), ds.getName())),
-                Map.entry("Avrg. Performance", ds -> "" + ds.getAverageScore()),
+                Map.entry("Avrg. Score", ds -> "" + ds.getAverageScore()),
                 Map.entry("Runtime", ds -> ds.getRuntimeMillis() + " ms")
             )
         );
@@ -65,8 +67,9 @@ public class BenchmarkMarkdownReporter implements BenchmarkReporter {
                 lines,
                 dataSet.getQuestions(),
                 Arrays.asList(
-                    Map.entry("Question", Question::getText),
-                    Map.entry("Performance", q -> String.format("%.2f", q.getScore()))
+                    Map.entry("Question", Question::getPrompt),
+                    Map.entry("Score", q -> String.format("%.2f", q.getScore())),
+                    Map.entry("Answer", q -> "✅/❌")
                 )
             );
             table.write();
@@ -79,57 +82,50 @@ public class BenchmarkMarkdownReporter implements BenchmarkReporter {
         benchmark.getDataSets().forEach(this::writeDataSet);
     }
 
-    private void writeHeader(String text, int level) {
-        lines.add("#".repeat(level) + " " + text);
-        lines.add("");
-    }
-
     private void writeDataSet(DataSet dataSet) {
         writeHeader(dataSet.getName(), 3);
         for (int i = 0; i < dataSet.getQuestions().size(); i++)
             writeQuestion(i, dataSet.getQuestions().get(i));
     }
 
+    private void writeHeader(String text, int level) {
+        lines.add("#".repeat(level) + " " + text);
+        lines.add("");
+    }
+
     private void writeQuestion(int index, Question question) {
-        lines.add(String.format("%d. **Question:** %s", index + 1, question.getText()));
-        lines.add("- _Performance_: " + question.getScore());
-        lines.add(correctSegmentsCount(question));
+        lines.add(String.format("%d. **Question:** %s", index + 1, question.getPrompt()));
+        lines.add("");
+        lines.add("- _Score_: " + question.getScore());
+        lines.add("- _Precision_: " + question.getPrecision());
+        lines.add("- _Recall_: " + question.getRecall());
         lines.add("");
         new TableWriter<>(
             lines,
-            mergeSegmentsLists(question.getExpectedSegments(), question.getActualSegments()),
+            question.getExpectedChunks(),
             Arrays.asList(
-                Map.entry("Expected Segments", Tuple::left),
-                Map.entry("Actual Segments", Tuple::right)
+                Map.entry("Expected Chunks", ChunkReference::page),
+                Map.entry("", chunk -> abbreviate(chunk.quote().replaceAll("\n", " "), 100))
+            )).write();
+        lines.add("");
+        new TableWriter<>(
+            lines,
+            question.getActualChunks(),
+            Arrays.asList(
+                Map.entry("Found Chunks", ChunkReference::page),
+                Map.entry("Relevant", chunk -> chunk.relevant() ? "✅" : "❌"),
+                Map.entry("", chunk -> chunk.quote().replaceAll("\n", " "))
             )).write();
         lines.add("");
         lines.add("---");
         lines.add("");
     }
 
-    private String correctSegmentsCount(Question question) {
-        List<SegmentReference> correctSegments = new ArrayList<>(question.getActualSegments());
-        correctSegments.retainAll(question.getExpectedSegments());
-        return String.format("- _Correct segments_: %d / %d", correctSegments.size(), question.getExpectedSegments().size());
-    }
-
-    private List<Tuple<String, String>> mergeSegmentsLists(List<SegmentReference> l1, List<SegmentReference> l2) {
-        List<Tuple<String, String>> result = new ArrayList<>();
-        int size1 = l1.size();
-        int size2 = l2.size();
-        for (int i = 0; i < Math.max(size1, size2); i++)
-            result.add(new Tuple<>(
-                i < size1 ? l1.get(i).toString() : "",
-                i < size2 ? l2.get(i).toString() : ""
-            ));
-        return result;
-    }
-
     private void writeToFile() {
         try {
             if (lines.getFirst().isEmpty()) lines.removeFirst();
             if (lines.getLast().isEmpty()) lines.removeLast();
-            Files.write(target, lines);
+            Files.write(Paths.get(targetDirectory.toString(), benchmark.getName() + ".md"), lines);
         } catch (IOException e) {
             throw new RuntimeException(e);
         }
