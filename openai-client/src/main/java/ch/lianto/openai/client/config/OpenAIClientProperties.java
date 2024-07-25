@@ -10,7 +10,7 @@ import org.springframework.stereotype.Component;
 public class OpenAIClientProperties {
     private String apiKey;
     private CreateChatCompletionRequestModel generationModel;
-    private CreateEmbeddingRequestModel embeddingModel = CreateEmbeddingRequestModel.TEXT_EMBEDDING_ADA_002;
+    private CreateEmbeddingRequestModel embeddingModel = CreateEmbeddingRequestModel.ADA_002;
 
     public String getApiKey() {
         return apiKey;

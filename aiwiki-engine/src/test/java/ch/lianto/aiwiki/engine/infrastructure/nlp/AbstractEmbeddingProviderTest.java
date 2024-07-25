@@ -5,18 +5,28 @@ import ch.lianto.aiwiki.engine.utils.EmbeddingUtils;
 import org.assertj.core.data.Offset;
 import org.junit.jupiter.api.Test;
 
-import static ch.lianto.aiwiki.engine.policy.nlp.EmbeddingProvider.EmbeddingType.SEARCH_QUERY;
+import static ch.lianto.aiwiki.engine.policy.nlp.EmbeddingProvider.EmbeddingType.QUERY;
 import static org.assertj.core.api.Assertions.assertThat;
+import static org.junit.jupiter.api.Assertions.fail;
 
 public abstract class AbstractEmbeddingProviderTest {
     protected int outputDimensions;
     protected EmbeddingProvider embeddingProvider;
 
     @Test
+    void throwIllegalArgumentWhenEmptyText() {
+        try {
+            embeddingProvider.generateEmbedding("", QUERY);
+            fail("Should have thrown IllegalArgs");
+        } catch (IllegalArgumentException ex) {
+        }
+    }
+
+    @Test
     void returnsNonEmptyEmbeddingWhenProvidedWithRealText() {
         String text = "Dog";
 
-        double[] embedding = embeddingProvider.generateEmbedding(text, SEARCH_QUERY);
+        double[] embedding = embeddingProvider.generateEmbedding(text, QUERY);
 
         assertThat(embedding).isNotEmpty();
     }
@@ -25,7 +35,7 @@ public abstract class AbstractEmbeddingProviderTest {
     void hasSpecifiedLengthWhenProvidedWithRealText() {
         String text = "Dog";
 
-        double[] embedding = embeddingProvider.generateEmbedding(text, SEARCH_QUERY);
+        double[] embedding = embeddingProvider.generateEmbedding(text, QUERY);
 
         assertThat(embedding).hasSize(outputDimensions);
     }
@@ -35,8 +45,8 @@ public abstract class AbstractEmbeddingProviderTest {
         String text1 = "Dog";
         String text2 = "Cat";
 
-        double[] embedding1 = embeddingProvider.generateEmbedding(text1, SEARCH_QUERY);
-        double[] embedding2 = embeddingProvider.generateEmbedding(text2, SEARCH_QUERY);
+        double[] embedding1 = embeddingProvider.generateEmbedding(text1, QUERY);
+        double[] embedding2 = embeddingProvider.generateEmbedding(text2, QUERY);
 
         assertThat(embedding1).isNotEqualTo(embedding2);
     }
@@ -45,8 +55,8 @@ public abstract class AbstractEmbeddingProviderTest {
     void sameEmbeddingsForSameWord() {
         String text = "Dog";
 
-        double[] embedding1 = embeddingProvider.generateEmbedding(text, SEARCH_QUERY);
-        double[] embedding2 = embeddingProvider.generateEmbedding(text, SEARCH_QUERY);
+        double[] embedding1 = embeddingProvider.generateEmbedding(text, QUERY);
+        double[] embedding2 = embeddingProvider.generateEmbedding(text, QUERY);
         double similarity = EmbeddingUtils.cosineSimilarity(embedding1, embedding2);
 
         assertThat(similarity).isCloseTo(1, Offset.offset(.01));
@@ -54,9 +64,9 @@ public abstract class AbstractEmbeddingProviderTest {
 
     @Test
     void semanticallyCloseWordsHaveCloserEmbeddingsThanUnrelatedWords() {
-        double[] catEmbedding = embeddingProvider.generateEmbedding("Cat", SEARCH_QUERY);
-        double[] dogEmbedding = embeddingProvider.generateEmbedding("Dog", SEARCH_QUERY);
-        double[] planeEmbedding = embeddingProvider.generateEmbedding("Plane", SEARCH_QUERY);
+        double[] catEmbedding = embeddingProvider.generateEmbedding("Cat", QUERY);
+        double[] dogEmbedding = embeddingProvider.generateEmbedding("Dog", QUERY);
+        double[] planeEmbedding = embeddingProvider.generateEmbedding("Plane", QUERY);
 
         double catDogSimilarity = EmbeddingUtils.cosineSimilarity(catEmbedding, dogEmbedding);
         double planeDogSimilarity = EmbeddingUtils.cosineSimilarity(planeEmbedding, dogEmbedding);

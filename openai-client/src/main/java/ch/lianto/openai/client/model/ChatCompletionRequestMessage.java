@@ -30,7 +30,7 @@ import com.fasterxml.jackson.annotation.JsonTypeName;
   ChatCompletionRequestMessage.JSON_PROPERTY_CONTENT,
   ChatCompletionRequestMessage.JSON_PROPERTY_ROLE
 })
-@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", date = "2023-12-08T01:46:18.007763393+01:00[Europe/Zurich]")
+@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", date = "2024-05-23T22:31:58.269298200+02:00[Europe/Zurich]", comments = "Generator version: 7.6.0")
 public class ChatCompletionRequestMessage {
   public static final String JSON_PROPERTY_CONTENT = "content";
   private String content;
@@ -102,7 +102,6 @@ public class ChatCompletionRequestMessage {
   public void setContent(String content) {
     this.content = content;
   }
-
 
   public ChatCompletionRequestMessage role(RoleEnum role) {
     

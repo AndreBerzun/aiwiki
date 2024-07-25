@@ -3,12 +3,9 @@ package ch.lianto.aiwiki.benchmarks.policy;
 import ch.lianto.aiwiki.benchmarks.entity.Benchmark;
 import ch.lianto.aiwiki.benchmarks.entity.DataSet;
 import ch.lianto.aiwiki.benchmarks.entity.Question;
-import ch.lianto.aiwiki.benchmarks.entity.SegmentReference;
 import ch.lianto.aiwiki.benchmarks.infrastructure.BenchmarkMarkdownReporter;
-import ch.lianto.aiwiki.benchmarks.infrastructure.WeightedPresenceAndOrderStrategy;
 import ch.lianto.aiwiki.engine.entity.Project;
 import ch.lianto.aiwiki.engine.policy.assistant.AssistantService;
-import ch.lianto.aiwiki.engine.policy.assistant.Similarity;
 import ch.lianto.aiwiki.engine.policy.project.ProjectService;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.dataformat.yaml.YAMLFactory;
@@ -19,23 +16,22 @@ import org.springframework.stereotype.Component;
 
 import java.io.IOException;
 import java.nio.file.Path;
-import java.util.List;
 
 @Component
 public class BenchmarkService {
     private final Logger log = LoggerFactory.getLogger(getClass());
-    private final AssistantService assistant;
-    private final ProjectService projectService;
     private final ObjectMapper yamlMapper;
+    private final ProjectService projectService;
+    private final QuestionEvaluator evaluator;
 
     public BenchmarkService(
-        AssistantService assistant,
+        Jackson2ObjectMapperBuilder mapperBuilder,
         ProjectService projectService,
-        Jackson2ObjectMapperBuilder mapperBuilder
+        QuestionEvaluator evaluator
     ) {
-        this.assistant = assistant;
-        this.projectService = projectService;
         this.yamlMapper = mapperBuilder.factory(new YAMLFactory()).build();
+        this.projectService = projectService;
+        this.evaluator = evaluator;
     }
 
     public void measurePerformance(Path benchmarkSpecification, Path benchmarkReport) {
@@ -58,29 +54,14 @@ public class BenchmarkService {
 
     private void evaluateDataSet(DataSet dataSet) {
         log.info("Evaluating data set <{}>", dataSet.getName());
-        long runtime = System.currentTimeMillis();
-        evaluateQuestions(dataSet);
-        runtime -= System.currentTimeMillis();
+        Project project = projectService.findByName(dataSet.getName());
+
+        long runtime = 0;
+        for (Question q : dataSet.getQuestions())
+            runtime += evaluator.evaluate(q, project);
 
         dataSet.setRuntimeMillis(-runtime);
         dataSet.setAverageScore(calculateAverageDataSetScore(dataSet));
-    }
-
-    private void evaluateQuestions(DataSet dataSet) {
-        Project project = projectService.findByName(dataSet.getName());
-        PerformanceCalculationStrategy strategy = new WeightedPresenceAndOrderStrategy(0.2);
-
-        for (Question q : dataSet.getQuestions()) {
-            log.info("Scoring question <{}>", q.getText());
-            List<SegmentReference> actual = assistant.search(q.getText(), project).stream()
-                .map(Similarity::data)
-                .map(SegmentReference::new)
-                .toList();
-            double score = strategy.calculatePerformance(q.getExpectedSegments(), actual);
-
-            q.setActualSegments(actual);
-            q.setScore(score);
-        }
     }
 
     private double calculateAverageDataSetScore(DataSet dataSet) {

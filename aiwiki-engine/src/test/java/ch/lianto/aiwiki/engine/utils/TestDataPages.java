@@ -1,7 +1,7 @@
 package ch.lianto.aiwiki.engine.utils;
 
 import ch.lianto.aiwiki.engine.entity.Page;
-import ch.lianto.aiwiki.engine.entity.PageSegment;
+import ch.lianto.aiwiki.engine.entity.PageChunk;
 import ch.lianto.aiwiki.engine.policy.page.PageDto;
 
 import java.util.stream.Stream;
@@ -21,11 +21,11 @@ public class TestDataPages {
         Page page = new Page()
             .setName("Page")
             .setProject(data.projects.basic);
-        page.getPageSegments().addAll(
+        page.getChunks().addAll(
             Stream.of(
                 "# Heading 1\nLorem ipsum dolores sit ammat.",
                 "## Heading 2\nEven more content"
-            ).map(text -> new PageSegment()
+            ).map(text -> new PageChunk()
                 .setText(text)
                 .setEmbedding(new double[]{-1, -1, -1})
                 .setPage(page)

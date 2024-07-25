@@ -1,5 +1,6 @@
 package ch.lianto.aiwiki.engine.infrastructure.persistence;
 
+import ch.lianto.aiwiki.engine.entity.Page;
 import ch.lianto.aiwiki.engine.entity.Project;
 import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;
@@ -12,11 +13,15 @@ import org.slf4j.LoggerFactory;
 import org.springframework.context.annotation.Primary;
 import org.springframework.stereotype.Component;
 
+import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
+import java.util.Collections;
 import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 
 @Primary
 @Component
@@ -36,8 +41,12 @@ public class SimplePersistentProjectRepository extends InMemoryProjectRepository
             ObjectMapper objectMapper = new ObjectMapper();
             projects = objectMapper.readValue(properties.getFile().getURL(), typeRef);
             setBackReferences();
-        } catch (IOException e) {
-            logger.warn("Could not load data store from path <{}>", properties.getFile(), e);
+        } catch (FileNotFoundException e) {
+            logger.info("No data store found on path <{}>", properties.getFile(), e);
+            logger.info("Will create respective store after flushing");
+        } catch (Exception e) {
+            logger.info("Error while parsing data store <{}>", properties.getFile(), e);
+            throw new RuntimeException(e);
         }
     }
 
@@ -45,22 +54,44 @@ public class SimplePersistentProjectRepository extends InMemoryProjectRepository
         projects.forEach(
             (name, project) -> project.getPages().forEach(page -> {
                 page.setProject(project);
-                page.getPageSegments().forEach(segment -> segment.setPage(page));
+                page.getChunks().forEach(segment -> segment.setPage(page));
             })
         );
     }
 
     @PreDestroy
-    public void flushProjectsData() {
+    public void flushProjectsData() throws IOException {
+        Path dataStore = Paths.get(properties.getFile().getURI());
+        flushStore(
+            dataStore,
+            this.projects
+        );
+        flushStore(
+            dataStore.resolveSibling(dataStore.toFile().getName() + ".textonly.json"),
+            getTextOnlyProjects()
+        );
+    }
+
+    private void flushStore(Path path, Map<String, Project> projects) {
         try {
             ObjectMapper objectMapper = new ObjectMapper();
             objectMapper.configure(SerializationFeature.WRITE_SELF_REFERENCES_AS_NULL, true);
-            Path dataStore = Paths.get(properties.getFile().getURI());
 
-            if (!Files.exists(dataStore)) Files.createFile(dataStore);
-            objectMapper.writeValue(dataStore.toFile(), this.projects);
+            if (!Files.exists(path)) Files.createFile(path);
+            objectMapper.writeValue(path.toFile(), projects);
         } catch (IOException e) {
             throw new PersistenceException(e);
         }
+    }
+
+    private Map<String, Project> getTextOnlyProjects() {
+        projects.values()
+            .stream()
+            .map(Project::getPages)
+            .flatMap(List::stream)
+            .map(Page::getChunks)
+            .flatMap(List::stream)
+            .forEach(chunk -> chunk.setEmbeddings(Collections.emptyList()));
+        return projects;
     }
 }

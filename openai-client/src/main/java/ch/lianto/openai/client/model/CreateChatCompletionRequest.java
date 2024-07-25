@@ -52,7 +52,7 @@ import com.fasterxml.jackson.annotation.JsonTypeName;
   CreateChatCompletionRequest.JSON_PROPERTY_TOP_P,
   CreateChatCompletionRequest.JSON_PROPERTY_USER
 })
-@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", date = "2023-12-08T01:46:18.007763393+01:00[Europe/Zurich]")
+@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", date = "2024-05-23T22:31:58.269298200+02:00[Europe/Zurich]", comments = "Generator version: 7.6.0")
 public class CreateChatCompletionRequest {
   public static final String JSON_PROPERTY_MESSAGES = "messages";
   private List<ChatCompletionRequestMessage> messages = new ArrayList<>();
@@ -132,7 +132,6 @@ public class CreateChatCompletionRequest {
     this.messages = messages;
   }
 
-
   public CreateChatCompletionRequest model(CreateChatCompletionRequestModel model) {
     
     this.model = model;
@@ -157,7 +156,6 @@ public class CreateChatCompletionRequest {
   public void setModel(CreateChatCompletionRequestModel model) {
     this.model = model;
   }
-
 
   public CreateChatCompletionRequest frequencyPenalty(BigDecimal frequencyPenalty) {
     
@@ -185,7 +183,6 @@ public class CreateChatCompletionRequest {
   public void setFrequencyPenalty(BigDecimal frequencyPenalty) {
     this.frequencyPenalty = frequencyPenalty;
   }
-
 
   public CreateChatCompletionRequest logitBias(Map<String, Integer> logitBias) {
     
@@ -220,7 +217,6 @@ public class CreateChatCompletionRequest {
     this.logitBias = logitBias;
   }
 
-
   public CreateChatCompletionRequest maxTokens(Integer maxTokens) {
     
     this.maxTokens = maxTokens;
@@ -245,7 +241,6 @@ public class CreateChatCompletionRequest {
   public void setMaxTokens(Integer maxTokens) {
     this.maxTokens = maxTokens;
   }
-
 
   public CreateChatCompletionRequest n(Integer n) {
     
@@ -274,7 +269,6 @@ public class CreateChatCompletionRequest {
     this.n = n;
   }
 
-
   public CreateChatCompletionRequest presencePenalty(BigDecimal presencePenalty) {
     
     this.presencePenalty = presencePenalty;
@@ -302,7 +296,6 @@ public class CreateChatCompletionRequest {
     this.presencePenalty = presencePenalty;
   }
 
-
   public CreateChatCompletionRequest responseFormat(CreateChatCompletionRequestResponseFormat responseFormat) {
     
     this.responseFormat = responseFormat;
@@ -327,7 +320,6 @@ public class CreateChatCompletionRequest {
   public void setResponseFormat(CreateChatCompletionRequestResponseFormat responseFormat) {
     this.responseFormat = responseFormat;
   }
-
 
   public CreateChatCompletionRequest seed(Integer seed) {
     
@@ -356,7 +348,6 @@ public class CreateChatCompletionRequest {
     this.seed = seed;
   }
 
-
   public CreateChatCompletionRequest stop(CreateChatCompletionRequestStop stop) {
     
     this.stop = stop;
@@ -382,7 +373,6 @@ public class CreateChatCompletionRequest {
     this.stop = stop;
   }
 
-
   public CreateChatCompletionRequest stream(Boolean stream) {
     
     this.stream = stream;
@@ -407,7 +397,6 @@ public class CreateChatCompletionRequest {
   public void setStream(Boolean stream) {
     this.stream = stream;
   }
-
 
   public CreateChatCompletionRequest temperature(BigDecimal temperature) {
     
@@ -436,7 +425,6 @@ public class CreateChatCompletionRequest {
     this.temperature = temperature;
   }
 
-
   public CreateChatCompletionRequest topP(BigDecimal topP) {
     
     this.topP = topP;
@@ -463,7 +451,6 @@ public class CreateChatCompletionRequest {
   public void setTopP(BigDecimal topP) {
     this.topP = topP;
   }
-
 
   public CreateChatCompletionRequest user(String user) {
     

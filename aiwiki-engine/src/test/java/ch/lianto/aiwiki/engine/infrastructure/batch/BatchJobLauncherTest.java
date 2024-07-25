@@ -2,14 +2,17 @@ package ch.lianto.aiwiki.engine.infrastructure.batch;
 
 import ch.lianto.aiwiki.engine.batch.BatchJobLauncher;
 import ch.lianto.aiwiki.engine.batch.BatchJobResult;
+import ch.lianto.aiwiki.engine.config.IndexingProperties;
 import ch.lianto.aiwiki.engine.entity.Page;
 import ch.lianto.aiwiki.engine.entity.Project;
+import ch.lianto.aiwiki.engine.infrastructure.nlp.MaxWordChunkingStrategy;
+import ch.lianto.aiwiki.engine.infrastructure.nlp.NoOpChatClient;
 import ch.lianto.aiwiki.engine.infrastructure.nlp.NoOpEmbeddingProvider;
 import ch.lianto.aiwiki.engine.infrastructure.persistence.InMemoryPageRepository;
 import ch.lianto.aiwiki.engine.infrastructure.persistence.InMemoryProjectRepository;
-import ch.lianto.aiwiki.engine.repository.ProjectRepository;
-import ch.lianto.aiwiki.engine.infrastructure.nlp.MaxWordSegmentationStrategy;
+import ch.lianto.aiwiki.engine.policy.page.ChunkService;
 import ch.lianto.aiwiki.engine.policy.page.PageService;
+import ch.lianto.aiwiki.engine.repository.ProjectRepository;
 import ch.lianto.aiwiki.engine.utils.TestData;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -36,10 +39,9 @@ public class BatchJobLauncherTest {
         data = new TestData();
         projectRepo = new InMemoryProjectRepository();
         jobLauncher = new SimpleBatchJobLauncher(new PageService(
-            new InMemoryPageRepository((InMemoryProjectRepository) projectRepo),
+            new InMemoryPageRepository(projectRepo),
             projectRepo,
-            new NoOpEmbeddingProvider(),
-            new MaxWordSegmentationStrategy()
+            new ChunkService(new NoOpEmbeddingProvider(), new MaxWordChunkingStrategy(), new NoOpChatClient(), new IndexingProperties())
         ));
     }
 

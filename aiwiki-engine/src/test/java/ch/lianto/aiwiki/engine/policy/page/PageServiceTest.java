@@ -1,9 +1,11 @@
 package ch.lianto.aiwiki.engine.policy.page;
 
+import ch.lianto.aiwiki.engine.config.IndexingProperties;
 import ch.lianto.aiwiki.engine.entity.Page;
-import ch.lianto.aiwiki.engine.entity.PageSegment;
+import ch.lianto.aiwiki.engine.entity.PageChunk;
 import ch.lianto.aiwiki.engine.entity.Project;
-import ch.lianto.aiwiki.engine.infrastructure.nlp.MaxWordSegmentationStrategy;
+import ch.lianto.aiwiki.engine.infrastructure.nlp.MaxWordChunkingStrategy;
+import ch.lianto.aiwiki.engine.infrastructure.nlp.NoOpChatClient;
 import ch.lianto.aiwiki.engine.infrastructure.nlp.NoOpEmbeddingProvider;
 import ch.lianto.aiwiki.engine.infrastructure.persistence.InMemoryPageRepository;
 import ch.lianto.aiwiki.engine.infrastructure.persistence.InMemoryProjectRepository;
@@ -22,15 +24,15 @@ public class PageServiceTest {
     private PageService service;
     private ProjectRepository projectRepo;
     private PageRepository pageRepo;
-    private PageSegmentationStrategy segmentationStrategy;
+    private PageChunkingStrategy chunkingStrategy;
 
     @BeforeEach
     void setUp() {
         data = new TestData();
         projectRepo = new InMemoryProjectRepository();
-        pageRepo = new InMemoryPageRepository((InMemoryProjectRepository) projectRepo);
-        segmentationStrategy = new MaxWordSegmentationStrategy();
-        service = new PageService(pageRepo, projectRepo, new NoOpEmbeddingProvider(), segmentationStrategy);
+        pageRepo = new InMemoryPageRepository(projectRepo);
+        chunkingStrategy = new MaxWordChunkingStrategy();
+        service = new PageService(pageRepo, projectRepo, new ChunkService(new NoOpEmbeddingProvider(), new MaxWordChunkingStrategy(), new NoOpChatClient(), new IndexingProperties()));
     }
 
     @Test
@@ -40,7 +42,7 @@ public class PageServiceTest {
         Page result = service.createPage(data.pages.basicDto);
 
         assertThatNamesMatch(result);
-        assertThatSegmentsMatch(result);
+        assertThatChunksMatch(result);
     }
 
     private void assertThatNamesMatch(Page result) {
@@ -48,12 +50,12 @@ public class PageServiceTest {
         assertThat(result.getProject().getName()).isEqualTo(data.pages.basicDto.projectName());
     }
 
-    private void assertThatSegmentsMatch(Page result) {
-        List<String> actualTextSegments = result.getPageSegments().stream().map(PageSegment::getText).toList();
-        List<String> expectedTextSegments = segmentationStrategy.segment(data.pages.basicDto.content());
+    private void assertThatChunksMatch(Page result) {
+        List<String> actualTextChunks = result.getChunks().stream().map(PageChunk::getText).toList();
+        List<String> expectedTextChunks = chunkingStrategy.split(data.pages.basicDto.content());
 
-        assertThat(actualTextSegments).isEqualTo(expectedTextSegments);
-        assertThat(result.getPageSegments()).allMatch(segment -> segment.getEmbedding() != null);
+        assertThat(actualTextChunks).isEqualTo(expectedTextChunks);
+        assertThat(result.getChunks()).allMatch(segment -> segment.getEmbeddings() != null);
     }
 
     @Test

@@ -4,17 +4,19 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class Question {
-    private String text;
+    private String prompt;
     private Double score;
-    private List<SegmentReference> expectedSegments = new ArrayList<>();
-    private List<SegmentReference> actualSegments = new ArrayList<>();
+    private Double precision;
+    private Double recall;
+    private List<ChunkReference> expectedChunks = new ArrayList<>();
+    private List<ChunkReference> actualChunks = new ArrayList<>();
 
-    public String getText() {
-        return text;
+    public String getPrompt() {
+        return prompt;
     }
 
-    public Question setText(String text) {
-        this.text = text;
+    public Question setPrompt(String prompt) {
+        this.prompt = prompt;
         return this;
     }
 
@@ -27,21 +29,39 @@ public class Question {
         return this;
     }
 
-    public List<SegmentReference> getExpectedSegments() {
-        return expectedSegments;
+    public Double getPrecision() {
+        return precision;
     }
 
-    public Question setExpectedSegments(List<SegmentReference> expectedSegments) {
-        this.expectedSegments = expectedSegments;
+    public Question setPrecision(Double precision) {
+        this.precision = precision;
         return this;
     }
 
-    public List<SegmentReference> getActualSegments() {
-        return actualSegments;
+    public Double getRecall() {
+        return recall;
     }
 
-    public Question setActualSegments(List<SegmentReference> actualSegments) {
-        this.actualSegments = actualSegments;
+    public Question setRecall(Double recall) {
+        this.recall = recall;
+        return this;
+    }
+
+    public List<ChunkReference> getExpectedChunks() {
+        return expectedChunks;
+    }
+
+    public Question setExpectedChunks(List<ChunkReference> expectedChunks) {
+        this.expectedChunks = expectedChunks;
+        return this;
+    }
+
+    public List<ChunkReference> getActualChunks() {
+        return actualChunks;
+    }
+
+    public Question setActualChunks(List<ChunkReference> actualChunks) {
+        this.actualChunks = actualChunks;
         return this;
     }
 }

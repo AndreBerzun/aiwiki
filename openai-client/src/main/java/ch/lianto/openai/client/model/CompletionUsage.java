@@ -31,7 +31,7 @@ import com.fasterxml.jackson.annotation.JsonTypeName;
   CompletionUsage.JSON_PROPERTY_PROMPT_TOKENS,
   CompletionUsage.JSON_PROPERTY_TOTAL_TOKENS
 })
-@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", date = "2023-12-08T01:46:18.007763393+01:00[Europe/Zurich]")
+@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", date = "2024-05-23T22:31:58.269298200+02:00[Europe/Zurich]", comments = "Generator version: 7.6.0")
 public class CompletionUsage {
   public static final String JSON_PROPERTY_COMPLETION_TOKENS = "completion_tokens";
   private Integer completionTokens;
@@ -70,7 +70,6 @@ public class CompletionUsage {
     this.completionTokens = completionTokens;
   }
 
-
   public CompletionUsage promptTokens(Integer promptTokens) {
     
     this.promptTokens = promptTokens;
@@ -95,7 +94,6 @@ public class CompletionUsage {
   public void setPromptTokens(Integer promptTokens) {
     this.promptTokens = promptTokens;
   }
-
 
   public CompletionUsage totalTokens(Integer totalTokens) {
     

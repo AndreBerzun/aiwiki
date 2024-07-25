@@ -1,11 +1,14 @@
 package ch.lianto.aiwiki.engine.policy.project;
 
+import ch.lianto.aiwiki.engine.config.IndexingProperties;
 import ch.lianto.aiwiki.engine.entity.Project;
 import ch.lianto.aiwiki.engine.infrastructure.batch.SimpleBatchJobLauncher;
+import ch.lianto.aiwiki.engine.infrastructure.nlp.MaxWordChunkingStrategy;
+import ch.lianto.aiwiki.engine.infrastructure.nlp.NoOpChatClient;
 import ch.lianto.aiwiki.engine.infrastructure.nlp.NoOpEmbeddingProvider;
 import ch.lianto.aiwiki.engine.infrastructure.persistence.InMemoryPageRepository;
 import ch.lianto.aiwiki.engine.infrastructure.persistence.InMemoryProjectRepository;
-import ch.lianto.aiwiki.engine.infrastructure.nlp.MaxWordSegmentationStrategy;
+import ch.lianto.aiwiki.engine.policy.page.ChunkService;
 import ch.lianto.aiwiki.engine.policy.page.PageService;
 import ch.lianto.aiwiki.engine.utils.TestData;
 import org.junit.jupiter.api.BeforeEach;
@@ -24,7 +27,7 @@ public class ProjectServiceTest {
     void setUp() {
         data = new TestData();
         InMemoryProjectRepository projectRepo = new InMemoryProjectRepository();
-        PageService pageService = new PageService(new InMemoryPageRepository(projectRepo), projectRepo, new NoOpEmbeddingProvider(), new MaxWordSegmentationStrategy());
+        PageService pageService = new PageService(new InMemoryPageRepository(projectRepo), projectRepo, new ChunkService(new NoOpEmbeddingProvider(), new MaxWordChunkingStrategy(), new NoOpChatClient(), new IndexingProperties()));
         service = new ProjectService(projectRepo, new SimpleBatchJobLauncher(pageService), ProjectMapper.INSTANCE);
     }
 

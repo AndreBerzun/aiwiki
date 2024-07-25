@@ -40,7 +40,7 @@ import com.fasterxml.jackson.annotation.JsonTypeName;
   CreateChatCompletionResponse.JSON_PROPERTY_OBJECT,
   CreateChatCompletionResponse.JSON_PROPERTY_USAGE
 })
-@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", date = "2023-12-08T01:46:18.007763393+01:00[Europe/Zurich]")
+@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", date = "2024-05-23T22:31:58.269298200+02:00[Europe/Zurich]", comments = "Generator version: 7.6.0")
 public class CreateChatCompletionResponse {
   public static final String JSON_PROPERTY_ID = "id";
   private String id;
@@ -126,7 +126,6 @@ public class CreateChatCompletionResponse {
     this.id = id;
   }
 
-
   public CreateChatCompletionResponse choices(List<CreateChatCompletionResponseChoicesInner> choices) {
     
     this.choices = choices;
@@ -160,7 +159,6 @@ public class CreateChatCompletionResponse {
     this.choices = choices;
   }
 
-
   public CreateChatCompletionResponse created(Integer created) {
     
     this.created = created;
@@ -185,7 +183,6 @@ public class CreateChatCompletionResponse {
   public void setCreated(Integer created) {
     this.created = created;
   }
-
 
   public CreateChatCompletionResponse model(String model) {
     
@@ -212,7 +209,6 @@ public class CreateChatCompletionResponse {
     this.model = model;
   }
 
-
   public CreateChatCompletionResponse systemFingerprint(String systemFingerprint) {
     
     this.systemFingerprint = systemFingerprint;
@@ -238,7 +234,6 @@ public class CreateChatCompletionResponse {
     this.systemFingerprint = systemFingerprint;
   }
 
-
   public CreateChatCompletionResponse _object(ObjectEnum _object) {
     
     this._object = _object;
@@ -263,7 +258,6 @@ public class CreateChatCompletionResponse {
   public void setObject(ObjectEnum _object) {
     this._object = _object;
   }
-
 
   public CreateChatCompletionResponse usage(CompletionUsage usage) {
     

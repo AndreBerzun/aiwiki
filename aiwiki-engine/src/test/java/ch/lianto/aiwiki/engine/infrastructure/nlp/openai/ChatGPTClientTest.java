@@ -21,7 +21,7 @@ public class ChatGPTClientTest extends AbstractChatClientTest {
         OpenAIClientProperties properties = new OpenAIClientProperties()
             .setApiKey(System.getenv("OPENAI_API_KEY"))
             .setGenerationModel(CreateChatCompletionRequestModel._3_5_TURBO)
-            .setEmbeddingModel(CreateEmbeddingRequestModel.TEXT_EMBEDDING_ADA_002);
+            .setEmbeddingModel(CreateEmbeddingRequestModel.ADA_002);
         OpenAIClientConfig config = new OpenAIClientConfig();
 
         chatClient = new ChatGPTClient(config.openaiChatApi(config.openaiApiClient(properties, config.objectMapper())), properties);

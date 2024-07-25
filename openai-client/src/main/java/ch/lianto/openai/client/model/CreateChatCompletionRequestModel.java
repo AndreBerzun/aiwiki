@@ -26,6 +26,18 @@ import com.fasterxml.jackson.annotation.JsonValue;
  */
 public enum CreateChatCompletionRequestModel {
   
+  _4O("gpt-4o"),
+  
+  _4O_2024_05_13("gpt-4o-2024-05-13"),
+  
+  _4_0125_PREVIEW("gpt-4-0125-preview"),
+  
+  _4_TURBO_PREVIEW("gpt-4-turbo-preview"),
+  
+  _4_1106_PREVIEW("gpt-4-1106-preview"),
+  
+  _4_VISION_PREVIEW("gpt-4-vision-preview"),
+  
   _4("gpt-4"),
   
   _4_0314("gpt-4-0314"),
@@ -45,6 +57,10 @@ public enum CreateChatCompletionRequestModel {
   _3_5_TURBO_0301("gpt-3.5-turbo-0301"),
   
   _3_5_TURBO_0613("gpt-3.5-turbo-0613"),
+  
+  _3_5_TURBO_1106("gpt-3.5-turbo-1106"),
+  
+  _3_5_TURBO_0125("gpt-3.5-turbo-0125"),
   
   _3_5_TURBO_16K_0613("gpt-3.5-turbo-16k-0613");
 

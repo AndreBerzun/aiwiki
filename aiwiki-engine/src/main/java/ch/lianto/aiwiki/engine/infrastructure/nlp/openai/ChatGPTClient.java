@@ -1,30 +1,32 @@
 package ch.lianto.aiwiki.engine.infrastructure.nlp.openai;
 
-import ch.lianto.aiwiki.engine.entity.Chat;
-import ch.lianto.aiwiki.engine.infrastructure.nlp.AbstractChatSummaryProvider;
-import ch.lianto.aiwiki.engine.infrastructure.nlp.PromptTemplates;
 import ch.lianto.aiwiki.engine.policy.nlp.ChatClient;
-import ch.lianto.aiwiki.engine.policy.nlp.ChatSummaryProvider;
+import ch.lianto.aiwiki.engine.policy.nlp.ChatRequest;
 import ch.lianto.openai.client.api.ChatApi;
 import ch.lianto.openai.client.config.OpenAIClientProperties;
 import ch.lianto.openai.client.model.ChatCompletionRequestMessage;
 import ch.lianto.openai.client.model.ChatCompletionRequestMessage.RoleEnum;
 import ch.lianto.openai.client.model.CreateChatCompletionRequest;
+import ch.lianto.openai.client.model.CreateChatCompletionRequestResponseFormat;
 import ch.lianto.openai.client.model.CreateChatCompletionResponse;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import org.springframework.context.annotation.Primary;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.context.annotation.Profile;
 import org.springframework.core.ParameterizedTypeReference;
 import org.springframework.http.codec.ServerSentEvent;
 import org.springframework.stereotype.Component;
 import reactor.core.publisher.Flux;
 
+import static ch.lianto.openai.client.model.CreateChatCompletionRequestResponseFormat.TypeEnum.JSON_OBJECT;
+import static org.apache.commons.lang3.StringUtils.abbreviate;
+
 @Profile("openai-generation")
-@Primary
 @Component
-public class ChatGPTClient extends AbstractChatSummaryProvider implements ChatClient, ChatSummaryProvider {
+public class ChatGPTClient implements ChatClient {
     private static final String CLOSING_CHUNK = "[DONE]";
+    private final Logger log = LoggerFactory.getLogger(getClass());
     private final ChatApi chatApi;
     private final ObjectMapper objectMapper;
     private final OpenAIClientProperties properties;
@@ -36,30 +38,32 @@ public class ChatGPTClient extends AbstractChatSummaryProvider implements ChatCl
     }
 
     @Override
-    public String generateResponse(String prompt, String... context) {
-        if (prompt.isEmpty()) throw new IllegalArgumentException("Cannot answer to empty prompt!");
-
-        CreateChatCompletionRequest request = createRAGStyleRequest(prompt, context, false);
-        CreateChatCompletionResponse response = chatApi.createChatCompletion(request).block();
-        return getContentFromApiResponse(response);
-    }
-
-    private CreateChatCompletionRequest createRAGStyleRequest(String message, String[] context, boolean stream) {
-        CreateChatCompletionRequest request = new CreateChatCompletionRequest();
-        request.setModel(properties.getGenerationModel());
-        request.setStream(stream);
-        request.addMessagesItem(createMessage(PromptTemplates.rag(context), RoleEnum.SYSTEM));
-        request.addMessagesItem(createMessage(message, RoleEnum.USER));
-        return request;
+    public String generateResponse(ChatRequest request) {
+        log.info("Creating completion request for prompt <{}>", abbreviate(request.getUserPrompt(), 30));
+        CreateChatCompletionRequest apiRequest = createApiRequest(request, false);
+        CreateChatCompletionResponse apiResponse = chatApi.createChatCompletion(apiRequest).block();
+        log.info("Received completion response for <{}>", abbreviate(request.getUserPrompt(), 30));
+        log.info("Tokens used: <{}> Total, <{}> Input, <{}> Output", apiResponse.getUsage().getTotalTokens(), apiResponse.getUsage().getPromptTokens(), apiResponse.getUsage().getCompletionTokens());
+        return getContentFromApiResponse(apiResponse);
     }
 
     @Override
-    public Flux<String> generateResponseChunks(String prompt, String... context) {
-        if (prompt.isEmpty()) throw new IllegalArgumentException("Cannot answer to empty prompt!");
-
-        CreateChatCompletionRequest request = createRAGStyleRequest(prompt, context, true);
-        Flux<CreateChatCompletionResponse> responseChunks = fetchResponseChunks(request);
+    public Flux<String> generateResponseChunks(ChatRequest request) {
+        CreateChatCompletionRequest apiRequest = createApiRequest(request, true);
+        Flux<CreateChatCompletionResponse> responseChunks = fetchResponseChunks(apiRequest);
         return responseChunks.mapNotNull(this::getContentFromApiResponseChunks);
+    }
+
+    private CreateChatCompletionRequest createApiRequest(ChatRequest request, boolean stream) {
+        CreateChatCompletionRequest apiRequest = new CreateChatCompletionRequest();
+        apiRequest.setModel(properties.getGenerationModel());
+        apiRequest.setStream(stream);
+        if (request.isJsonMode())
+            apiRequest.setResponseFormat(new CreateChatCompletionRequestResponseFormat().type(JSON_OBJECT));
+        if (request.getSystemPrompt() != null)
+            apiRequest.addMessagesItem(createMessage(request.getSystemPrompt(), RoleEnum.SYSTEM));
+        apiRequest.addMessagesItem(createMessage(request.getUserPrompt(), RoleEnum.USER));
+        return apiRequest;
     }
 
     private Flux<CreateChatCompletionResponse> fetchResponseChunks(CreateChatCompletionRequest request) {
@@ -81,20 +85,6 @@ public class ChatGPTClient extends AbstractChatSummaryProvider implements ChatCl
 
     private String getContentFromApiResponseChunks(CreateChatCompletionResponse response) {
         return response.getChoices().get(0).getDelta().getContent();
-    }
-
-    @Override
-    protected String fetchSummaryFromApi(Chat chat) {
-        CreateChatCompletionRequest request = createSummaryRequest(chat);
-        CreateChatCompletionResponse response = chatApi.createChatCompletion(request).block();
-        return getContentFromApiResponse(response);
-    }
-
-    private CreateChatCompletionRequest createSummaryRequest(Chat chat) {
-        CreateChatCompletionRequest request = new CreateChatCompletionRequest();
-        request.setModel(properties.getGenerationModel());
-        request.addMessagesItem(createMessage(PromptTemplates.summary(chat), RoleEnum.USER));
-        return request;
     }
 
     private ChatCompletionRequestMessage createMessage(String message, RoleEnum role) {

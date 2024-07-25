@@ -33,7 +33,7 @@ import com.fasterxml.jackson.annotation.JsonTypeName;
   CreateEmbeddingRequest.JSON_PROPERTY_ENCODING_FORMAT,
   CreateEmbeddingRequest.JSON_PROPERTY_USER
 })
-@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", date = "2023-12-08T01:46:18.007763393+01:00[Europe/Zurich]")
+@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", date = "2024-05-23T22:31:58.269298200+02:00[Europe/Zurich]", comments = "Generator version: 7.6.0")
 public class CreateEmbeddingRequest {
   public static final String JSON_PROPERTY_INPUT = "input";
   private String input = "";
@@ -110,7 +110,6 @@ public class CreateEmbeddingRequest {
     this.input = input;
   }
 
-
   public CreateEmbeddingRequest model(CreateEmbeddingRequestModel model) {
     
     this.model = model;
@@ -136,7 +135,6 @@ public class CreateEmbeddingRequest {
     this.model = model;
   }
 
-
   public CreateEmbeddingRequest encodingFormat(EncodingFormatEnum encodingFormat) {
     
     this.encodingFormat = encodingFormat;
@@ -161,7 +159,6 @@ public class CreateEmbeddingRequest {
   public void setEncodingFormat(EncodingFormatEnum encodingFormat) {
     this.encodingFormat = encodingFormat;
   }
-
 
   public CreateEmbeddingRequest user(String user) {
     

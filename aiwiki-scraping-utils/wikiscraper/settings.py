@@ -1,4 +1,4 @@
-# Scrapy settings for benchmarkingscrapers project
+# Scrapy settings for wikiscraper project
 #
 # For simplicity, this file contains only settings considered important or
 # commonly used. You can find more settings consulting the documentation:
@@ -7,14 +7,14 @@
 #     https://docs.scrapy.org/en/latest/topics/downloader-middleware.html
 #     https://docs.scrapy.org/en/latest/topics/spider-middleware.html
 
-BOT_NAME = "benchmarkingscrapers"
+BOT_NAME = "wikiscraper"
 
-SPIDER_MODULES = ["benchmarkingscrapers.spiders"]
-NEWSPIDER_MODULE = "benchmarkingscrapers.spiders"
+SPIDER_MODULES = ["wikiscraper.spiders"]
+NEWSPIDER_MODULE = "wikiscraper.spiders"
 
 
 # Crawl responsibly by identifying yourself (and your website) on the user-agent
-#USER_AGENT = "benchmarkingscrapers (+http://www.yourdomain.com)"
+#USER_AGENT = "wikiscraper (+http://www.yourdomain.com)"
 
 # Obey robots.txt rules
 ROBOTSTXT_OBEY = True
@@ -25,7 +25,7 @@ ROBOTSTXT_OBEY = True
 # Configure a delay for requests for the same website (default: 0)
 # See https://docs.scrapy.org/en/latest/topics/settings.html#download-delay
 # See also autothrottle settings and docs
-#DOWNLOAD_DELAY = 3
+# DOWNLOAD_DELAY = 0.25
 # The download delay setting will honor only one of:
 #CONCURRENT_REQUESTS_PER_DOMAIN = 16
 #CONCURRENT_REQUESTS_PER_IP = 16
@@ -45,7 +45,7 @@ ROBOTSTXT_OBEY = True
 # Enable or disable spider middlewares
 # See https://docs.scrapy.org/en/latest/topics/spider-middleware.html
 #SPIDER_MIDDLEWARES = {
-#    "benchmarkingscrapers.middlewares.CritrolescraperSpiderMiddleware": 543,
+#    "wikiscraper.middlewares.CritrolescraperSpiderMiddleware": 543,
 #}
 
 # Enable or disable downloader middlewares
@@ -57,11 +57,11 @@ DOWNLOADER_MIDDLEWARES = {
     'scrapy_fake_useragent.middleware.RetryUserAgentMiddleware': 401,
 }
 
-FAKEUSERAGENT_PROVIDERS = [
-    'scrapy_fake_useragent.providers.FakeUserAgentProvider',  # this is the first provider we'll try
-    'scrapy_fake_useragent.providers.FakerProvider',  # if FakeUserAgentProvider fails, we'll use faker to generate a user-agent string for us
-    'scrapy_fake_useragent.providers.FixedUserAgentProvider',  # fall back to USER_AGENT value
-]
+# FAKEUSERAGENT_PROVIDERS = [
+#     'scrapy_fake_useragent.providers.FakeUserAgentProvider',  # this is the first provider we'll try
+#     'scrapy_fake_useragent.providers.FakerProvider',  # if FakeUserAgentProvider fails, we'll use faker to generate a user-agent string for us
+#     'scrapy_fake_useragent.providers.FixedUserAgentProvider',  # fall back to USER_AGENT value
+# ]
 USER_AGENT = 'Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/119.0.0.0 Safari/537.36 OPR/105.0.0.0'
 
 
@@ -74,7 +74,7 @@ USER_AGENT = 'Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Ge
 # Configure item pipelines
 # See https://docs.scrapy.org/en/latest/topics/item-pipeline.html
 #ITEM_PIPELINES = {
-#    "benchmarkingscrapers.pipelines.CritrolescraperPipeline": 300,
+#    "wikiscraper.pipelines.CritrolescraperPipeline": 300,
 #}
 
 # Enable and configure the AutoThrottle extension (disabled by default)
