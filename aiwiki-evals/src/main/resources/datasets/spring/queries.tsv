@@ -1,0 +1,6 @@
+JPA1    How do I define a listener class or method that is executed during entity lifecycle events?
+JPA2    How can I extend an auto-generated Spring JPA repository with custom methods or behavior?
+JPA3    What configurations do I need to perform to use Springs JPA integration?
+JPA4    Can I reference native SQL queries with Spring JPA?
+JPA5    What are Spring JPAs features? What can I do with it?
+JPA6    Which page can I read up on to learn about mapping query result tuples to custom POJO types?

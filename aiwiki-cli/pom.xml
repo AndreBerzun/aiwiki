@@ -32,7 +32,7 @@
 
         <dependency>
             <groupId>ch.lianto</groupId>
-            <artifactId>aiwiki-benchmarks</artifactId>
+            <artifactId>aiwiki-evals</artifactId>
             <version>${parent.version}</version>
         </dependency>
     </dependencies>
