@@ -12,6 +12,10 @@ public class PageChunk {
     @JsonIgnore
     private Page page;
 
+    public String getId() {
+        return page.getId() + ":" + page.getChunks().indexOf(this);
+    }
+
     public String getText() {
         return text;
     }
