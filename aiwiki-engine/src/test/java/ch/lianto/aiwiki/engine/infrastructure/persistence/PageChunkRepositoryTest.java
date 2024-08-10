@@ -3,10 +3,10 @@ package ch.lianto.aiwiki.engine.infrastructure.persistence;
 import ch.lianto.aiwiki.engine.entity.Page;
 import ch.lianto.aiwiki.engine.entity.PageChunk;
 import ch.lianto.aiwiki.engine.entity.Project;
-import ch.lianto.aiwiki.engine.repository.PageRepository;
-import ch.lianto.aiwiki.engine.repository.PageChunkRepository;
-import ch.lianto.aiwiki.engine.repository.ProjectRepository;
 import ch.lianto.aiwiki.engine.policy.assistant.Similarity;
+import ch.lianto.aiwiki.engine.repository.PageChunkRepository;
+import ch.lianto.aiwiki.engine.repository.PageRepository;
+import ch.lianto.aiwiki.engine.repository.ProjectRepository;
 import ch.lianto.aiwiki.engine.utils.TestData;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -94,5 +94,31 @@ public class PageChunkRepositoryTest {
         assertThat(results).hasSize(2);
         assertThat(results.get(0).data()).isEqualTo(mostRelevant.getChunks().get(0));
         assertThat(results.get(1).data()).isEqualTo(relevant.getChunks().get(0));
+    }
+
+    @Test
+    void findOneMatchingChunkGivenQuote() {
+        projectRepo.save(data.projects.basic);
+        pageRepo.save(data.pages.basic);
+        String quote = "Lorem";
+
+        List<PageChunk> chunks = chunkRepo.findByTextContaining(quote);
+
+        assertThat(chunks)
+            .hasSize(1)
+            .allMatch(chunk -> chunk.getText().contains(quote));
+    }
+
+    @Test
+    void findMultipleMatchingChunksGivenQuote() {
+        projectRepo.save(data.projects.basic);
+        pageRepo.save(data.pages.basic);
+        String quote = "Heading";
+
+        List<PageChunk> chunks = chunkRepo.findByTextContaining(quote);
+
+        assertThat(chunks)
+            .hasSize(2)
+            .allMatch(chunk -> chunk.getText().contains(quote));
     }
 }

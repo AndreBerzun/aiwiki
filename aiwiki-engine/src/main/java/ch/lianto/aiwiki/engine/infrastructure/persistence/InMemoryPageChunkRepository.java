@@ -54,4 +54,15 @@ public class InMemoryPageChunkRepository implements PageChunkRepository {
             .flatMap(List::stream)
             .toList();
     }
+
+    @Override
+    public List<PageChunk> findByTextContaining(String chunkQuote) {
+        return projectRepo.findAll().stream()
+            .map(Project::getPages)
+            .flatMap(List::stream)
+            .map(Page::getChunks)
+            .flatMap(List::stream)
+            .filter(chunk -> chunk.getText().contains(chunkQuote))
+            .toList();
+    }
 }
