@@ -2,36 +2,26 @@ package ch.lianto.aiwiki.engine.policy.assistant;
 
 import ch.lianto.aiwiki.engine.entity.Chat;
 import ch.lianto.aiwiki.engine.entity.PageChunk;
-import ch.lianto.aiwiki.engine.entity.Project;
 import ch.lianto.aiwiki.engine.policy.nlp.ChatClient;
 import ch.lianto.aiwiki.engine.policy.nlp.ChatRequest;
 import ch.lianto.aiwiki.engine.repository.PageChunkRepository;
-import ch.lianto.aiwiki.engine.repository.ProjectRepository;
 import org.springframework.stereotype.Component;
-import reactor.core.publisher.Flux;
 
 import java.util.List;
 
 @Component
 public class AssistantService {
-    private final ProjectRepository projectRepo;
     private final PageChunkRepository chunkRepo;
     private final ChatClient chatClient;
 
-    public AssistantService(
-        ProjectRepository projectRepo,
-        PageChunkRepository chunkRepo,
-        ChatClient chatClient
-    ) {
-        this.projectRepo = projectRepo;
+    public AssistantService(PageChunkRepository chunkRepo, ChatClient chatClient) {
         this.chunkRepo = chunkRepo;
         this.chatClient = chatClient;
     }
 
-    public Chat ask(Chat chat, String projectName) {
-        var project = projectRepo.findByName(projectName);
+    public Chat ask(Chat chat) {
         var prompt = summarizeLatestPromptInChat(chat);
-        var matchingChunks = search(prompt, project);
+        var matchingChunks = search(prompt);
         var answer = chatClient.generateResponseChunks(ChatRequest.rag(prompt, toContext(matchingChunks)));
         return chat.answer(answer);
     }
@@ -48,7 +38,7 @@ public class AssistantService {
             .toArray(String[]::new);
     }
 
-    public List<Similarity<PageChunk>> search(String prompt, Project project) {
-        return chunkRepo.findBySimilarity(prompt, project);
+    public List<Similarity<PageChunk>> search(String prompt) {
+        return chunkRepo.findBySimilarity(prompt);
     }
 }

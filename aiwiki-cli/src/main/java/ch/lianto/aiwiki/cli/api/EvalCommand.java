@@ -18,7 +18,7 @@ public class EvalCommand {
         this.service = service;
     }
 
-    @Command(command = "benchmark")
+    @Command(command = "eval")
     public String benchmark(
         @Option(longNames = "specification", shortNames = 's') String specificationPath,
         @Option(longNames = "output", shortNames = 'o') String resultPath

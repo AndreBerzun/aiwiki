@@ -34,7 +34,7 @@ public class PageChunkRepositoryTest {
         projectRepo.save(data.projects.basic);
         pageRepo.save(data.embeddings.pinkFloydPage);
 
-        List<Similarity<PageChunk>> results = chunkRepo.findBySimilarity(data.embeddings.emptyPrompt, data.projects.basic);
+        List<Similarity<PageChunk>> results = chunkRepo.findBySimilarity(data.embeddings.emptyPrompt);
 
         assertThat(results).isEmpty();
     }
@@ -43,7 +43,7 @@ public class PageChunkRepositoryTest {
     void returnsEmptyListWhenNoPagesCreated() {
         projectRepo.save(data.projects.basic);
 
-        List<Similarity<PageChunk>> results = chunkRepo.findBySimilarity(data.embeddings.bestRockBandPrompt, data.projects.basic);
+        List<Similarity<PageChunk>> results = chunkRepo.findBySimilarity(data.embeddings.bestRockBandPrompt);
 
         assertThat(results).isEmpty();
     }
@@ -54,7 +54,7 @@ public class PageChunkRepositoryTest {
         projectRepo.save(data.projects.alternate);
         pageRepo.save(data.embeddings.pinkFloydPage);
 
-        List<Similarity<PageChunk>> results = chunkRepo.findBySimilarity(data.embeddings.bestRockBandPrompt, data.projects.alternate);
+        List<Similarity<PageChunk>> results = chunkRepo.findBySimilarity(data.embeddings.bestRockBandPrompt);
 
         assertThat(results).isEmpty();
     }
@@ -64,7 +64,7 @@ public class PageChunkRepositoryTest {
         Project project = projectRepo.save(data.projects.basic);
         Page relatedPage = pageRepo.save(data.embeddings.pinkFloydPage);
 
-        List<Similarity<PageChunk>> results = chunkRepo.findBySimilarity(data.embeddings.bestRockBandPrompt, project);
+        List<Similarity<PageChunk>> results = chunkRepo.findBySimilarity(data.embeddings.bestRockBandPrompt);
 
         assertThat(results).hasSize(1);
         assertThat(results.stream().map(Similarity::data).toList()).isEqualTo(relatedPage.getChunks());
@@ -76,7 +76,7 @@ public class PageChunkRepositoryTest {
         Page relatedPage = pageRepo.save(data.embeddings.pinkFloydPage);
         Page unrelatedPage = pageRepo.save(data.pages.basic);
 
-        List<Similarity<PageChunk>> results = chunkRepo.findBySimilarity(data.embeddings.bestRockBandPrompt, data.projects.basic);
+        List<Similarity<PageChunk>> results = chunkRepo.findBySimilarity(data.embeddings.bestRockBandPrompt);
 
         assertThat(results).hasSize(1);
         assertThat(results.stream().map(Similarity::data).toList()).isEqualTo(relatedPage.getChunks());
@@ -89,7 +89,7 @@ public class PageChunkRepositoryTest {
         Page relevant = pageRepo.save(data.embeddings.eloPage);
         pageRepo.save(data.pages.basic);
 
-        List<Similarity<PageChunk>> results = chunkRepo.findBySimilarity(data.embeddings.bestRockBandPrompt, data.projects.basic);
+        List<Similarity<PageChunk>> results = chunkRepo.findBySimilarity(data.embeddings.bestRockBandPrompt);
 
         assertThat(results).hasSize(2);
         assertThat(results.get(0).data()).isEqualTo(mostRelevant.getChunks().get(0));

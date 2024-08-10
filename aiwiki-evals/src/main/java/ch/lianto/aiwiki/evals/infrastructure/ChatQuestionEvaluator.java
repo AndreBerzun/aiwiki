@@ -47,7 +47,7 @@ public class ChatQuestionEvaluator implements QuestionEvaluator {
     }
 
     private List<PageChunk> findChunks(Question question, Project project) {
-        return assistant.search(question.getPrompt(), project).stream()
+        return assistant.search(question.getPrompt()).stream()
             .map(Similarity::data)
             .toList();
     }

@@ -69,7 +69,7 @@ public class ChatQuestionEvaluatorTest {
 
     private AssistantService mockAssistantServiceThatAlwaysReturnsChunkAChunkB() {
         AssistantService assistantService = mock(AssistantService.class);
-        when(assistantService.search(anyString(), any(Project.class)))
+        when(assistantService.search(anyString()))
             .thenReturn(List.of(
                 new Similarity<>(.99, data.benchmarks.chunkA),
                 new Similarity<>(.99, data.benchmarks.chunkB)
