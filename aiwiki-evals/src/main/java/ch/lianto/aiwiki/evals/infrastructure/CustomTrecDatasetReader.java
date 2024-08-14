@@ -80,12 +80,19 @@ public class CustomTrecDatasetReader {
                 .filter(not(String::isBlank))
                 .map(line -> {
                     String[] columns = line.split("\t+");
-                    if (columns.length != 4) throw new IllegalArgumentException("Invalid qrel formatting: " + line);
-                    return new Qrel()
-                        .setQueryId(columns[0])
-                        .setRelevance(Integer.parseInt(columns[1]))
-                        .setPageId(columns[2])
-                        .setChunkQuote(columns[3]);
+                    if (columns.length == 3)
+                        return new Qrel()
+                            .setQueryId(columns[0])
+                            .setRelevance(Integer.parseInt(columns[1]))
+                            .setChunkId(columns[2]);
+                    else if (columns.length == 4)
+                        return new Qrel()
+                            .setQueryId(columns[0])
+                            .setRelevance(Integer.parseInt(columns[1]))
+                            .setPageId(columns[2])
+                            .setChunkQuote(columns[3]);
+                    else
+                        throw new IllegalArgumentException("Invalid qrel formatting: " + line);
                 }).toList();
         }
         return qrels;
@@ -112,6 +119,7 @@ public class CustomTrecDatasetReader {
 
     private void resolveChunkIdsFromQueryQuotes(List<Qrel> qrels) {
         for (Qrel qrel : qrels) {
+            if (qrel.getChunkId() != null) continue;
             PageChunk chunk = chunkRepo.findByTextContaining(qrel.getChunkQuote()).getFirst();
             qrel.setChunkId(chunk.getId());
         }

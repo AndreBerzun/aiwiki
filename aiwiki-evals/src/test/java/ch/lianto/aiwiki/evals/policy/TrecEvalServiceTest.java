@@ -26,6 +26,7 @@ public class TrecEvalServiceTest {
     private static final String EMPTY_DATASET_PATH = "src/test/resources/empty-dataset";
     private static final String SINGLE_DATASET_PATH = "src/test/resources/one-dataset";
     private static final String MULTI_DATASET_PATH = "src/test/resources/multi-dataset";
+    private static final String NO_CHUNK_RESOLVING_DATASET_PATH = "src/test/resources/chunk";
     private static final Path EXPECTED_RESULTS_DIR = Paths.get("src/test/resources/expected-results");
 
     private TestData data;
@@ -97,6 +98,16 @@ public class TrecEvalServiceTest {
         assertThatContentMatches(
             Paths.get(outputPath).resolve("music/qrels.tsv"),
             EXPECTED_RESULTS_DIR.resolve("music-dataset.tsv")
+        );
+    }
+
+    @Test
+    void dontResolveChunksWhenNoQuoteGiven() {
+        evalService.prepareTrecEvaluation(NO_CHUNK_RESOLVING_DATASET_PATH, outputPath);
+
+        assertThatContentMatches(
+            Paths.get(outputPath).resolve("resolving/qrels.tsv"),
+            EXPECTED_RESULTS_DIR.resolve("chunk-resolving-dataset.tsv")
         );
     }
 
