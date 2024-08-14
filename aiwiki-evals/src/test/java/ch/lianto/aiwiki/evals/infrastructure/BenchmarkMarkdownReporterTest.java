@@ -4,7 +4,7 @@ import ch.lianto.aiwiki.evals.entity.Benchmark;
 import ch.lianto.aiwiki.evals.entity.ChunkReference;
 import ch.lianto.aiwiki.evals.entity.DataSet;
 import ch.lianto.aiwiki.evals.entity.Question;
-import ch.lianto.aiwiki.evals.policy.EvalReporter;
+import ch.lianto.aiwiki.evals.infrastructure.markdown.EvalMarkdownReporter;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -23,7 +23,7 @@ public class BenchmarkMarkdownReporterTest {
     private static final Path ACTUAL_REPORT = OUTPUT_PATH.resolve("Test.md");
     private static final Path EXPECTED_REPORT = OUTPUT_PATH.resolve("Expected Report.md");
     private Benchmark expectedBenchmark;
-    private EvalReporter reporter;
+    private EvalMarkdownReporter reporter;
 
     @BeforeEach
     void setUp() {

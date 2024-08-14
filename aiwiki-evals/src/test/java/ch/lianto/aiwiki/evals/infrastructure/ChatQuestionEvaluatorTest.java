@@ -3,6 +3,7 @@ package ch.lianto.aiwiki.evals.infrastructure;
 import ch.lianto.aiwiki.evals.data.TestData;
 import ch.lianto.aiwiki.evals.entity.ChunkReference;
 import ch.lianto.aiwiki.evals.entity.Question;
+import ch.lianto.aiwiki.evals.infrastructure.markdown.ChatQuestionEvaluator;
 import ch.lianto.aiwiki.evals.policy.QuestionEvaluator;
 import ch.lianto.aiwiki.engine.entity.Project;
 import ch.lianto.aiwiki.engine.policy.assistant.AssistantService;

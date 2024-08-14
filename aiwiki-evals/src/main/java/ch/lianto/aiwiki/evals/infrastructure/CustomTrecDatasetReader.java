@@ -1,4 +1,4 @@
-package ch.lianto.aiwiki.evals.policy;
+package ch.lianto.aiwiki.evals.infrastructure;
 
 import ch.lianto.aiwiki.engine.entity.PageChunk;
 import ch.lianto.aiwiki.engine.repository.PageChunkRepository;
@@ -10,28 +10,34 @@ import java.io.IOException;
 import java.nio.file.DirectoryStream;
 import java.nio.file.Files;
 import java.nio.file.Path;
-import java.nio.file.Paths;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.stream.Stream;
 
 import static java.util.function.Predicate.not;
 
-public class TrecEvalService {
+public class CustomTrecDatasetReader {
     private final Logger log = LoggerFactory.getLogger(getClass());
+    private final PageChunkRepository chunkRepo;
 
-    private final PageChunkRepository chunkRepository;
-
-    public TrecEvalService(PageChunkRepository chunkRepository) {
-        this.chunkRepository = chunkRepository;
+    public CustomTrecDatasetReader(PageChunkRepository chunkRepo) {
+        this.chunkRepo = chunkRepo;
     }
 
-    public void prepareTrecEvaluation(String inputPath, String outputPath) {
-        Path datasetPath = Paths.get(inputPath);
-        Path resultPath = Paths.get(outputPath);
-
+    public Map<String, List<Qrel>> readDataset(Path datasetPath) {
         validateDatasetPath(datasetPath);
-        convertDatasetToTrecFormat(datasetPath, resultPath);
-        createTrecRun();
+
+        Map<String, List<Qrel>> results = new HashMap<>();
+        try (DirectoryStream<Path> datasets = Files.newDirectoryStream(datasetPath)) {
+            for (Path dataset : datasets) {
+                List<Qrel> qrels = readQrels(dataset);
+                results.put(dataset.getFileName().toString(), qrels);
+            }
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
+        return results;
     }
 
     private void validateDatasetPath(Path path) {
@@ -45,17 +51,6 @@ public class TrecEvalService {
                 throw new IllegalArgumentException("No dataset directories found in provided path");
         } catch (IOException e) {
             throw new RuntimeException("Error while confirming datasets in dataset path");
-        }
-    }
-
-    private void convertDatasetToTrecFormat(Path datasetPath, Path resultPath) {
-        try (DirectoryStream<Path> datasets = Files.newDirectoryStream(datasetPath)) {
-            for (Path dataset : datasets) {
-                List<Qrel> qrels = readQrels(dataset);
-                writeTrecFile(resultPath.resolve(dataset.getFileName()), qrels);
-            }
-        } catch (IOException e) {
-            throw new RuntimeException(e);
         }
     }
 
@@ -117,24 +112,8 @@ public class TrecEvalService {
 
     private void resolveChunkIdsFromQueryQuotes(List<Qrel> qrels) {
         for (Qrel qrel : qrels) {
-            PageChunk chunk = chunkRepository.findByTextContaining(qrel.getChunkQuote()).getFirst();
+            PageChunk chunk = chunkRepo.findByTextContaining(qrel.getChunkQuote()).getFirst();
             qrel.setChunkId(chunk.getId());
         }
-    }
-
-    private void writeTrecFile(Path resultPath, List<Qrel> qrels) throws IOException {
-        if (Files.notExists(resultPath) && !resultPath.toFile().mkdirs())
-            throw new IOException("Could not find or create resultPath");
-
-        Files.write(
-            resultPath.resolve("qrels.tsv"),
-            qrels.stream()
-                .map(qrel -> String.format("%s\t%d\t%s\t%d", qrel.getQueryId(), 0, qrel.getChunkId(), qrel.getRelevance()))
-                .toList()
-        );
-    }
-
-    private void createTrecRun() {
-
     }
 }

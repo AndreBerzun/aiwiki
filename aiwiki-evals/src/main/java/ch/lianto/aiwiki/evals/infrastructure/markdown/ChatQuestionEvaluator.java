@@ -1,4 +1,4 @@
-package ch.lianto.aiwiki.evals.infrastructure;
+package ch.lianto.aiwiki.evals.infrastructure.markdown;
 
 import ch.lianto.aiwiki.evals.entity.ChunkReference;
 import ch.lianto.aiwiki.evals.entity.Question;

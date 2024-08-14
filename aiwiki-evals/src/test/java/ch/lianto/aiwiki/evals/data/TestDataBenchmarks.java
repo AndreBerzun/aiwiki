@@ -1,19 +1,15 @@
 package ch.lianto.aiwiki.evals.data;
 
-import ch.lianto.aiwiki.evals.entity.ChunkReference;
-import ch.lianto.aiwiki.evals.entity.Question;
 import ch.lianto.aiwiki.engine.entity.Page;
 import ch.lianto.aiwiki.engine.entity.PageChunk;
+import ch.lianto.aiwiki.evals.entity.ChunkReference;
+import ch.lianto.aiwiki.evals.entity.Question;
 
 import java.util.List;
 
 public class TestDataBenchmarks {
-    public final PageChunk chunkA = new PageChunk()
-        .setText("Chunk A")
-        .setPage(new Page().setName("A"));
-    public final PageChunk chunkB = new PageChunk()
-        .setText("Chunk B")
-        .setPage(new Page().setName("B"));
+    public final PageChunk chunkA;
+    public final PageChunk chunkB;
 
     public final Question questionExpectsChunksAB = new Question()
         .setPrompt("What are the first two letters of the alphabet?")
@@ -29,4 +25,13 @@ public class TestDataBenchmarks {
             new ChunkReference("Page D", "Chunk D"),
             new ChunkReference("Page E", "Chunk E")
         ));
+
+    public TestDataBenchmarks() {
+        chunkA = new PageChunk()
+            .setText("Chunk A");
+        chunkA.setPage(new Page().setName("A").setChunks(List.of(chunkA)));
+        chunkB = new PageChunk()
+            .setText("Chunk B");
+        chunkB.setPage(new Page().setName("B").setChunks(List.of(chunkB)));
+    }
 }

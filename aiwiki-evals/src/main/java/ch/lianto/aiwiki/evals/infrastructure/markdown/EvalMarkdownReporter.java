@@ -1,10 +1,9 @@
-package ch.lianto.aiwiki.evals.infrastructure;
+package ch.lianto.aiwiki.evals.infrastructure.markdown;
 
 import ch.lianto.aiwiki.evals.entity.Benchmark;
 import ch.lianto.aiwiki.evals.entity.ChunkReference;
 import ch.lianto.aiwiki.evals.entity.DataSet;
 import ch.lianto.aiwiki.evals.entity.Question;
-import ch.lianto.aiwiki.evals.policy.EvalReporter;
 
 import java.io.IOException;
 import java.nio.file.Files;
@@ -15,7 +14,7 @@ import java.util.function.Function;
 
 import static org.apache.commons.lang3.StringUtils.abbreviate;
 
-public class EvalMarkdownReporter implements EvalReporter {
+public class EvalMarkdownReporter {
     private final Path targetDirectory;
     private final List<String> lines = new ArrayList<>();
     private Benchmark benchmark;
@@ -24,7 +23,6 @@ public class EvalMarkdownReporter implements EvalReporter {
         this.targetDirectory = targetDirectory;
     }
 
-    @Override
     public void report(Benchmark benchmark) {
         this.benchmark = benchmark;
         validateBenchmark();
