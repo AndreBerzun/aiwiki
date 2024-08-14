@@ -22,15 +22,15 @@ import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.Mockito.*;
 
 public class TrecEvalServiceTest {
-    private static final String NOTFOUND_DATASET_PATH = "src/test/resources/not-found";
-    private static final String EMPTY_DATASET_PATH = "src/test/resources/empty-dataset";
-    private static final String SINGLE_DATASET_PATH = "src/test/resources/one-dataset";
-    private static final String MULTI_DATASET_PATH = "src/test/resources/multi-dataset";
-    private static final String NO_CHUNK_RESOLVING_DATASET_PATH = "src/test/resources/chunk";
+    private static final Path NOTFOUND_DATASET_PATH = Paths.get("src/test/resources/not-found");
+    private static final Path EMPTY_DATASET_PATH = Paths.get("src/test/resources/empty-dataset");
+    private static final Path SINGLE_DATASET_PATH = Paths.get("src/test/resources/one-dataset");
+    private static final Path MULTI_DATASET_PATH = Paths.get("src/test/resources/multi-dataset");
+    private static final Path NO_CHUNK_RESOLVING_DATASET_PATH = Paths.get("src/test/resources/chunk");
     private static final Path EXPECTED_RESULTS_DIR = Paths.get("src/test/resources/expected-results");
 
     private TestData data;
-    private String outputPath;
+    private Path outputPath;
     private TrecEvalService evalService;
 
     @BeforeEach
@@ -56,7 +56,7 @@ public class TrecEvalServiceTest {
         ));
 
         evalService = new TrecEvalService(new CustomTrecDatasetReader(chunkRepoMock), assistantService);
-        outputPath = "/tmp/" + LocalDateTime.now();
+        outputPath = Paths.get("/tmp", LocalDateTime.now().toString());
     }
 
     @Test
@@ -82,7 +82,7 @@ public class TrecEvalServiceTest {
         evalService.prepareTrecEvaluation(SINGLE_DATASET_PATH, outputPath);
 
         assertThatContentMatches(
-            Paths.get(outputPath).resolve("test/qrels.tsv"),
+            outputPath.resolve("test/qrels.tsv"),
             EXPECTED_RESULTS_DIR.resolve("one-dataset.tsv")
         );
     }
@@ -92,11 +92,11 @@ public class TrecEvalServiceTest {
         evalService.prepareTrecEvaluation(MULTI_DATASET_PATH, outputPath);
 
         assertThatContentMatches(
-            Paths.get(outputPath).resolve("movies/qrels.tsv"),
+            outputPath.resolve("movies/qrels.tsv"),
             EXPECTED_RESULTS_DIR.resolve("movies-dataset.tsv")
         );
         assertThatContentMatches(
-            Paths.get(outputPath).resolve("music/qrels.tsv"),
+            outputPath.resolve("music/qrels.tsv"),
             EXPECTED_RESULTS_DIR.resolve("music-dataset.tsv")
         );
     }
@@ -106,7 +106,7 @@ public class TrecEvalServiceTest {
         evalService.prepareTrecEvaluation(NO_CHUNK_RESOLVING_DATASET_PATH, outputPath);
 
         assertThatContentMatches(
-            Paths.get(outputPath).resolve("resolving/qrels.tsv"),
+            outputPath.resolve("resolving/qrels.tsv"),
             EXPECTED_RESULTS_DIR.resolve("chunk-resolving-dataset.tsv")
         );
     }
@@ -116,7 +116,7 @@ public class TrecEvalServiceTest {
         evalService.prepareTrecEvaluation(SINGLE_DATASET_PATH, outputPath);
 
         assertThatContentMatches(
-            Paths.get(outputPath).resolve("test/run.tsv"),
+            outputPath.resolve("test/run.tsv"),
             EXPECTED_RESULTS_DIR.resolve("one-run.tsv")
         );
     }
@@ -126,11 +126,11 @@ public class TrecEvalServiceTest {
         evalService.prepareTrecEvaluation(MULTI_DATASET_PATH, outputPath);
 
         assertThatContentMatches(
-            Paths.get(outputPath).resolve("movies/run.tsv"),
+            outputPath.resolve("movies/run.tsv"),
             EXPECTED_RESULTS_DIR.resolve("movies-run.tsv")
         );
         assertThatContentMatches(
-            Paths.get(outputPath).resolve("music/run.tsv"),
+            outputPath.resolve("music/run.tsv"),
             EXPECTED_RESULTS_DIR.resolve("music-run.tsv")
         );
     }

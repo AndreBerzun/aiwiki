@@ -5,6 +5,7 @@ import ch.lianto.aiwiki.engine.repository.PageChunkRepository;
 import ch.lianto.aiwiki.evals.entity.Qrel;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.stereotype.Component;
 
 import java.io.IOException;
 import java.nio.file.DirectoryStream;
@@ -17,6 +18,7 @@ import java.util.stream.Stream;
 
 import static java.util.function.Predicate.not;
 
+@Component
 public class CustomTrecDatasetReader {
     private final Logger log = LoggerFactory.getLogger(getClass());
     private final PageChunkRepository chunkRepo;

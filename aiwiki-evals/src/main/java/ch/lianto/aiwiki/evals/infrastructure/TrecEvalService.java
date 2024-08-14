@@ -5,6 +5,8 @@ import ch.lianto.aiwiki.engine.policy.assistant.AssistantService;
 import ch.lianto.aiwiki.engine.policy.assistant.Similarity;
 import ch.lianto.aiwiki.evals.entity.Qrel;
 import ch.lianto.aiwiki.evals.entity.Query;
+import ch.lianto.aiwiki.evals.policy.EvalService;
+import org.springframework.stereotype.Component;
 
 import java.io.IOException;
 import java.nio.file.Files;
@@ -14,7 +16,8 @@ import java.nio.file.StandardOpenOption;
 import java.util.List;
 import java.util.Map;
 
-public class TrecEvalService {
+@Component
+public class TrecEvalService implements EvalService {
     private final CustomTrecDatasetReader datasetReader;
     private final AssistantService assistantService;
 
@@ -23,10 +26,12 @@ public class TrecEvalService {
         this.assistantService = assistantService;
     }
 
-    public void prepareTrecEvaluation(String inputPath, String outputPath) {
-        Path datasetPath = Paths.get(inputPath);
-        Path resultPath = Paths.get(outputPath);
+    @Override
+    public void evaluate(Path dataset, Path result) {
+        prepareTrecEvaluation(dataset, result);
+    }
 
+    public void prepareTrecEvaluation(Path datasetPath, Path resultPath) {
         Map<String, List<Qrel>> datasetMap = convertDatasetToTrecQrels(datasetPath, resultPath);
         createTrecRun(datasetMap, resultPath);
     }
