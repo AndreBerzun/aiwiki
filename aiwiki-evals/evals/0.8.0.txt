@@ -2,19 +2,19 @@
 
 ID		nDCG@10		P@10		Query
 -----------------------------------------------------------------------------------------------------------------------
+all		0.1586		0.0600
 CR1		0.5911		0.2000		Does Imogen have a love interest among the members of the group?
 CR2		0.2021		0.1000		Did any members of the group get killed during the battle with Otohan Tull?
 CR3		0.0000		0.0000		What is the secret behind the red moon Ruidus? Why does it call to Fearne and Imogen?
 CR4		0.0000		0.0000		Who is Ira Wendegoth?
 CR6		0.0000		0.0000		In what episode did Ferne reunite with her mother for the first time in 90 years?
-all		0.1586		0.0600
 
 # spring
 
 ID		nDCG@10		P@10		Query
 -----------------------------------------------------------------------------------------------------------------------
+all		0.3981		0.1250
 JPA1	1.0000		0.2000		How do I define a listener class or method that is executed during entity lifecycle events?
 JPA2	0.0000		0.0000		How can I extend an auto-generated Spring JPA repository with custom methods or behavior?
 JPA3	0.2015		0.1000		What configurations do I need to perform to use Springs JPA integration?
 JPA4	0.3907		0.2000		Can I reference native SQL queries with Spring JPA?
-all		0.3981		0.1250

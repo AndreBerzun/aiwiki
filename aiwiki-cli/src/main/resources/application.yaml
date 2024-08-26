@@ -3,7 +3,7 @@ app:
     simple:
       file: file:/home/andre/apps/aiwiki/gpt-3.5.json
   indexing:
-    chunking: max_token
+    chunking: paragraph
     enable-additional-embeddings: true
   openai:
     api-key: ${OPENAI_API_KEY}

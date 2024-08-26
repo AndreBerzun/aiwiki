@@ -1,4 +1,4 @@
-package ch.lianto.aiwiki.evals.entity;
+package ch.lianto.aiwiki.evals.data;
 
 import ch.lianto.aiwiki.engine.entity.PageChunk;
 import ch.lianto.aiwiki.engine.policy.assistant.Similarity;

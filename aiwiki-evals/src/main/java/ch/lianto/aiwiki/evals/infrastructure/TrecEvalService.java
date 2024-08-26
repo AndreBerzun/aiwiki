@@ -3,15 +3,14 @@ package ch.lianto.aiwiki.evals.infrastructure;
 import ch.lianto.aiwiki.engine.entity.PageChunk;
 import ch.lianto.aiwiki.engine.policy.assistant.AssistantService;
 import ch.lianto.aiwiki.engine.policy.assistant.Similarity;
-import ch.lianto.aiwiki.evals.entity.Qrel;
-import ch.lianto.aiwiki.evals.entity.Query;
+import ch.lianto.aiwiki.evals.data.Qrel;
+import ch.lianto.aiwiki.evals.data.Query;
 import ch.lianto.aiwiki.evals.policy.EvalService;
 import org.springframework.stereotype.Component;
 
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
-import java.nio.file.Paths;
 import java.nio.file.StandardOpenOption;
 import java.util.List;
 import java.util.Map;

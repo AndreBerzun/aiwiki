@@ -1,4 +1,4 @@
-package ch.lianto.aiwiki.evals.entity;
+package ch.lianto.aiwiki.evals.data;
 
 public class Qrel {
     private String queryId;

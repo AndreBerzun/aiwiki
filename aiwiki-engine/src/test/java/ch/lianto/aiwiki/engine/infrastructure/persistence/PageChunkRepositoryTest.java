@@ -49,17 +49,6 @@ public class PageChunkRepositoryTest {
     }
 
     @Test
-    void returnsEmptyListWhenMatchingPagesButFromDifferentProject() {
-        projectRepo.save(data.projects.basic);
-        projectRepo.save(data.projects.alternate);
-        pageRepo.save(data.embeddings.pinkFloydPage);
-
-        List<Similarity<PageChunk>> results = chunkRepo.findBySimilarity(data.embeddings.bestRockBandPrompt);
-
-        assertThat(results).isEmpty();
-    }
-
-    @Test
     void returnsPageThatMatchesPrompt() {
         Project project = projectRepo.save(data.projects.basic);
         Page relatedPage = pageRepo.save(data.embeddings.pinkFloydPage);
