@@ -17,11 +17,4 @@ public class AiWikiCliApplication {
     public static void main(String[] args) {
         SpringApplication.run(AiWikiCliApplication.class, args);
     }
-
-    @Bean
-    public AvailabilityProvider projectAvailability(CliContext context) {
-        return () -> context.isProjectSelected()
-            ? Availability.available()
-            : Availability.unavailable("No project selected");
-    }
 }

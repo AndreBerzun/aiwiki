@@ -29,12 +29,12 @@ public class InMemoryPageChunkRepository implements PageChunkRepository {
     }
 
     @Override
-    public List<Similarity<PageChunk>> findBySimilarity(String text, Project project) {
+    public List<Similarity<PageChunk>> findBySimilarity(String text) {
         if (text.isEmpty()) return new ArrayList<>();
         double[] textEmbedding = embeddingProvider.generateEmbedding(text, QUERY);
 
         List<Similarity<PageChunk>> similarities = new ArrayList<>();
-        for (PageChunk segment : listPageChunksByProject(project)) {
+        for (PageChunk segment : listAllPageChunks()) {
             double similarity = segment.getEmbeddings().stream()
                 .mapToDouble(embedding -> cosineSimilarity(textEmbedding, embedding))
                 .max()
@@ -46,12 +46,21 @@ public class InMemoryPageChunkRepository implements PageChunkRepository {
         return similarities.subList(Math.max(0, similarities.size() - MAX_RESULTS), similarities.size()).reversed();
     }
 
-    private List<PageChunk> listPageChunksByProject(Project project) {
-        return projectRepo.findByName(project.getName())
-            .getPages()
+    private List<PageChunk> listAllPageChunks() {
+        return projectRepo.findAll()
             .stream()
+            .map(Project::getPages)
+            .flatMap(List::stream)
             .map(Page::getChunks)
             .flatMap(List::stream)
+            .toList();
+    }
+
+    @Override
+    public List<PageChunk> findByTextContaining(String chunkQuote) {
+        return listAllPageChunks()
+            .stream()
+            .filter(chunk -> chunk.getText().contains(chunkQuote))
             .toList();
     }
 }

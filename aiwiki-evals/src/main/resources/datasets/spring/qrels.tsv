@@ -1,0 +1,13 @@
+JPA1	2	entity_callbacks:0
+JPA1	2	entity_callbacks:1
+
+JPA2	2	custom_repository_implementations:0
+JPA2	2	custom_repository_implementations:1
+JPA2	1	custom_repository_implementations:2
+
+JPA3	2	configuration:0
+JPA3	1	configuration:1
+JPA3	1	configuration:2
+
+JPA4	2	jpa_query_methods:4
+JPA4	1	jpa_query_methods:3

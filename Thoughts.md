@@ -3,7 +3,7 @@
 ### Game Plan
 [x] Delve into danswers implementation
 [x] Pick a eval framework 
--> How does ir_measures work in relation to chunks? Figure out how to wrap the tool
+[X] How does ir_measures work in relation to chunks? Figure out how to wrap the tool
 [ ] Dive more into BEIR, understand data sets and maybe use them
 [ ] Generate more synthetic test data for my datasets
   - Create ground truth with human-labeled graded qrels
@@ -15,9 +15,9 @@
 [ ] Understand how to fine-tune models for domain-specific data
 
 ### Current steps
-[ ] Test out TREC locally
-[ ] Can I change the order of columns in TREC format?
-[ ] How to integrate TREC into Java? Call process from cli?
+[X] Test out TREC locally
+[X] Can I change the order of columns in TREC format?
+[X] How to integrate TREC into Java? Call process from cli?
    
 ### Zero Shot Ranking - Jo Bergum
 - Search Performance Ranking (from baseline to best):

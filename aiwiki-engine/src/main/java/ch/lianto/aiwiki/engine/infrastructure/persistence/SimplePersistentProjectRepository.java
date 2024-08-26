@@ -3,6 +3,7 @@ package ch.lianto.aiwiki.engine.infrastructure.persistence;
 import ch.lianto.aiwiki.engine.entity.Page;
 import ch.lianto.aiwiki.engine.entity.Project;
 import com.fasterxml.jackson.core.type.TypeReference;
+import com.fasterxml.jackson.databind.DeserializationFeature;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.SerializationFeature;
 import jakarta.annotation.PostConstruct;
@@ -39,6 +40,7 @@ public class SimplePersistentProjectRepository extends InMemoryProjectRepository
             TypeReference<HashMap<String, Project>> typeRef = new TypeReference<>() {
             };
             ObjectMapper objectMapper = new ObjectMapper();
+            objectMapper.disable(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES);
             projects = objectMapper.readValue(properties.getFile().getURL(), typeRef);
             setBackReferences();
         } catch (FileNotFoundException e) {

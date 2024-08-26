@@ -31,18 +31,16 @@ public class AssistantCommand {
     }
 
     @Command(command = "assistant", description = "Enter assistant mode and ask free flowing questions")
-    @CommandAvailability(provider = "projectAvailability")
     public String enterAssistantMode() {
         context.setAssistantMode(true);
         return "Welcome, go ahead and start asking questions:";
     }
 
     @Command(command = "assistant ask", description = "Ask the wiki any questions")
-    @CommandAvailability(provider = "projectAvailability")
     public void ask(String prompt) {
         Chat chat = context.getAssistantChat().question(prompt);
 
-        chat = assistantService.ask(chat, context.getSelectedProject().getName());
+        chat = assistantService.ask(chat);
 
         printAnswerChunks(chat);
     }
@@ -56,12 +54,11 @@ public class AssistantCommand {
     }
 
     @Command(command = "assistant search", description = "Search the wiki for page chunks that match the prompt")
-    @CommandAvailability(provider = "projectAvailability")
     public String search(
         String phrase,
         @Option(shortNames = 't', defaultValue = "false") String showChunkText
     ) {
-        List<Similarity<PageChunk>> foundChunks = assistantService.search(phrase, context.getSelectedProject());
+        List<Similarity<PageChunk>> foundChunks = assistantService.search(phrase);
         return mapFoundChunksToStringResultList(foundChunks, Boolean.parseBoolean(showChunkText));
     }
 

@@ -1,1 +1,1 @@
-{"Project":{"name":"Project","pages":[{"name":"Page","chunks":[{"text":"# Heading 1\nLorem ipsum dolores sit ammat.","embeddings":[[-1.0,-1.0,-1.0]]},{"text":"## Heading 2\nEven more content","embeddings":[[-1.0,-1.0,-1.0]]}]}]}}
+{"Project":{"name":"Project","pages":[{"id":"page","name":"Page","chunks":[{"text":"# Heading 1\nLorem ipsum dolores sit ammat.","embeddings":[[-1.0,-1.0,-1.0]],"id":"page:0"},{"text":"## Heading 2\nEven more content","embeddings":[[-1.0,-1.0,-1.0]],"id":"page:1"}]}]}}

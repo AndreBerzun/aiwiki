@@ -6,21 +6,11 @@ import org.springframework.stereotype.Component;
 
 @Component
 public class CliContext {
-    private Project selectedProject;
-    private Chat assistantChat;
+    private Chat assistantChat = new Chat();
     private boolean assistantMode = false;
 
-    public boolean isProjectSelected() {
-        return selectedProject != null;
-    }
-
-    public Project getSelectedProject() {
-        return selectedProject;
-    }
-
-    public void setSelectedProject(Project selectedProject) {
-        this.selectedProject = selectedProject;
-        this.assistantChat = new Chat();
+    public void clearChat() {
+        assistantChat = new Chat();
     }
 
     public Chat getAssistantChat() {

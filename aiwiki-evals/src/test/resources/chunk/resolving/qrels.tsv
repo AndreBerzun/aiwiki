@@ -1,0 +1,5 @@
+R1	2	DOC1:2
+R1	2	DOC2	This is some test quote DOC2:1
+
+R2	1	DOC4
+R2	2	DOC2	Some other quote DOC2:3
