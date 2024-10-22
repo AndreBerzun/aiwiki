@@ -1,0 +1,44 @@
+schema wiki {
+  	document wiki {
+  	  	field title type string {
+  	  		indexing: index | attribute | summary
+  	      	index: enable-bm25
+  	  	}
+
+  	  	field content type string {
+  	  		indexing: index | summary
+  	      	index: enable-bm25
+  	      	summary: dynamic
+  	 	}
+  	}
+
+  	fieldset default {
+  		fields: title, content
+  	}
+
+  	rank-profile default {
+  		inputs {
+  			query(test) double
+  		}
+
+  	    first-phase {
+  	        expression: bm25(title) + bm25(content)
+  	    }
+  	    rank-properties {
+        	bm25(title).k1: 0.9
+        	bm25(title).b: 0.4
+        	bm25(content).k1: 0.9
+        	bm25(content).b: 0.4
+        }
+  	}
+
+  	rank-profile native-rank {
+  	    first-phase {
+  	        expression: nativeRank(title, content)
+  	    }
+  	}
+
+  	# rank-profile colbert
+
+  	# rank-profile cross-encoder { }
+}

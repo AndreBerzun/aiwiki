@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<services version="1.0">
+    <config name="container.handler.observability.application-userdata">
+        <version>0.1.0</version>
+    </config>
+
+    <container id="text_search" version="1.0">
+        <search />
+        <document-processing />
+        <document-api />
+    </container>
+
+    <content id="wiki" version="1.0">
+        <min-redundancy>1</min-redundancy>
+        <documents>
+            <document type="wiki" mode="index" />
+            <document-processing cluster="text_search" />
+        </documents>
+        <nodes>
+            <node distribution-key="0" hostalias="node1" />
+        </nodes>
+    </content>
+</services>

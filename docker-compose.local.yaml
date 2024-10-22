@@ -1,0 +1,10 @@
+services:
+  vespa:
+    container_name: vespa-wiki-engine
+    image: vespaengine/vespa
+    ports:
+      - 19071:19071
+      - 8080:8080
+    volumes:
+      - ~/.vespa/volumes/wiki/var:/opt/vespa/var
+      - ~/.vespa/volumes/wiki/logs:/opt/vespa/logs
