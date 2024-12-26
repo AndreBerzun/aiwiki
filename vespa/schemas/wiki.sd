@@ -1,28 +1,35 @@
 schema wiki {
   	document wiki {
-  	  	field title type string {
-  	  		indexing: index | attribute | summary
+  		field id type string {
+  			indexing: summary | attribute
+  		}
+  	  	field page type string {
+  	  		indexing: summary | attribute | index
   	      	index: enable-bm25
   	  	}
-
+  	  	field chunkIndex type int {
+  	  		indexing: summary
+  	  	}
   	  	field content type string {
-  	  		indexing: index | summary
+  	  		indexing: summary | index
   	      	index: enable-bm25
-  	      	summary: dynamic
   	 	}
   	}
 
-  	fieldset default {
-  		fields: title, content
+  	field embedding type tensor<float>(x[768]) {
+  		indexing: input content | embed nomic | summary | attribute | index
+  		attribute {
+        	distance-metric: angular
+        }
   	}
 
-  	rank-profile default {
-  		inputs {
-  			query(test) double
-  		}
+  	fieldset default {
+  		fields: page, chunkIndex, content
+  	}
 
+  	rank-profile bm25 {
   	    first-phase {
-  	        expression: bm25(title) + bm25(content)
+  	        expression: bm25(page) + bm25(content)
   	    }
   	    rank-properties {
         	bm25(title).k1: 0.9
@@ -34,9 +41,26 @@ schema wiki {
 
   	rank-profile native-rank {
   	    first-phase {
-  	        expression: nativeRank(title, content)
+  	        expression: nativeRank(page, content)
   	    }
   	}
+
+    rank-profile dense inherits default {
+        inputs {
+            query(q_embedding) tensor<float>(x[768])
+        }
+        first-phase {
+            expression: closeness(field, embedding)
+        }
+    }
+
+	# rank-profile e5-dense {
+	# 	onnx-model e5 { }
+	# }
+
+	# rank-profile nomic-dense {
+    #     onnx-model nomic { }
+	# }
 
   	# rank-profile colbert
 

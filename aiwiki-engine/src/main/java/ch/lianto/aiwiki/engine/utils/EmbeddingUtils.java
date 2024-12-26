@@ -34,4 +34,12 @@ public class EmbeddingUtils {
     public static double norm(double[] vector) {
         return dotProduct(vector, vector);
     }
+
+    public static void main(String[] args) {
+        for (double[] embedding : EmbeddingConstants.GROUND_TRUTHS)
+            System.out.println("Ground Truth Cosine Sim: " + cosineSimilarity(embedding, EmbeddingConstants.QUERY));
+
+        for (double[] embedding : EmbeddingConstants.SEARCH_RESULTS)
+            System.out.println("Search Result Cosine Sim: " + cosineSimilarity(embedding, EmbeddingConstants.QUERY));
+    }
 }

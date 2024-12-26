@@ -8,14 +8,34 @@
         <search />
         <document-processing />
         <document-api />
+
+        <component id="e5" type="hugging-face-embedder">
+            <transformer-model url="https://huggingface.co/intfloat/e5-base-v2/resolve/main/onnx/model.onnx"/>
+            <tokenizer-model url="https://huggingface.co/intfloat/e5-base-v2/raw/main/onnx/tokenizer.json"/>
+            <prepend>
+                <query>query:</query>
+                <document>passage:</document>
+            </prepend>
+        </component>
+
+        <component id="nomic" type="hugging-face-embedder">
+            <transformer-model url="https://huggingface.co/nomic-ai/nomic-embed-text-v1/resolve/main/onnx/model_quantized.onnx"/>
+            <tokenizer-model url="https://huggingface.co/nomic-ai/nomic-embed-text-v1/raw/main/tokenizer.json"/>
+            <prepend>
+                <query>search_query: </query>
+                <document>search_document: </document>
+            </prepend>
+        </component>
     </container>
 
     <content id="wiki" version="1.0">
         <min-redundancy>1</min-redundancy>
+
         <documents>
             <document type="wiki" mode="index" />
             <document-processing cluster="text_search" />
         </documents>
+
         <nodes>
             <node distribution-key="0" hostalias="node1" />
         </nodes>

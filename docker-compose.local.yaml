@@ -1,7 +1,7 @@
 services:
   vespa:
     container_name: vespa-wiki-engine
-    image: vespaengine/vespa
+    image: vespaengine/vespa:8.439.22
     ports:
       - 19071:19071
       - 8080:8080

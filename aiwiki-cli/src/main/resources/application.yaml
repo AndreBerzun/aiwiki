@@ -18,6 +18,8 @@ app:
       DOCUMENT: "search_document:"
 
 spring:
+  main:
+    web-application-type: none
   shell:
     help:
       enabled: true

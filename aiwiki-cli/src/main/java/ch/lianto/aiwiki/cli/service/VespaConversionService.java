@@ -14,6 +14,7 @@ import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.nio.file.StandardOpenOption;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 import java.util.stream.Stream;
@@ -35,7 +36,7 @@ public class VespaConversionService {
                 .map(this::fromFile)
                 .toList();
             log.info("Converting <{}> files to vespa feed", pages.size());
-            convertPagesToVespaFeed(pages, outputPath);
+            convertPagesToVespaFeed(pages, outputPath, PageChunkFormat.mergedPage);
         } catch (IOException e) {
             throw new RuntimeException(e);
         }
@@ -51,35 +52,85 @@ public class VespaConversionService {
         }
     }
 
-    public void convertProjectToVespaFeed(String projectName, String outputPath) {
+    public void convertProjectToVespaFeed(String projectName, String outputPath, PageChunkFormat format) {
         Project project = projectRepo.findByName(projectName);
-        convertPagesToVespaFeed(project.getPages(), outputPath);
+        convertPagesToVespaFeed(project.getPages(), outputPath, format);
     }
 
-    private void convertPagesToVespaFeed(List<Page> pages, String outputPath) {
+    private void convertPagesToVespaFeed(List<Page> pages, String outputPath, PageChunkFormat format) {
         try {
             Path vespaFeed = Paths.get(outputPath).resolve("documents.jsonl");
             Files.delete(vespaFeed);
 
-            ObjectMapper objectMapper = new ObjectMapper();
             for (Page page : pages) {
-                String mergedContent = page.getChunks().stream()
-                    .map(PageChunk::getText)
-                    .reduce(String::concat)
-                    .get();
-
-                Files.writeString(
-                    vespaFeed,
-                    objectMapper.writeValueAsString(Map.of(
-                        "put", "id:space:wiki::" + page.getId(),
-                        "fields", Map.of("title", page.getName(), "content", mergedContent)
-                    )) + "\n",
-                    StandardOpenOption.APPEND, StandardOpenOption.CREATE
-                );
+                if (PageChunkFormat.mergedPage == format) writeMergedPage(page, vespaFeed);
+                else if (PageChunkFormat.chunkedPage == format) writeChunkedPage(page, vespaFeed);
+                else if (PageChunkFormat.chunksOnly == format) writeChunksOnly(page, vespaFeed);
                 log.info("Wrote <{}> to vespa feed", page.getName());
             }
         } catch (IOException e) {
             throw new RuntimeException(e);
         }
+    }
+
+    private void writeChunkedPage(Page page, Path vespaFeed) throws IOException {
+        ObjectMapper objectMapper = new ObjectMapper();
+        Files.writeString(
+            vespaFeed,
+            objectMapper.writeValueAsString(Map.of(
+                "put", "id:space:wiki::" + page.getId(),
+                "fields", Map.of(
+                    "id", page.getId(),
+                    "title", page.getName(),
+                    "chunks", page.getChunks().stream().map(PageChunk::getText).toList()
+                )
+            )) + "\n",
+            StandardOpenOption.APPEND, StandardOpenOption.CREATE
+        );
+    }
+
+    private void writeMergedPage(Page page, Path vespaFeed) throws IOException {
+        ObjectMapper objectMapper = new ObjectMapper();
+        String mergedContent = page.getChunks().stream()
+            .map(PageChunk::getText)
+            .reduce(String::concat)
+            .get();
+
+        Files.writeString(
+            vespaFeed,
+            objectMapper.writeValueAsString(Map.of(
+                "put", "id:space:wiki::" + page.getId(),
+                "fields", Map.of(
+                    "id", page.getId(),
+                    "title", page.getName(),
+                    "content", mergedContent
+                )
+            )) + "\n",
+            StandardOpenOption.APPEND, StandardOpenOption.CREATE
+        );
+    }
+
+    private void writeChunksOnly(Page page, Path vespaFeed) throws IOException {
+        ObjectMapper objectMapper = new ObjectMapper();
+
+        List<String> vespaDocuments = new ArrayList<>();
+        for (PageChunk chunk : page.getChunks()) {
+            vespaDocuments.add(
+                objectMapper.writeValueAsString(Map.of(
+                    "put", "id:space:wiki::" + chunk.getId(),
+                    "fields", Map.of(
+                        "id", chunk.getId(),
+                        "page", page.getName(),
+                        "chunkIndex", page.getChunks().indexOf(chunk),
+                        "content", chunk.getText()
+                    )
+                ))
+            );
+        }
+        Files.writeString(
+            vespaFeed,
+            vespaDocuments.stream().reduce("\n", (s, s2) -> s + "\n" + s2),
+            StandardOpenOption.APPEND, StandardOpenOption.CREATE
+        );
     }
 }
