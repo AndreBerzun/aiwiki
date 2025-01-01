@@ -12,6 +12,7 @@ import org.springframework.stereotype.Component;
 import java.util.ArrayList;
 import java.util.Comparator;
 import java.util.List;
+import java.util.Optional;
 
 import static ch.lianto.aiwiki.engine.policy.nlp.EmbeddingProvider.EmbeddingType.QUERY;
 import static ch.lianto.aiwiki.engine.utils.EmbeddingUtils.cosineSimilarity;
@@ -29,17 +30,25 @@ public class InMemoryPageChunkRepository implements PageChunkRepository {
     }
 
     @Override
+    public Optional<PageChunk> findById(String chunkId) {
+        return listAllPageChunks()
+            .stream()
+            .filter(chunk -> chunk.getId().equals(chunkId))
+            .findFirst();
+    }
+
+    @Override
     public List<Similarity<PageChunk>> findBySimilarity(String text) {
         if (text.isEmpty()) return new ArrayList<>();
         double[] textEmbedding = embeddingProvider.generateEmbedding(text, QUERY);
 
         List<Similarity<PageChunk>> similarities = new ArrayList<>();
-        for (PageChunk segment : listAllPageChunks()) {
-            double similarity = segment.getEmbeddings().stream()
+        for (PageChunk chunk : listAllPageChunks()) {
+            double similarity = chunk.getEmbeddings().stream()
                 .mapToDouble(embedding -> cosineSimilarity(textEmbedding, embedding))
                 .max()
                 .getAsDouble();
-            if (similarity >= SIMILARITY_THRESHOLD) similarities.add(new Similarity<>(similarity, segment));
+            if (similarity >= SIMILARITY_THRESHOLD) similarities.add(new Similarity<>(similarity, chunk));
         }
         similarities.sort(Comparator.comparing(Similarity<PageChunk>::similarity));
 

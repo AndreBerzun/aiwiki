@@ -1,0 +1,189 @@
+{
+  "fields": {
+    "id": "london",
+    "content": "London is the capital and largest city of the United Kingdom, standing on the River Thames in southeast England.",
+    "page": "test",
+    "chunkIndex": 1
+  },
+  "put": "id:space:wiki::london"
+}
+{
+  "fields": {
+    "id": "tokyo",
+    "content": "Tokyo is the capital of Japan and one of the most populous metropolitan areas in the world.",
+    "page": "test",
+    "chunkIndex": 1
+  },
+  "put": "id:space:wiki::tokyo"
+}
+{
+  "fields": {
+    "id": "canberra",
+    "content": "Canberra is the capital city of Australia, located inland and known for its national monuments.",
+    "page": "test",
+    "chunkIndex": 1
+  },
+  "put": "id:space:wiki::canberra"
+}
+{
+  "fields": {
+    "id": "rome",
+    "content": "Rome, the capital of Italy, is home to ancient ruins such as the Roman Forum and the Colosseum.",
+    "page": "test",
+    "chunkIndex": 1
+  },
+  "put": "id:space:wiki::rome"
+}
+{
+  "fields": {
+    "id": "moscow",
+    "content": "Moscow is the capital city of Russia and is known for its historic Red Square and the Kremlin.",
+    "page": "test",
+    "chunkIndex": 1
+  },
+  "put": "id:space:wiki::moscow"
+}
+{
+  "fields": {
+    "id": "beijing",
+    "content": "Beijing, the capital of China, is known for its modern architecture as well as historical sites such as the Forbidden City.",
+    "page": "test",
+    "chunkIndex": 1
+  },
+  "put": "id:space:wiki::beijing"
+}
+{
+  "fields": {
+    "id": "nairobi",
+    "content": "Nairobi is the capital of Kenya, famous for its National Park and as a hub for safari tourism.",
+    "page": "test",
+    "chunkIndex": 1
+  },
+  "put": "id:space:wiki::nairobi"
+}
+{
+  "fields": {
+    "id": "washington_dc",
+    "content": "Washington, D.C. is the capital city of the United States, known for its monuments and museums.",
+    "page": "test",
+    "chunkIndex": 1
+  },
+  "put": "id:space:wiki::washington_dc"
+}
+{
+  "fields": {
+    "id": "rio_de_janeiro",
+    "content": "Rio de Janeiro is a major city in Brazil, known for its Copacabana beaches and the Christ the Redeemer statue.",
+    "page": "test",
+    "chunkIndex": 1
+  },
+  "put": "id:space:wiki::rio_de_janeiro"
+}
+{
+  "fields": {
+    "id": "oslo",
+    "content": "Oslo is the capital of Norway, known for its green spaces and museums such as the Viking Ship Museum.",
+    "page": "test",
+    "chunkIndex": 1
+  },
+  "put": "id:space:wiki::oslo"
+}
+{
+  "fields": {
+    "id": "random_fact_1",
+    "content": "Cows have best friends and get stressed when they are separated.",
+    "page": "test",
+    "chunkIndex": 1
+  },
+  "put": "id:space:wiki::random_fact_1"
+}
+{
+  "fields": {
+    "id": "random_fact_2",
+    "content": "Bananas are berries, but strawberries are not.",
+    "page": "test",
+    "chunkIndex": 1
+  },
+  "put": "id:space:wiki::random_fact_2"
+}
+{
+  "fields": {
+    "id": "random_fact_3",
+    "content": "Octopuses have three hearts and their blood is blue.",
+    "page": "test",
+    "chunkIndex": 1
+  },
+  "put": "id:space:wiki::random_fact_3"
+}
+{
+  "fields": {
+    "id": "random_fact_4",
+    "content": "Honey never spoils. Archaeologists have found pots of honey in ancient Egyptian tombs that are over 3,000 years old.",
+    "page": "test",
+    "chunkIndex": 1
+  },
+  "put": "id:space:wiki::random_fact_4"
+}
+{
+  "fields": {
+    "id": "berne",
+    "content": "Berne is the de facto capital of Switzerland, known for its medieval old town and Zytglogge clock tower.",
+    "page": "test",
+    "chunkIndex": 1
+  },
+  "put": "id:space:wiki::berne"
+}
+{
+  "fields": {
+    "id": "cape_town",
+    "content": "Cape Town is a legislative capital of South Africa, renowned for its harbor and Table Mountain.",
+    "page": "test",
+    "chunkIndex": 1
+  },
+  "put": "id:space:wiki::cape_town"
+}
+{
+  "fields": {
+    "id": "abu_dhabi",
+    "content": "Abu Dhabi is the capital of the United Arab Emirates, known for its modern skyline and cultural landmarks.",
+    "page": "test",
+    "chunkIndex": 1
+  },
+  "put": "id:space:wiki::abu_dhabi"
+}
+{
+  "fields": {
+    "id": "jakarta",
+    "content": "Jakarta is the capital of Indonesia, known for its bustling metropolitan lifestyle.",
+    "page": "test",
+    "chunkIndex": 1
+  },
+  "put": "id:space:wiki::jakarta"
+}
+{
+  "fields": {
+    "id": "random_fact_5",
+    "content": "Sharks existed before trees; they have been around for over 400 million years.",
+    "page": "test",
+    "chunkIndex": 1
+  },
+  "put": "id:space:wiki::random_fact_5"
+}
+{
+  "fields": {
+    "id": "random_fact_6",
+    "content": "A group of flamingos is called a 'flamboyance'.",
+    "page": "test",
+    "chunkIndex": 1
+  },
+  "put": "id:space:wiki::random_fact_6"
+}
+{
+  "fields": {
+    "id": "helsinki",
+    "content": "Helsinki is the capital city of Finland, located on the shore of the Gulf of Finland.",
+    "page": "test",
+    "chunkIndex": 1
+  },
+  "put": "id:space:wiki::helsinki"
+}
