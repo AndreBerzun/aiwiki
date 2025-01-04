@@ -54,15 +54,20 @@ schema wiki {
         }
     }
 
-	# rank-profile e5-dense {
-	# 	onnx-model e5 { }
-	# }
-
-	# rank-profile nomic-dense {
-    #     onnx-model nomic { }
-	# }
-
-  	# rank-profile colbert
+	rank-profile hybrid inherits default {
+        inputs {
+            query(q_embedding) tensor<float>(x[768])
+        }
+        first-phase {
+            expression: 0.7*bm25(content) + 2.9*closeness(field, embedding)
+        }
+        match-features {
+        	bm25(content)
+        	closeness(field, embedding)
+        }
+	}
 
   	# rank-profile cross-encoder { }
+
+  	# rank-profile colbert
 }

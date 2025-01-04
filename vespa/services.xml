@@ -9,15 +9,6 @@
         <document-processing />
         <document-api />
 
-        <component id="e5" type="hugging-face-embedder">
-            <transformer-model url="https://huggingface.co/intfloat/e5-base-v2/resolve/main/onnx/model.onnx"/>
-            <tokenizer-model url="https://huggingface.co/intfloat/e5-base-v2/raw/main/onnx/tokenizer.json"/>
-            <prepend>
-                <query>query:</query>
-                <document>passage:</document>
-            </prepend>
-        </component>
-
         <component id="nomic" type="hugging-face-embedder">
             <transformer-model url="https://huggingface.co/nomic-ai/nomic-embed-text-v1/resolve/main/onnx/model_quantized.onnx"/>
             <tokenizer-model url="https://huggingface.co/nomic-ai/nomic-embed-text-v1/raw/main/tokenizer.json"/>
