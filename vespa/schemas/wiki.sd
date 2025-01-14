@@ -23,6 +23,11 @@ schema wiki {
         }
   	}
 
+  	field colbert type tensor<int8>(dt{}, x[16]) {
+      	indexing: (input page || "") . " " . (input content || "") | embed colbert | attribute
+      	attribute: fast-search
+    }
+
   	fieldset default {
   		fields: page, chunkIndex, content
   	}
@@ -54,7 +59,7 @@ schema wiki {
         }
     }
 
-	rank-profile hybrid inherits default {
+	rank-profile hybrid inherits dense {
         inputs {
             query(q_embedding) tensor<float>(x[768])
         }
@@ -67,7 +72,35 @@ schema wiki {
         }
 	}
 
-  	# rank-profile cross-encoder { }
+	rank-profile colbert inherits hybrid {
+        inputs {
+            query(q_embedding) tensor<float>(x[768])
+            query(q_colbert) tensor<float>(qt{}, x[128])
+        }
+	    function max_sim() {
+          expression {
+            sum(
+              reduce(
+                sum(query(q_colbert) * unpack_bits(attribute(colbert)), x),
+                max, dt
+              ),
+              qt
+            )
+           }
+        }
+        first-phase {
+            expression: 0.7*bm25(content) + 2.9*closeness(field, embedding)
+        }
+        second-phase {
+        	rerank-count: 20
+        	expression: max_sim()
+        }
+        match-features {
+        	bm25(content)
+        	closeness(field, embedding)
+        	max_sim()
+        }
+	}
 
-  	# rank-profile colbert
+  	# rank-profile cross-encoder { }
 }

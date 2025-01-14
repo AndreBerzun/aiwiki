@@ -5,17 +5,23 @@
     </config>
 
     <container id="text_search" version="1.0">
-        <search />
-        <document-processing />
-        <document-api />
+        <search/>
+        <document-processing/>
+        <document-api/>
 
         <component id="nomic" type="hugging-face-embedder">
-            <transformer-model url="https://huggingface.co/nomic-ai/nomic-embed-text-v1/resolve/main/onnx/model_quantized.onnx"/>
+            <transformer-model
+                    url="https://huggingface.co/nomic-ai/nomic-embed-text-v1/resolve/main/onnx/model_quantized.onnx"/>
             <tokenizer-model url="https://huggingface.co/nomic-ai/nomic-embed-text-v1/raw/main/tokenizer.json"/>
             <prepend>
-                <query>search_query: </query>
-                <document>search_document: </document>
+                <query>search_query:</query>
+                <document>search_document:</document>
             </prepend>
+        </component>
+
+        <component id="colbert" type="colbert-embedder">
+            <transformer-model url="https://huggingface.co/colbert-ir/colbertv2.0/resolve/main/model.onnx"/>
+            <tokenizer-model url="https://huggingface.co/colbert-ir/colbertv2.0/raw/main/tokenizer.json"/>
         </component>
     </container>
 
@@ -23,12 +29,12 @@
         <min-redundancy>1</min-redundancy>
 
         <documents>
-            <document type="wiki" mode="index" />
-            <document-processing cluster="text_search" />
+            <document type="wiki" mode="index"/>
+            <document-processing cluster="text_search"/>
         </documents>
 
         <nodes>
-            <node distribution-key="0" hostalias="node1" />
+            <node distribution-key="0" hostalias="node1"/>
         </nodes>
     </content>
 </services>
